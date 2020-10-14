@@ -12,4 +12,4 @@ We have created a video presentation demonstrating our project.
 * Maya:
 * Jasper:
 * Daniel:
-* Shamus:
+* Shamus: X
