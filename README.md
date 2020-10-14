@@ -3,13 +3,13 @@
 We have created a video presentation demonstrating our project.
 
 ### Material Checklist
-* Maya:
+* Maya: X
 * Jasper: X
 * Daniel:
 * Shamus: X
 
 ### Recording Checklist
-* Maya:
+* Maya: X
 * Jasper: X
 * Daniel:
 * Shamus:
