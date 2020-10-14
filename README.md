@@ -10,6 +10,6 @@ We have created a video presentation demonstrating our project.
 
 ### Recording Checklist
 * Maya:
-* Jasper:
+* Jasper: X
 * Daniel:
 * Shamus:
