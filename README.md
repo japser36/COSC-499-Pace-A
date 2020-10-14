@@ -11,5 +11,5 @@ We have created a video presentation demonstrating our project.
 ### Recording Checklist
 * Maya: X
 * Jasper: X
-* Daniel: 
+* Daniel: X
 * Shamus: X
