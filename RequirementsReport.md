@@ -290,7 +290,7 @@ GitHub Actions will be used to automate the continuous integration process. This
 ### 4.3 Steps in the Testing Process
 
 
-1. [All features are reduced to tasks.](#4.4.1-feature-reduction)
+1. [All features are reduced to tasks.](#feature-reduction)
 
 
 2. [Tasks are defined with a set of acceptance criteria and a validation technique.](#4.4.2-tasks-defined)
@@ -335,7 +335,7 @@ GitHub Actions will be used to automate the continuous integration process. This
 ### 4.4 Each Step Explained
 
 
-#### 4.4.1 Feature Reduction
+#### <a name="feature-reduction"></a>4.4.1 Feature Reduction
 
 
 **All features are reduced to tasks.**
