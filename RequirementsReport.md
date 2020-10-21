@@ -486,7 +486,7 @@ Mentors will be known to the admin through the organization they are a part of. 
 
 **How are mentors selected? Is it manual or based on an algorithm?**
 
-	Mentors sign up and are approved by the relevant admin. If a mentor signs up to the public site then no approval is necessary.
+Mentors sign up and are approved by the relevant admin. If a mentor signs up to the public site then no approval is necessary.
 
 **How is the payment model implemented? I assume someone needs to pay for the servers.**
 
@@ -519,8 +519,6 @@ We are not planning to do this. However, if we find that we have an excess of ti
 
 This is discussed
 
-<p id="gdcalert17" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "here"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert18">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 [here](#heading=h.lndypdnaejik).
 
 **Did you guys choose the tech stack?**
@@ -528,10 +526,6 @@ This is discussed
 Yes, we were given the go ahead by the client to choose the tech stack.
 
 **Were any other tech stacks considered?**
-
-
-
-<p id="gdcalert18" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Yes"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert19">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 [Yes](#heading=h.lndypdnaejik).
 
@@ -607,15 +601,11 @@ Admins will be capable of searching through a list of mentors and mentees in the
 
 Yes, we will be using
 
-<p id="gdcalert19" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "ESLint"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert20">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 [ESLint](#heading=h.m4rewuwnko3x)
 
 **How will you make sure that unit tests are constantly checked in the code base?**
 
 We are using
-
-<p id="gdcalert20" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "GitHub Actions"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert21">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 [GitHub Actions](#heading=h.22wlwoqtxosy) to support continuous integration and regression testing.
 
@@ -633,17 +623,9 @@ The main tests for browser compatibility will be to build the system and run it 
 
 **How will you test the deployed version of the system?**
 
-
-
-<p id="gdcalert21" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "System testing"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert22">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 [System testing](#heading=h.429n7p1n5bt4) will mostly involve functional and usability testing.
 
 **Are there any specific tools you will use to support you in Test-Driven Development?**
-
-
-
-<p id="gdcalert22" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Yes"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert23">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 [Yes](#heading=h.h4orfr9bpnij), we are using Jest and the React Testing Library to test our JavaScript and tSQLt to test our SQL.
 
@@ -653,8 +635,6 @@ The main tests for browser compatibility will be to build the system and run it 
 **Who are mentors and who are mentees? What do they do?**
 
 Mentors are users who possess some skill or set of skills which they are willing to teach. Mentees are users who desire to be taught skills. More information can be found in our
-
-<p id="gdcalert23" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "high-level description"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert24">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 [high-level description](#heading=h.rf2vosu17x32).
 
@@ -697,8 +677,6 @@ Mentors that are part of an organization are presumably incentivised to use the 
 
 The DFD level 1 was not included in our video presentation but is
 
-<p id="gdcalert24" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "included"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert25">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 [included](#heading=h.wmqsk7e7fg80) in this report.
 
 **How are you going to separate your functional requirements and features into Milestone deadlines? (This question was asked 5 times)**
@@ -708,7 +686,5 @@ This was not included in our video presentation but is included in this report. 
 **Did you come up with 3 choices for the tech stack before you settled on the ones discussed in the presentation? If so, what were they? What were the downsides of the other technologies that lead you to your decision?**
 
 Although not discussed in our presentation, we have listed a variety of
-
-<p id="gdcalert25" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "tech stack options"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert26">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 [tech stack options](#heading=h.lndypdnaejik) along with pros and cons in this document.
