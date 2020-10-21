@@ -1,0 +1,39 @@
+Functional Requirements:
+- Able to run on most desktop browsers. 
+    The web application should be able to run on most browsers. To reach a 89.0% - 97.88% browser coverage the web app will need to run on Chrome, Safari, Firefox, Edge, IE, and Opera. 
+- Signup page.
+    Create separate signup pages for admins, mentors, and mentees that are all of which are initially greeted by a general sign up form unless invited privately by a business admin.
+- Time-zone handling.
+    Web app will be able to handle any timezone to coordinate meetings between mentors and mentees.
+- Admin permissions and user management.
+    Business admins will have the ability to change certain aspects of their businesses’ account and the permissions of the accounts under it.
+- Admin invitation links
+    Business admins will be able to send email invitations through the web app. Anyone invited thought the link will be automatically sent to that businesses’ signup page. 
+- Mentor profiles with contact info, availability and skills
+    Mentor profiles will display their availability, contact info, and what topics are they able to mentor for. 
+- Email meeting requests
+    Mentees, once they find a mentor who they wish to connect with, will be able to send meetings requests to mentors.
+- Mentor - mentee matching algorithm
+    Once a mentee is taken through the signup process, they will be recommended mentors, who’s skills, and availability match up with theirs. 
+- iFrame capabilities
+    The web app will be able to run inside of an iFrame for easy implementation for customers.
+
+Non-Functional Requirements:
+- Handling of different languages
+    The web app will have an option to be translated into different languages such as
+      English
+      French
+      Spanish
+      ...
+- Cyber Security for user info storage
+    Implementation of security measures into the web app.
+- Email verification
+    Send email verifications when an account is created.
+- Calendar availability GUI
+    Implement a user friendly GUI of a mentor’s availability. This will be implemented in a mentor’s profile page.
+- Mobile browser capabilities
+    Web app will be able to run in most mobile browsers. If developing also for mobile, need to run on Samsung Browser and UC to reach 97.9%-85.5% coverage.
+
+Environmental Constraints:
+- Able to run on most browsers (>85% browser coverage)
+- Able to run inside of an iFrame
