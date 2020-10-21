@@ -1,8 +1,101 @@
+## 2. Overview of your system architecture
+
+
+### 2.1 Tech Stack
+
+The client didn’t have many specific tech requirement constraints, other than that this was a web based application that needed some embeddable functionality. The application called for a front-end to provide the contents of the web portal, and a back-end to communicate and interface securely with a database. Below is a list of options we considered, with some pros and cons of each.
+
+
+#### 2.1.1 Front End
+
+**PHP:** PHP rendered HTML running on a linux/apache web server environment
+
+
+
+*   <span style="text-decoration:underline;">Pros:	</span>Lightning fast, great control over HTML content
+*   <span style="text-decoration:underline;">Cons:</span>	Difficult to set up complex systems, team has less experience
+
+**Python:** Python web server
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Fast, powerful, easy DB integration, group is experienced in python
+*   <span style="text-decoration:underline;">Cons:</span>	Group is not experienced in python web development, lots of research required
+
+**NodeJS/ReactJS:** A Node JS server running a ReactJS web client
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Flexible, rapid development via NPM modules
+*   <span style="text-decoration:underline;">Cons:</span>	JS dependent - browsers must enable JS, node modules require updates
+
+
+#### 2.1.2 Back End
+
+**PHP:** A web PHP server would communicate to itself via ajax and form submission in the client
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Easy to connect front end to back end, very fast
+*   <span style="text-decoration:underline;">Cons:</span>	Difficult to set up securely, harder to manage complex systems
+
+**NodeJS/Express:** A NodeJS server running an express HTTP server for HTTP endpoints
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Fast development with node modules, well documented
+*   <span style="text-decoration:underline;">Cons:</span>	Node modules require updates
+
+
+#### 2.1.3 Database
+
+**Non-relational DB:** Google’s Firebase Firestore is an example of a non-relational database
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Easy to integrate via APIs, fast, easy usage, hosted, fast setup
+*   <span style="text-decoration:underline;">Cons:</span>	Non-relational (no SQL available), not free, not hosted in-house (google hosted)
+
+**Relational DB:** MySQL, PostgreSQL, other relational databases
+
+
+
+*   <span style="text-decoration:underline;">Pros:</span>	Powerful SQL for complex systems, hostable in-house on a secure server
+*   <span style="text-decoration:underline;">Cons:</span>	More difficult to set up than non-relational DB
+
+
+#### 2.1.4 Summary
+
+The chosen stack for this project’s framework was a NodeJS/ReactJS front end, with a NodeJS/Express backend, using a relational DB. The primary reasoning for this was to support rapid development to allow for fast client feedback, and ease of development since both the front and back ends would be coded in a similar JS environment. A relational database was chosen to allow for more robust control over the complex data structures that were anticipated being in a time-scheduling application. The specific database that was chosen was PostgreSQL, since it has lots of features and is easily integrated into a Node based environment via the `pg` package.
+
+
+### 2.2 Data Flow Diagrams
+
+
+#### 2.2.1 Level 0 DFD
+
+
+
+![alt_text](images/L0DFD.png "Level 0 Data-Flow Diagram")
+
+
+_Fig. 1 - The level 0 data flow diagram models how the different user groups interact with the system._
+
+
+#### 2.2.2 Level 1 DFD
+
+
+
+![alt_text](images/L1DFD.png "Level 1 Data-Flow Diagram")
+
+
+_Fig. 2 - The level 1 data flow diagram models how the different user groups interact with the system, and how the system internally communicates data._
+
 ## Definitions
 #### Task
 A unitary step in the process to completing a feature.  
 #### Unit
-A piece of code which performs a single purpose or function. 
+A piece of code which performs a single purpose or function.
 #### Developer
 The person responsible for completing a task.
 #### Acceptance Criteria
@@ -18,7 +111,7 @@ A manual check to determine that a pull request satisfies the acceptance criteri
 #### Reason for Rejection
 The rational of a reviewer for rejecting a pull request. A reason for rejection should include a suggestion for improvement or else the reviewer should contact the requester to discuss the issue.
 #### Mock
-A mock is a replica of an object that simulates the behaviour of that object. Mocks are used for testing to allow code to be tested without reliance on external systems. 
+A mock is a replica of an object that simulates the behaviour of that object. Mocks are used for testing to allow code to be tested without reliance on external systems.
 
 ## Tools
 #### [Jest](https://jestjs.io/docs/en/getting-started)
@@ -30,7 +123,7 @@ tSQLt is an SQL unit testing framework which we will be using to test our databa
 #### [ESLint](https://eslint.org/docs/user-guide/getting-started)
 ESLint is a JavaScript linting tool which can easily be integrated into our continuous integration pipeline. This tool will be used to ensure that all of our code follows the same standards and style guidelines.
 #### [GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions)
-GitHub Actions will be used to automate the continuous integration process. This will be used to run regression testing and linting whenever code changes are suggested (whenever a pull request is created). 
+GitHub Actions will be used to automate the continuous integration process. This will be used to run regression testing and linting whenever code changes are suggested (whenever a pull request is created).
 
 ## Testing strategy
 1.	[All features are reduced to tasks.](#1-all-features-are-reduced-to-tasks)
@@ -74,6 +167,6 @@ System testing will be a manual process which includes performing a full build o
 #### 12. If there is a failure in the system testing a task will be created to address it.
 Failures in system testing should be discussed by the group to determine potential fixes. Tasks created to fix problems found in system testing should be given priority to ensure the product can be delivered by the milestone deadline.
 #### 13. Successful system testing will result in a merge from the develop branch into the master branch.
-With each of the previous steps being followed the master branch should always be in a state that has been fully unit, integration, and system tested. 
+With each of the previous steps being followed the master branch should always be in a state that has been fully unit, integration, and system tested.
 #### 14. Acceptance testing can be performed on the master branch at any time.
 The client will always have access to a version of the software that they can test and provide feedback on via the master branch. The client can also request that the master branch be updated with the latest changes which will require a round of system testing (see step 11).
