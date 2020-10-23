@@ -599,15 +599,11 @@ Admins will be capable of searching through a list of mentors and mentees in the
 
 **Will you be using any linters?**
 
-Yes, we will be using
-
-[ESLint](#424-eslint)
+Yes, we will be using [ESLint](#424-eslint)
 
 **How will you make sure that unit tests are constantly checked in the code base?**
 
-We are using
-
-[GitHub Actions](#425-github-actions) to support continuous integration and regression testing.
+We are using [GitHub Actions](#425-github-actions) to support continuous integration and regression testing.
 
 **Do you feel that the advantages React-Testing-Library offers (over jest) will be worth the trade off of the extra time required to learn two different testing frameworks?**
 
@@ -634,9 +630,7 @@ The main tests for browser compatibility will be to build the system and run it 
 
 **Who are mentors and who are mentees? What do they do?**
 
-Mentors are users who possess some skill or set of skills which they are willing to teach. Mentees are users who desire to be taught skills. More information can be found in our
-
-[high-level description](#1-high-level-description).
+Mentors are users who possess some skill or set of skills which they are willing to teach. Mentees are users who desire to be taught skills. More information can be found in our [high-level description](#1-high-level-description).
 
 **What sort of mentorship?**
 
@@ -675,9 +669,7 @@ Mentors that are part of an organization are presumably incentivised to use the 
 
 **Where is the DFD level 1? (This question was asked 7 times)**
 
-The DFD level 1 was not included in our video presentation but is
-
-[included](#222-level-1-dfd) in this report.
+The DFD level 1 was not included in our video presentation but is [included](#222-level-1-dfd) in this report.
 
 **How are you going to separate your functional requirements and features into Milestone deadlines? (This question was asked 5 times)**
 
@@ -685,6 +677,4 @@ This was not included in our video presentation but is included in this report. 
 
 **Did you come up with 3 choices for the tech stack before you settled on the ones discussed in the presentation? If so, what were they? What were the downsides of the other technologies that lead you to your decision?**
 
-Although not discussed in our presentation, we have listed a variety of
-
-[tech stack options](#21-tech-stack) along with pros and cons in this document.
+Although not discussed in our presentation, we have listed a variety of [tech stack options](#21-tech-stack) along with pros and cons in this document.
