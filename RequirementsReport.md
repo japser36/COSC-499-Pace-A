@@ -290,52 +290,52 @@ GitHub Actions will be used to automate the continuous integration process. This
 ### 4.3 Steps in the Testing Process
 
 
-1. [All features are reduced to tasks.](#feature-reduction)
+1. [All features are reduced to tasks.](#441-feature-reduction)
 
 
-2. [Tasks are defined with a set of acceptance criteria and a validation technique.](#4.4.2-tasks-defined)
+2. [Tasks are defined with a set of acceptance criteria and a validation technique.](#442-tasks-defined)
 
 
-3. [The developer converts each of the acceptance criteria into tests according to the validation technique.](#4.4.3-conversion-of-acceptance-criteria)
+3. [The developer converts each of the acceptance criteria into tests according to the validation technique.](#443-conversion-of-acceptance-criteria)
 
 
-4. [Code is written for the task until each of the tests pass with acceptable coverage.](#heading=h.xydqvro3cxcu)
+4. [Code is written for the task until each of the tests pass with acceptable coverage.](#444-test-driven-development)
 
 
-5. [Once each test passes both the code and its tests are pushed to the origin.](#heading=h.2bzi4j4e53it)
+5. [Once each test passes both the code and its tests are pushed to the origin.](#445-push-to-origin)
 
 
-6. [The developer creates a pull request to merge into the develop branch, causing the full test suite to be run, including regression testing.](#heading=h.ny3cj5eg33wl)
+6. [The developer creates a pull request to merge into the develop branch, causing the full test suite to be run, including regression testing.](#446-continuous-integration-regression-testing-and-linting)
 
 
-7. [If there is a failure, the developer is responsible for troubleshooting.](#heading=h.hnygbtgmyyte)
+7. [If there is a failure, the developer is responsible for troubleshooting.](#447-test-suite-fails)
 
 
-8. [Once the test suite passes another member of the team will conduct a manual review.](#heading=h.fx37qgu4a45d)
+8. [Once the test suite passes another member of the team will conduct a manual review.](#448-test-suite-passes)
 
 
-9. [If the reviewer rejects the changes in the pull request, they should provide a reason for rejection.](#heading=h.71j37vy7zys9)
+9. [If the reviewer rejects the changes in the pull request, they should provide a reason for rejection.](#449-rejection-of-changes)
 
 
-10. [If the reviewer approves the pull request, they should merge it into the develop branch.](#heading=h.yixuz7oqzc1y)
+10. [If the reviewer approves the pull request, they should merge it into the develop branch.](#4410-approval-of-changes)
 
 
-11. [Before each milestone, or at the request of the client, A full system test will be conducted on the develop branch.](#heading=h.429n7p1n5bt4)
+11. [Before each milestone, or at the request of the client, A full system test will be conducted on the develop branch.](#4411-system-testing)
 
 
-12. [If there is a failure in the system testing a task should be created to address it.](#heading=h.6t2jlh40ae3w)
+12. [If there is a failure in the system testing a task should be created to address it.](#4412-system-test-fails)
 
 
-13. [Successful system testing should result in a merge from the develop branch into the master branch.](#heading=h.d056g2k6mtjz)
+13. [Successful system testing should result in a merge from the develop branch into the master branch.](#4413-system-test-passes)
 
 
-14. [Acceptance testing can be performed on the master branch at any time.](#heading=h.yfw48oym04r)
+14. [Acceptance testing can be performed on the master branch at any time.](#4414-acceptance-testing)
 
 
 ### 4.4 Each Step Explained
 
 
-#### <a name="feature-reduction"></a>4.4.1 Feature Reduction
+#### 4.4.1 Feature Reduction
 
 
 **All features are reduced to tasks.**
@@ -519,7 +519,7 @@ We are not planning to do this. However, if we find that we have an excess of ti
 
 This is discussed
 
-[here](#heading=h.lndypdnaejik).
+[here](#21-tech-stack).
 
 **Did you guys choose the tech stack?**
 
@@ -527,17 +527,17 @@ Yes, we were given the go ahead by the client to choose the tech stack.
 
 **Were any other tech stacks considered?**
 
-[Yes](#heading=h.lndypdnaejik).
+[Yes](#21-tech-stack).
 
 **What do you expect to use to host your completed project?**
 
 Our completed project would likely be hosted on Heroku, same as where the backend will be hosted standardly. Or, if the client decides to use the project, then they would obviously find a hosting solution. The project will be built with configuration in mind (keeping all the URLs in one place, etc.)
 
-**Will response design be utilized to create a mobile/desktop experience, or separate sites (Like [https://en.m.wikipedia.org/wiki/Main_Page](https://en.m.wikipedia.org/wiki/Main_Page))**
+**Will response design be utilized to create a mobile/desktop experience, or separate sites?
 
 Responsive design will be used. This is another benefit that comes with our chosen tech stack, ReactJS components are very easy to use for this purpose.
 
-**Where will you host your backend?**
+**Where will you host your backend?
 
 Several hosting options can work for us, and our decision is not yet finalized. But, we will likely use either Heroku or AWS. Heroku has the added benefit of a free managed PostgreSQL database.
 
@@ -601,13 +601,13 @@ Admins will be capable of searching through a list of mentors and mentees in the
 
 Yes, we will be using
 
-[ESLint](#heading=h.m4rewuwnko3x)
+[ESLint](#424-eslint)
 
 **How will you make sure that unit tests are constantly checked in the code base?**
 
 We are using
 
-[GitHub Actions](#heading=h.22wlwoqtxosy) to support continuous integration and regression testing.
+[GitHub Actions](#425-github-actions) to support continuous integration and regression testing.
 
 **Do you feel that the advantages React-Testing-Library offers (over jest) will be worth the trade off of the extra time required to learn two different testing frameworks?**
 
@@ -623,11 +623,11 @@ The main tests for browser compatibility will be to build the system and run it 
 
 **How will you test the deployed version of the system?**
 
-[System testing](#heading=h.429n7p1n5bt4) will mostly involve functional and usability testing.
+[System testing](#4411-system-testing) will mostly involve functional and usability testing.
 
 **Are there any specific tools you will use to support you in Test-Driven Development?**
 
-[Yes](#heading=h.h4orfr9bpnij), we are using Jest and the React Testing Library to test our JavaScript and tSQLt to test our SQL.
+[Yes](#42-tools), we are using Jest and the React Testing Library to test our JavaScript and tSQLt to test our SQL.
 
 
 ### 5.5 Questions About Mentors and Mentees
@@ -636,7 +636,7 @@ The main tests for browser compatibility will be to build the system and run it 
 
 Mentors are users who possess some skill or set of skills which they are willing to teach. Mentees are users who desire to be taught skills. More information can be found in our
 
-[high-level description](#heading=h.rf2vosu17x32).
+[high-level description](#1-high-level-description).
 
 **What sort of mentorship?**
 
@@ -677,7 +677,7 @@ Mentors that are part of an organization are presumably incentivised to use the 
 
 The DFD level 1 was not included in our video presentation but is
 
-[included](#heading=h.wmqsk7e7fg80) in this report.
+[included](#222-level-1-dfd) in this report.
 
 **How are you going to separate your functional requirements and features into Milestone deadlines? (This question was asked 5 times)**
 
@@ -687,4 +687,4 @@ This was not included in our video presentation but is included in this report. 
 
 Although not discussed in our presentation, we have listed a variety of
 
-[tech stack options](#heading=h.lndypdnaejik) along with pros and cons in this document.
+[tech stack options](#21-tech-stack) along with pros and cons in this document.
