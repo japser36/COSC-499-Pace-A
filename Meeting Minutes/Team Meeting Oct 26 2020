@@ -1,0 +1,13 @@
+Meeting started 7:08 pm
+
+Generally we want to set up the environment in our machines. So we can start pushing code within a week
+Jasper has been doing the NextJS tutorial to understand RactJS, routing, server-side rendering, optimization.
+Jasper will be making a ReadMe with instructions.
+We will be using TypeScript.
+Jasper demonstrated the basic steps needed to run the server on a local computer. 
+He also shared a link to a tutorial for NextJS: https://nextjs.org/learn/basics/create-nextjs-app
+
+Call to Action:
+Set up environment
+Set up dev and production on Heroku and connect to CI
+Optional: Do the tutorial linked above
