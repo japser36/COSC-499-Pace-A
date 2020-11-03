@@ -7,7 +7,7 @@ export default function Home() {
             <Head>
                 <title>Shamus Dev Page</title>
             </Head>
-            <h1>Shamus&apos; Dev Page</h1>
+            <h1>Shamus&apos; Dev Page.</h1>
         </>
     )
 }
