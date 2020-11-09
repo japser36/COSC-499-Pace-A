@@ -1,3 +1,4 @@
+export {} //this is to satisfy TypeScript which requires that each file be a module
 // import pg from 'pg'
 // const dbClient = pg.createClient()
 
