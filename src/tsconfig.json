@@ -21,7 +21,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "test_testing.js", "tests/shamus.test.js"
   ],
   "exclude": [
     "node_modules"
