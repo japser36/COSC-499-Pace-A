@@ -1,6 +1,5 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/firestore'
 
 // Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,6 +14,14 @@ const firebaseConfig = {
     measurementId: 'G-RFW1NNCPMF',
 }
 
-firebase.initializeApp(firebaseConfig)
-export const auth = firebase.auth()
-export const firestore = firebase.firestore()
+const initFirebase = () => {
+    // ensure only one instance of firebase running at once.
+    if (!firebase.apps.length) {
+        return firebase.initializeApp(firebaseConfig)
+    }
+    // return existing instance
+    return firebase.apps[0]
+}
+
+// get the firebase instance, return the auth instance
+export const getFirebaseAuth = () => initFirebase().auth()
