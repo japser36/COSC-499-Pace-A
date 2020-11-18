@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from '@reach/router'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
@@ -15,6 +14,7 @@ const PasswordReset = () => {
   }
   const sendResetEmail = (event) => {
     event.preventDefault()
+    //TODO: this method should send an email to the user with the password reset link.
   }
   return (
     <div>
@@ -35,7 +35,6 @@ const PasswordReset = () => {
             Send me a reset link
           </Button>
         </form>
-        <Link to="signIn">&larr; back to sign in page</Link>
       </div>
     </div>
   )
