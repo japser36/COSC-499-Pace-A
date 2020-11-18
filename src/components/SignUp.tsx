@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from '@reach/router'
+import Link from 'next/link'
 import UserTypeField from './UserTypeField'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
+import { getFirebaseAuth } from '../lib/firebase'
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('')
@@ -21,8 +22,17 @@ const SignUp = () => {
     { value: 'Mentor', label: 'Mentor' },
     { value: 'Admin', label: 'Admin' },
   ]
+  const auth = getFirebaseAuth()
   const createUser = () => {
-    //TODO
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        // Signed in
+        // TODO: add new user to database
+      })
+      .catch((e) => {
+        setError(e.message)
+      })
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.id
@@ -110,8 +120,8 @@ const SignUp = () => {
         <Button variant="contained" onClick={createUser}>
           Sign Up
         </Button>
-        <p>
-          Already have an account? <Link to="/">Sign in here</Link>
+        <p className="text-center my-3">
+          Already have an account? <Link href="">Sign in here</Link>
         </p>
       </div>
     </div>

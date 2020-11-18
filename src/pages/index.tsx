@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useUser } from '../lib/auth/useUser'
 import Layout from '../components/layout'
+import SignIn from '../components/SignIn'
 
 export default function Home() {
   const { user, logout } = useUser()
@@ -20,12 +21,13 @@ export default function Home() {
               <a onClick={() => logout()}>Sign Out Test</a>
             </Link>
           ) : (
-            <Link href="/app/signup">
+            <Link href="/app/logintest">
               <a>Sign In Test</a>
             </Link>
           )}
         </li>
       </ul>
+      <SignIn />
     </Layout>
   )
 }
