@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Link from 'next/link'
 import UserTypeField from './UserTypeField'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -120,9 +119,6 @@ const SignUp = () => {
         <Button variant="contained" onClick={createUser}>
           Sign Up
         </Button>
-        <p className="text-center my-3">
-          Already have an account? <Link href="">Sign in here</Link>
-        </p>
       </div>
     </div>
   )
