@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const sum = require('../../sum')
 
-export default function Home() {
+export default function Shamus() {
   return (
     <>
       <Head>
