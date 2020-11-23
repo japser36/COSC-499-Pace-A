@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import UserTypeField from './UserTypeField'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -21,11 +22,13 @@ const SignUp = () => {
     { value: 'Mentor', label: 'Mentor' },
     { value: 'Admin', label: 'Admin' },
   ]
+  const router = useRouter()
   const createUser = () => {
     getFirebaseAuth()
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in
+        router.push('../app/loggedin')
         // TODO: add new user to database
       })
       .catch((e) => {

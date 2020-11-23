@@ -14,6 +14,7 @@ const SignIn = () => {
     getFirebaseAuth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
+        // Signed In
         router.push('../app/loggedin')
       })
       .catch((e) => {
