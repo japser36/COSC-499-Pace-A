@@ -21,9 +21,8 @@ const SignUp = () => {
     { value: 'Mentor', label: 'Mentor' },
     { value: 'Admin', label: 'Admin' },
   ]
-  const auth = getFirebaseAuth()
   const createUser = () => {
-    auth
+    getFirebaseAuth()
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in

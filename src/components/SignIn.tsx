@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -8,13 +9,12 @@ const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
-  const auth = getFirebaseAuth()
+  const router = useRouter()
   const signIn = () => {
-    auth
+    getFirebaseAuth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        // Signed in
-        // ...
+        router.push('../app/loggedin')
       })
       .catch((e) => {
         setError(e.message)
