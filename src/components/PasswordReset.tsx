@@ -1,20 +1,31 @@
 import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { getFirebaseAuth } from '../lib/firebase'
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('')
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false)
   const [error, setError] = useState(null)
-  const handleChange = (event) => {
-    const { name, value } = event.currentTarget
-    if (name === 'userEmail') {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const id = event.target.id
+    const value = event.target.value
+    if (id === 'email') {
       setEmail(value)
     }
   }
-  const sendResetEmail = (event) => {
-    event.preventDefault()
-    //TODO: this method should send an email to the user with the password reset link.
+  const sendResetEmail = () => {
+    getFirebaseAuth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setEmailHasBeenSent(true)
+        setTimeout(() => {
+          setEmailHasBeenSent(false)
+        }, 10000)
+      })
+      .catch((e) => {
+        setError(e.message)
+      })
   }
   return (
     <div>

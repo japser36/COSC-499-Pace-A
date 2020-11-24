@@ -22,11 +22,6 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'windows'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'never'],
-
     // suppress errors for missing 'import React' in files
     'react/react-in-jsx-scope': 'off',
 

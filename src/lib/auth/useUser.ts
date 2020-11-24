@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from 'firebase/app'
 import { getFirebaseAuth } from '../firebase'
-import { FirebaseAuth } from 'react-firebaseui'
 
 const useUser = () => {
   const [user, setUser] = useState<firebase.User>()
@@ -15,7 +14,7 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         console.log('Signed out successfully.')
-        router.push('/')
+        router.push('/app/login')
       })
       .catch((e) => {
         console.error(e)

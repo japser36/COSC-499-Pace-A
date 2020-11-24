@@ -1,9 +1,7 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import sum from '../../sum'
 
-const sum = require('../../sum')
-
-export default function Home() {
+export default function Shamus() {
   return (
     <>
       <Head>
