@@ -16,6 +16,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [userType, setUserType] = useState('')
   const [userTypeFieldValue, setUserTypeFieldValue] = useState('')
+  const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
   const userTypes = [
     { value: 'Mentee', label: 'Mentee' },
@@ -23,12 +24,15 @@ const SignUp = () => {
     { value: 'Admin', label: 'Admin' },
   ]
   const router = useRouter()
+  const auth = getFirebaseAuth()
   const createUser = () => {
-    getFirebaseAuth()
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in
-        router.push('../app/loggedin')
+        auth.currentUser.sendEmailVerification().then(() => {
+          setVerificationSent(true)
+        })
         // TODO: add new user to database
       })
       .catch((e) => {
@@ -59,69 +63,75 @@ const SignUp = () => {
   }
   return (
     <div>
-      <h1>Sign Up</h1>
-      <div>
-        {error !== null && <div>{error}</div>}
-        <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
-          <Grid item>
-            <TextField required id="first-name" label="First Name" value={firstName} onChange={handleChange} />
-            <TextField required id="last-name" label="Last Name" value={lastName} onChange={handleChange} />
-          </Grid>
-          <Grid item>
-            <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
-          </Grid>
-          <Grid item>
-            <TextField required id="email" label="Email" value={email} onChange={handleChange} />
-          </Grid>
-          <Grid item>
-            <TextField
-              required
-              id="password"
-              label="Password"
-              value={password}
-              onChange={handleChange}
-              type="password"
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              required
-              id="confirm-password"
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={handleChange}
-              type="password"
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              required
-              select
-              id="user-type"
-              label="User Type"
-              value={userType}
-              onChange={handleUserTypeChange}
-            >
-              {userTypes.map((option) => (
-                <MenuItem id="user-type-menu" key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item>
-            <UserTypeField
-              id="user-type-field"
-              userType={userType}
-              value={userTypeFieldValue}
-              onChange={handleChange}
-            />
-          </Grid>
-        </Grid>
-        <Button variant="contained" onClick={createUser}>
-          Sign Up
-        </Button>
-      </div>
+      {verificationSent ? (
+        'Email verification sent.'
+      ) : (
+        <>
+          <h1>Sign Up</h1>
+          <div>
+            {error !== null && <div>{error}</div>}
+            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+              <Grid item>
+                <TextField required id="first-name" label="First Name" value={firstName} onChange={handleChange} />
+                <TextField required id="last-name" label="Last Name" value={lastName} onChange={handleChange} />
+              </Grid>
+              <Grid item>
+                <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
+              </Grid>
+              <Grid item>
+                <TextField required id="email" label="Email" value={email} onChange={handleChange} />
+              </Grid>
+              <Grid item>
+                <TextField
+                  required
+                  id="password"
+                  label="Password"
+                  value={password}
+                  onChange={handleChange}
+                  type="password"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  required
+                  id="confirm-password"
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleChange}
+                  type="password"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  required
+                  select
+                  id="user-type"
+                  label="User Type"
+                  value={userType}
+                  onChange={handleUserTypeChange}
+                >
+                  {userTypes.map((option) => (
+                    <MenuItem id="user-type-menu" key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item>
+                <UserTypeField
+                  id="user-type-field"
+                  userType={userType}
+                  value={userTypeFieldValue}
+                  onChange={handleChange}
+                />
+              </Grid>
+            </Grid>
+            <Button variant="contained" onClick={createUser}>
+              Sign Up
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   )
 }

@@ -21,7 +21,7 @@ const PasswordReset = () => {
         setEmailHasBeenSent(true)
         setTimeout(() => {
           setEmailHasBeenSent(false)
-        }, 3000)
+        }, 10000)
       })
       .catch((e) => {
         setError(e.message)

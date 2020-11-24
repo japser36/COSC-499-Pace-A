@@ -4,18 +4,26 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { getFirebaseAuth } from '../lib/firebase'
+import { useUser } from '../lib/auth/useUser'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const router = useRouter()
+  //const { user, logout } = useUser()
+  const auth = getFirebaseAuth()
   const signIn = () => {
-    getFirebaseAuth()
+    auth
       .signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        // Signed In
-        router.push('../app/loggedin')
+      .then((authUser) => {
+        if (authUser.user.emailVerified) {
+          // Signed In
+          router.push('../app/loggedin')
+        } else {
+          auth.signOut()
+          setError('Email not verified')
+        }
       })
       .catch((e) => {
         setError(e.message)

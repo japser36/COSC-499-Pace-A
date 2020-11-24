@@ -14,7 +14,7 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         console.log('Signed out successfully.')
-        router.push('/')
+        router.push('/app/login')
       })
       .catch((e) => {
         console.error(e)
