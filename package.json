@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "heroku-postbuild": "cd src && npm run build && npm run start"
-  }
-}
