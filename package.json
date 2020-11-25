@@ -21,7 +21,6 @@
     "firebase": "^8.0.2",
     "gray-matter": "^4.0.2",
     "next": "^9.5.5",
-    "pg": "^8.5.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
