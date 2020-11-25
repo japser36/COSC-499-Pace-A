@@ -9,7 +9,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "heroku-postbuild": "yarn build",
     "lint": "eslint */**/*.{js,ts,tsx} --quiet --fix",
     "test": "jest"
   },
