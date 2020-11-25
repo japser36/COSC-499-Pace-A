@@ -31,3 +31,6 @@ yarn-error.log*
 
 # ignore yarn generated file
 yarn.lock
+
+# ignore npm generated file, even though it shouldn't exist.
+package-lock.json
