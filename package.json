@@ -2,10 +2,13 @@
   "name": "cosc-499-pace-a",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "eslint */**/*.{js,ts,tsx} --quiet --fix",
     "test": "jest"
   },
