@@ -5,7 +5,7 @@
   "repository": "https://github.com/japser36/COSC-499-Pace-A",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "cd src && npm run build && npm run start"
+    "postdeploy": "yarn build && yarn start"
   },
   "env": {
     "SECRET_TOKEN": {
@@ -27,7 +27,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "cd src && npm run test"
+        "test": "yarn test"
       }
     }
   }
