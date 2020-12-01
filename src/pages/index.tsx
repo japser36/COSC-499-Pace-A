@@ -9,11 +9,7 @@ export default function Home() {
       <p>{user ? 'Signed in.' : 'Not Signed in.'}</p>
       <h5>Mini Dev Menu:</h5>
       <ul>
-        <li>
-          <Link href="/app/calendar">
-            <a>Check out the calendar now.</a>
-          </Link>
-        </li>
+        <li></li>
         <li>
           {user ? (
             <Link href="/">

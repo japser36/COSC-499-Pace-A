@@ -1,7 +1,7 @@
 // Based on https://github.com/vercel/next.js/blob/canary/examples/with-firebase-authentication/pages/index.js
-import Link from 'next/link'
 import { useUser } from '../../lib/auth/useUser'
 import Layout from '../../components/layout'
+import Button from '@material-ui/core/Button'
 
 export default function LoggedIn() {
   const { user, logout } = useUser()
