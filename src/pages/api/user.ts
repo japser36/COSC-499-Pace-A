@@ -10,17 +10,28 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     .connect()
     .then((client) => {
       const reqData = req.body
-      const sql =
-        'INSERT INTO users (fb_uid, firstName, lastName, displayName, email, passHash, userType) VALUES ($1, $2, $3, $4, $5, $6, $7);'
-      const values = [
-        reqData.fb_uid,
-        reqData.firstName,
-        reqData.lastName,
-        reqData.displayName,
-        reqData.email,
-        hashPass(reqData.password),
-        reqData.userType,
-      ]
+      let sql = ''
+      let values = []
+      switch (req.method) {
+        case 'POST': {
+          if (reqData.displayName == '') reqData.displayName = reqData.firstName + ' ' + reqData.lastName
+          sql =
+            'INSERT INTO users (fb_uid, firstName, lastName, displayName, email, passHash, userType) VALUES ($1, $2, $3, $4, $5, $6, $7);'
+          values = [
+            reqData.fb_uid,
+            reqData.firstName,
+            reqData.lastName,
+            reqData.displayName,
+            reqData.email,
+            hashPass(reqData.password),
+            reqData.userType,
+          ]
+          break
+        }
+        case 'GET': {
+          //add code to get user data for some purpose (profile page perhaps)
+        }
+      }
       client.query(sql, values, (error, result) => {
         if (error) {
           safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })

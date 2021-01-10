@@ -35,8 +35,7 @@ const SignUp = () => {
           setVerificationSent(true)
         })
         //Add new user to the database
-        if (displayName == '') setDisplayName(firstName + ' ' + lastName)
-        axios.post('/api/add-user', {
+        axios.post('/api/user', {
           fb_uid: auth.currentUser.uid,
           firstName: firstName,
           lastName: lastName,
