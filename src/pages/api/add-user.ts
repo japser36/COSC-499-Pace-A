@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import pool from '../../lib/db'
+import bcrypt from 'bcrypt'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   // we will be responding with JSON in this file, declare this.
@@ -17,7 +18,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         reqData.lastName,
         reqData.displayName,
         reqData.email,
-        reqData.passHash,
+        hashPass(reqData.password),
         reqData.userType,
       ]
       client.query(sql, values, (error, result) => {
@@ -45,4 +46,11 @@ const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; st
   } else {
     res.status(status).send(data)
   }
+}
+
+//password hashing using 'bcrypt'
+const hashPass = (password) => {
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(password, salt)
+  return hash
 }

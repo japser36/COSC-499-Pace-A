@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE user (
 	fb_uid VARCHAR(127),
 	firstName VARCHAR(127),
 	lastName VARCHAR(127),
