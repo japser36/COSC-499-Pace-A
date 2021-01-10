@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import { getFirebaseAuth } from '../lib/firebase'
+import axios from 'axios'
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('')
@@ -19,9 +20,9 @@ const SignUp = () => {
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
   const userTypes = [
-    { value: 'Mentee', label: 'Mentee' },
-    { value: 'Mentor', label: 'Mentor' },
-    { value: 'Admin', label: 'Admin' },
+    { value: 'mentee', label: 'Mentee' },
+    { value: 'mentor', label: 'Mentor' },
+    { value: 'admin', label: 'Admin' },
   ]
   const router = useRouter()
   const auth = getFirebaseAuth()
@@ -34,6 +35,15 @@ const SignUp = () => {
           setVerificationSent(true)
         })
         // TODO: add new user to database
+        axios.post('/api/add-user', {
+          fb_uid: auth.currentUser.uid,
+          firstName: firstName,
+          lastName: lastName,
+          displayName: displayName,
+          email: email,
+          passHash: password,
+          userType: userType,
+        })
       })
       .catch((e) => {
         setError(e.message)
