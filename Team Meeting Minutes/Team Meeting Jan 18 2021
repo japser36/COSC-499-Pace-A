@@ -1,0 +1,19 @@
+Everyone had a nice and relaxing break.
+
+The goals for the next milestone are:
+  Admin permissions and user management.
+    Business admins will have the ability to change certain aspects of their businesses’ account and the permissions of the accounts under it.
+  Mentor profiles with contact info, availability and skills
+    Mentor profiles will display their availability, contact info, and what topics are they able to mentor for. 
+  Mentor - mentee matching algorithm
+    Once a mentee is taken through the signup process, they will be recommended mentors, who’s skills, and availability match up with theirs. 
+
+We created a freehand page (https://freehand.invisionapp.com/freehand/document/Bge7FqASS) where we will have a low fidelity mockup of the app.
+
+New issues have been created in the github for the different components needed for the pages that we discussed (look at the freehand page).
+
+Call to action:
+  Daniel will be finishing some quality-of-life and working on the flow of the forms in the app.
+  Maya will be working on the general style of the page and the post-login profile page.
+  Jasper will work on…
+  Shamus will work on… 
