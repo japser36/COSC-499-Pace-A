@@ -1,4 +1,4 @@
-CREATE TABLE Users (
+CREATE TABLE users (
 	id VARCHAR(127),
 	firstName VARCHAR(127),
 	lastName VARCHAR(127),
@@ -8,7 +8,7 @@ CREATE TABLE Users (
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE Mentee (
+CREATE TABLE mentee (
 	id VARCHAR(127),
 	skills VARCHAR(255),
 	timezone INT,
@@ -16,7 +16,7 @@ CREATE TABLE Mentee (
 	FOREIGN KEY (id) REFERENCES Users(id)
 );
 
-CREATE TABLE Mentor (
+CREATE TABLE mentor (
 	id VARCHAR(127),
 	admn_id VARCHAR(127),
 	skills VARCHAR(255),
@@ -25,14 +25,14 @@ CREATE TABLE Mentor (
 	FOREIGN KEY (id) REFERENCES Users(id)
 );
 
-CREATE TABLE Administrator (
+CREATE TABLE administrator (
 	id VARCHAR(127),
 	org_name VARCHAR(127),
 	PRIMARY KEY(id),
 	FOREIGN KEY (id) REFERENCES Users(id)
 );
 
-CREATE TABLE Mentorship (
+CREATE TABLE mentorship (
 	mentor_id VARCHAR(127),
 	mentee_id VARCHAR(127),
 	PRIMARY KEY(mentor_id, mentee_id),

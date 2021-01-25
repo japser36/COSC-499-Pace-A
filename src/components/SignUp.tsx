@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import UserTypeField from './UserTypeField'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -24,7 +23,6 @@ const SignUp = () => {
     { value: 'mentor', label: 'Mentor' },
     { value: 'admin', label: 'Admin' },
   ]
-  const router = useRouter()
   const auth = getFirebaseAuth()
   const createUser = () => {
     auth
@@ -35,13 +33,12 @@ const SignUp = () => {
           setVerificationSent(true)
         })
         //Add new user to the database
-        axios.post('/api/user', {
-          fb_uid: auth.currentUser.uid,
+        axios.post('/api/db', {
+          id: auth.currentUser.uid,
           firstName: firstName,
           lastName: lastName,
           displayName: displayName,
           email: email,
-          password: password,
           userType: userType,
         })
       })
