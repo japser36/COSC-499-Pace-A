@@ -10,6 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE mentee (
 	id VARCHAR(127),
+	admn_id VARCHAR(127),
 	skills VARCHAR(255),
 	timezone INT,
 	PRIMARY KEY (id),

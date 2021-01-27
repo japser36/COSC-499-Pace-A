@@ -40,6 +40,14 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           getMentors(client, res, reqData)
           break
         }
+        case 'getOrgMentees': {
+          getOrgMentees(client, res, reqData)
+          break
+        }
+        case 'getOrgMentors': {
+          getOrgMentors(client, res, reqData)
+          break
+        }
         default: {
           safeSend({ res, data: JSON.stringify({ success: false, error: 'no request type provided' }) })
           break
@@ -78,8 +86,8 @@ const addUser = (client, res, reqData) => {
       //insert into either mentee, mentor, or admin depending on userType provided
       switch (reqData.userType) {
         case 'mentee': {
-          sql = 'INSERT INTO mentee (id, skills, timezone) VALUES ($1, $2, $3);'
-          values = [reqData.id, reqData.skills, reqData.timezone]
+          sql = 'INSERT INTO mentee (id, admn_id, skills, timezone) VALUES ($1, $2, $3, $4);'
+          values = [reqData.id, reqData.admn_id, reqData.skills, reqData.timezone]
           break
         }
         case 'mentor': {
@@ -88,7 +96,7 @@ const addUser = (client, res, reqData) => {
           break
         }
         case 'admin': {
-          sql = 'INSERT INTO mentee (id, org_name) VALUES ($1, $2);'
+          sql = 'INSERT INTO administrator (id, org_name) VALUES ($1, $2);'
           values = [reqData.id, reqData.org_name]
           break
         }
@@ -159,6 +167,38 @@ const getMentors = (client, res, reqData) => {
               FROM mentorship, users
               WHERE mentorship.mentee_id = $1 AND mentorship.mentor_id = users.id`
   const values = [reqData.mentee_id]
+  client.query(sql, values, (error, result) => {
+    if (error) {
+      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    } else {
+      const rows = result ? result.rows : null
+      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    }
+  })
+}
+
+//return list of mentees under a single administrator from admins id
+const getOrgMentees = (client, res, reqData) => {
+  const sql = `SELECT id, displayName, email
+              FROM users, mentee
+              WHERE users.id = mentee.id AND mentee.admn_id = $1`
+  const values = [reqData.id]
+  client.query(sql, values, (error, result) => {
+    if (error) {
+      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    } else {
+      const rows = result ? result.rows : null
+      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    }
+  })
+}
+
+//return list of mentors under a single administrator from admins id
+const getOrgMentors = (client, res, reqData) => {
+  const sql = `SELECT id, displayName, email
+              FROM users, mentor
+              WHERE users.id = mentor.id AND mentor.admn_id = $1`
+  const values = [reqData.id]
   client.query(sql, values, (error, result) => {
     if (error) {
       safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
