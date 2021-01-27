@@ -32,6 +32,14 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           getUser(client, res, reqData)
           break
         }
+        case 'addMentorship': {
+          addMentorship(client, res, reqData)
+          break
+        }
+        case 'getMentors': {
+          getMentors(client, res, reqData)
+          break
+        }
         default: {
           safeSend({ res, data: JSON.stringify({ success: false, error: 'no request type provided' }) })
           break
@@ -55,6 +63,7 @@ const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; st
   }
 }
 
+//add a new user to 'users' table and respective userType table
 const addUser = (client, res, reqData) => {
   if (reqData.displayName == '') reqData.displayName = reqData.firstName + ' ' + reqData.lastName
   let sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
@@ -96,6 +105,7 @@ const addUser = (client, res, reqData) => {
   })
 }
 
+//return a users information from their id
 const getUser = (client, res, reqData) => {
   let sql = ''
   switch (reqData.userType) {
@@ -119,6 +129,36 @@ const getUser = (client, res, reqData) => {
     }
   }
   const values = [reqData.id]
+  client.query(sql, values, (error, result) => {
+    if (error) {
+      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    } else {
+      const rows = result ? result.rows : null
+      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    }
+  })
+}
+
+//add a new mentor-mentee match
+const addMentorship = (client, res, reqData) => {
+  const sql = 'INSERT INTO mentorship (mentor_id, mentee_id) VALUES ($1, $2);'
+  const values = [reqData.mentor_id, reqData.mentee_id]
+  client.query(sql, values, (error, result) => {
+    if (error) {
+      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    } else {
+      const rows = result ? result.rows : null
+      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    }
+  })
+}
+
+//return all mentors matched with a given mentee
+const getMentors = (client, res, reqData) => {
+  const sql = `SELECT id, displayName, email
+              FROM mentorship, users
+              WHERE mentorship.mentee_id = $1 AND mentorship.mentor_id = users.id`
+  const values = [reqData.mentee_id]
   client.query(sql, values, (error, result) => {
     if (error) {
       safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
