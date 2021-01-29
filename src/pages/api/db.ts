@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { isNull } from 'util'
 import pool from '../../lib/db'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,30 +23,43 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
 
+      let query = null
       reqType = reqData.reqType
       switch (reqType) {
-        case 'addUser': {
-          addUser(client, res, reqData)
+        case 'addMentee': {
+          query = addMentee(reqData)
           break
         }
-        case 'getUser': {
-          getUser(client, res, reqData)
+        case 'addMentor': {
+          query = addMentor(reqData)
           break
         }
-        case 'addMentorship': {
-          addMentorship(client, res, reqData)
+        case 'addOrg': {
+          query = addOrg(reqData)
           break
         }
-        case 'getMentors': {
-          getMentors(client, res, reqData)
+        case 'getMentee': {
+          query = getMentee(reqData)
+          break
+        }
+        case 'getMentor': {
+          query = getMentor(reqData)
+          break
+        }
+        case 'getOrg': {
+          query = getOrg(reqData)
           break
         }
         case 'getOrgMentees': {
-          getOrgMentees(client, res, reqData)
+          query = getOrgMentees(reqData)
           break
         }
         case 'getOrgMentors': {
-          getOrgMentors(client, res, reqData)
+          query = getOrgMentors(reqData)
+          break
+        }
+        case 'setMentor': {
+          query = setMentor(reqData)
           break
         }
         default: {
@@ -53,6 +67,15 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           break
         }
       }
+
+      client.query(query.sql, query.values, (error, result) => {
+        if (error) {
+          safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+        } else {
+          const rows = result ? result.rows : null
+          safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+        }
+      })
 
       //safeSend({ res, data: JSON.stringify({ success: true, received: reqData })})
       client.release()
@@ -71,140 +94,128 @@ const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; st
   }
 }
 
-//add a new user to 'users' table and respective userType table
-const addUser = (client, res, reqData) => {
-  if (reqData.displayName == '') reqData.displayName = reqData.firstName + ' ' + reqData.lastName
-  let sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
-    VALUES ($1, $2, $3, $4, $5, $6);`
-  let values = [reqData.id, reqData.firstName, reqData.lastName, reqData.displayName, reqData.email, reqData.userType]
-  //insert into the user table
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      //insert into either mentee, mentor, or admin depending on userType provided
-      switch (reqData.userType) {
-        case 'mentee': {
-          sql = 'INSERT INTO mentee (id, admn_id, skills, timezone) VALUES ($1, $2, $3, $4);'
-          values = [reqData.id, reqData.admn_id, reqData.skills, reqData.timezone]
-          break
-        }
-        case 'mentor': {
-          sql = 'INSERT INTO mentor (id, admn_id, skills, timezone) VALUES ($1, $2, $3, $4);'
-          values = [reqData.id, reqData.admn_id, reqData.skills, reqData.timezone]
-          break
-        }
-        case 'admin': {
-          sql = 'INSERT INTO administrator (id, org_name) VALUES ($1, $2);'
-          values = [reqData.id, reqData.org_name]
-          break
-        }
-      }
-      client.query(sql, values, (error, result) => {
-        if (error) {
-          safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-        } else {
-          rows.concat(result ? result.rows : null)
-          safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-        }
-      })
-    }
-  })
-}
-
-//return a users information from their id
-const getUser = (client, res, reqData) => {
-  let sql = ''
-  switch (reqData.userType) {
-    case 'mentee': {
-      sql = `SELECT *
-            FROM users, mentee
-            WHERE users.id = $1 AND users.id = mentee.id;`
-      break
-    }
-    case 'mentor': {
-      sql = `SELECT *
-            FROM users, mentor
-            WHERE users.id = $1 AND users.id = mentor.id;`
-      break
-    }
-    case 'admin': {
-      sql = `SELECT *
-            FROM users, administrator
-            WHERE users.id = $1 AND users.id = administrator.id;`
-      break
-    }
+const addMentee = (reqData) => {
+  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
+              VALUES ($1, $2, $3, $4, $5, $6);
+              INSERT INTO mentee (id, org_id, skills, timezone)
+              VALUES ($1, $7, $8, $9);`
+  const values = [
+    reqData.id,
+    reqData.firstName,
+    reqData.lastName,
+    reqData.displayName,
+    reqData.email,
+    reqData.userType,
+    reqData.org_id,
+    reqData.skills,
+    reqData.timezone,
+  ]
+  return {
+    sql: sql,
+    values: values,
   }
+}
+
+const addMentor = (reqData) => {
+  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
+              VALUES ($1, $2, $3, $4, $5, $6);
+              INSERT INTO mentor (id, org_id, skills, timezone)
+              VALUES ($1, $7, $8, $9);`
+  const values = [
+    reqData.id,
+    reqData.firstName,
+    reqData.lastName,
+    reqData.displayName,
+    reqData.email,
+    reqData.userType,
+    reqData.org_id,
+    reqData.skills,
+    reqData.timezone,
+  ]
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+const addOrg = (reqData) => {
+  const sql = `INSERT INTO org (id, org_name, email)
+              VALUES ($1, $2, $3);`
+  const values = [reqData.id, reqData.org_name, reqData.email]
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+//return a mentee from id
+const getMentee = (reqData) => {
+  const sql = `SELECT *
+              FROM users, mentee
+              WHERE users.id = $1 AND users.id = mentee.id;`
   const values = [reqData.id]
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+  return {
+    sql: sql,
+    values: values,
+  }
 }
 
-//add a new mentor-mentee match
-const addMentorship = (client, res, reqData) => {
-  const sql = 'INSERT INTO mentorship (mentor_id, mentee_id) VALUES ($1, $2);'
-  const values = [reqData.mentor_id, reqData.mentee_id]
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+//return a mentor from id
+const getMentor = (reqData) => {
+  const sql = `SELECT *
+              FROM users, mentor
+              WHERE users.id = $1 AND users.id = mentor.id;`
+  const values = [reqData.id]
+  return {
+    sql: sql,
+    values: values,
+  }
 }
 
-//return all mentors matched with a given mentee
-const getMentors = (client, res, reqData) => {
-  const sql = `SELECT id, displayName, email
-              FROM mentorship, users
-              WHERE mentorship.mentee_id = $1 AND mentorship.mentor_id = users.id`
-  const values = [reqData.mentee_id]
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+//return an organization from id
+const getOrg = (reqData) => {
+  const sql = `SELECT *
+              FROM org
+              WHERE org.id = $1`
+  const values = [reqData.id]
+  return {
+    sql: sql,
+    values: values,
+  }
 }
 
-//return list of mentees under a single administrator from admins id
-const getOrgMentees = (client, res, reqData) => {
+//return list of mentees within an organization
+const getOrgMentees = (reqData) => {
   const sql = `SELECT id, displayName, email
               FROM users, mentee
-              WHERE users.id = mentee.id AND mentee.admn_id = $1`
+              WHERE users.id = mentee.id AND mentee.org_id = $1`
   const values = [reqData.id]
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+  return {
+    sql: sql,
+    values: values,
+  }
 }
 
-//return list of mentors under a single administrator from admins id
-const getOrgMentors = (client, res, reqData) => {
+//return list of mentors within an organization
+const getOrgMentors = (reqData) => {
   const sql = `SELECT id, displayName, email
               FROM users, mentor
-              WHERE users.id = mentor.id AND mentor.admn_id = $1`
+              WHERE users.id = mentor.id AND mentor.org_id = $1`
   const values = [reqData.id]
-  client.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
-      const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+//update a mentees mentor
+const setMentor = (reqData) => {
+  const sql = `UPDATE mentee
+              SET mentor_id = $1
+              WHERE id = $2`
+  const values = [reqData.mentor_id, reqData.mentee_id]
+  return {
+    sql: sql,
+    values: values,
+  }
 }

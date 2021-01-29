@@ -10,33 +10,30 @@ CREATE TABLE users (
 
 CREATE TABLE mentee (
 	id VARCHAR(127),
-	admn_id VARCHAR(127),
+	mentor_id VARCHAR(127),
+	org_id VARCHAR(127),
 	skills VARCHAR(255),
 	timezone INT,
 	PRIMARY KEY (id),
-	FOREIGN KEY (id) REFERENCES Users(id)
+	FOREIGN KEY (id) REFERENCES users(id)
+	FOREIGN KEY (mentor_id) REFERENCES mentor(id)
+	FOREIGN KEY (org_id) REFERENCES org(id)
 );
 
 CREATE TABLE mentor (
 	id VARCHAR(127),
-	admn_id VARCHAR(127),
+	org_id VARCHAR(127),
 	skills VARCHAR(255),
 	timezone INT,
 	PRIMARY KEY(id),
-	FOREIGN KEY (id) REFERENCES Users(id)
+	FOREIGN KEY (id) REFERENCES users(id),
+	FOREIGN KEY (org_id) REFERENCES org(id)
 );
 
-CREATE TABLE administrator (
+CREATE TABLE org (
 	id VARCHAR(127),
 	org_name VARCHAR(127),
+	email VARCHAR(127),
 	PRIMARY KEY(id),
-	FOREIGN KEY (id) REFERENCES Users(id)
-);
-
-CREATE TABLE mentorship (
-	mentor_id VARCHAR(127),
-	mentee_id VARCHAR(127),
-	PRIMARY KEY(mentor_id, mentee_id),
-	FOREIGN KEY (mentor_id) REFERENCES Mentor(id),
-	FOREIGN KEY (mentee_id) REFERENCES Mentee(id)
+	FOREIGN KEY (id) REFERENCES users(id)
 );
