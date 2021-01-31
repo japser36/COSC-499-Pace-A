@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { isNull } from 'util'
 import pool from '../../lib/db'
 
+console.log('here1')
+
 export default (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('here2')
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
@@ -10,7 +12,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     .connect()
     .then((client) => {
       let reqData = null
-      let reqType = null
 
       switch (req.method) {
         case 'POST': {
@@ -24,7 +25,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       let query = null
-      reqType = reqData.reqType
+      const reqType = reqData.reqType
       switch (reqType) {
         case 'addMentee': {
           query = addMentee(reqData)
@@ -77,7 +78,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         }
       })
 
-      //safeSend({ res, data: JSON.stringify({ success: true, received: reqData })})
+      safeSend({ res, data: JSON.stringify({ success: true, received: reqData }) })
       client.release()
     })
     .catch((error) => {
@@ -96,16 +97,15 @@ const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; st
 
 const addMentee = (reqData) => {
   const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
-              VALUES ($1, $2, $3, $4, $5, $6);
+              VALUES ($1, $2, $3, $4, $5, 'mentee');
               INSERT INTO mentee (id, org_id, skills, timezone)
-              VALUES ($1, $7, $8, $9);`
+              VALUES ($1, $6, $7, $8);`
   const values = [
     reqData.id,
     reqData.firstName,
     reqData.lastName,
     reqData.displayName,
     reqData.email,
-    reqData.userType,
     reqData.org_id,
     reqData.skills,
     reqData.timezone,
@@ -118,16 +118,15 @@ const addMentee = (reqData) => {
 
 const addMentor = (reqData) => {
   const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
-              VALUES ($1, $2, $3, $4, $5, $6);
+              VALUES ($1, $2, $3, $4, $5, 'mentor');
               INSERT INTO mentor (id, org_id, skills, timezone)
-              VALUES ($1, $7, $8, $9);`
+              VALUES ($1, $6, $7, $8);`
   const values = [
     reqData.id,
     reqData.firstName,
     reqData.lastName,
     reqData.displayName,
     reqData.email,
-    reqData.userType,
     reqData.org_id,
     reqData.skills,
     reqData.timezone,
@@ -219,3 +218,5 @@ const setMentor = (reqData) => {
     values: values,
   }
 }
+
+module.exports = setMentor
