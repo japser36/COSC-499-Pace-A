@@ -9,14 +9,15 @@ export default async function addOrg(req: NextApiRequest, res: NextApiResponse) 
               VALUES ($1, $2, $3);`
   const values = [req.body.id, req.body.org_name, req.body.email]
 
-  pool.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
+  await pool
+    .query(sql, values)
+    .then(async (result) => {
       const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+      await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    })
+    .catch(async (error) => {
+      await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    })
 }
 
 const safeSend = async ({

@@ -1,21 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import pool from '../../../lib/db'
 
-export default async function getUser(req: NextApiRequest, res: NextApiResponse) {
+export default async function getOrg(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
   const sql = `SELECT * FROM org WHERE org.id = $1;`
   const values = [req.query.id]
 
-  pool.query(sql, values, (error, result) => {
-    if (error) {
-      safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
-    } else {
+  await pool
+    .query(sql, values)
+    .then(async (result) => {
       const rows = result ? result.rows : null
-      safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-    }
-  })
+      await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+    })
+    .catch(async (error) => {
+      await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
+    })
 }
 
 const safeSend = async ({
