@@ -1,7 +1,7 @@
 import { Pool } from 'pg'
 
-let connectionString = 'postgresql://postgres:cosc499postgres@localhost:5432/postgres'
-if (process.env.NODE_ENV === 'test') connectionString = 'postgresql://postgres:cosc499postgres@localhost:5432/testing'
+const connectionString = 'postgresql://postgres:cosc499postgres@localhost:5432/postgres'
+//if (process.env.NODE_ENV === 'test') connectionString = 'postgresql://postgres:cosc499postgres@localhost:5432/testing'
 export default new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
