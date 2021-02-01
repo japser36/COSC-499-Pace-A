@@ -6,11 +6,11 @@
     "node": "14.x"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cross-env NODE_ENV=development next dev",
+    "build": "cross-env NODE_ENV=production next build",
     "start": "next start -p $PORT",
     "lint": "eslint */**/*.{js,ts,tsx} --quiet --fix",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -19,6 +19,7 @@
     "@types/pg": "^7.14.7",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.16.1",
     "firebase": "^8.0.2",
     "gray-matter": "^4.0.2",

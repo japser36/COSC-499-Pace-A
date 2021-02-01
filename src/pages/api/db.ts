@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import pool from '../../lib/db'
-
-console.log('here1')
+import fs from 'fs'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('here2')
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
@@ -27,6 +25,18 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       let query = null
       const reqType = reqData.reqType
       switch (reqType) {
+        case 'init': {
+          query = init()
+          break
+        }
+        case 'wipe': {
+          query = wipe()
+          break
+        }
+        case 'addUser': {
+          query = addUser(reqData)
+          break
+        }
         case 'addMentee': {
           query = addMentee(reqData)
           break
@@ -64,7 +74,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           break
         }
         default: {
-          safeSend({ res, data: JSON.stringify({ success: false, error: 'no request type provided' }) })
+          safeSend({ res, data: JSON.stringify({ success: false, error: 'no request type or invalid request type' }) })
           break
         }
       }
@@ -78,7 +88,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         }
       })
 
-      safeSend({ res, data: JSON.stringify({ success: true, received: reqData }) })
+      //safeSend({ res, data: JSON.stringify({ success: true, received: reqData }) })
       client.release()
     })
     .catch((error) => {
@@ -86,7 +96,15 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     })
 }
 
-const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; status?: number; data: string }) => {
+const safeSend = async ({
+  res,
+  status = 200,
+  data = null,
+}: {
+  res: NextApiResponse
+  status?: number
+  data: string
+}) => {
   console.log(`Sending Response [${status}]:`, data)
   if (res.headersSent) {
     console.warn('Stopped a response since the response was already sent!')
@@ -95,21 +113,44 @@ const safeSend = ({ res, status = 200, data = null }: { res: NextApiResponse; st
   }
 }
 
-const addMentee = (reqData) => {
+//initialize the database by creating all necessary tables
+const init = () => {
+  const sql = fs.readFileSync('src/sql/db_init.sql').toString()
+  const values = []
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+//wipe the database by dropping all tables
+const wipe = () => {
+  const sql = `DROP TABLE mentee;
+              DROP TABLE mentor;
+              DROP TABLE users;
+              DROP TABLE org;`
+  const values = []
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+//adds a new user to the database. Should be paired with addMentee or addMentor
+const addUser = (reqData) => {
   const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
-              VALUES ($1, $2, $3, $4, $5, 'mentee');
-              INSERT INTO mentee (id, org_id, skills, timezone)
-              VALUES ($1, $6, $7, $8);`
-  const values = [
-    reqData.id,
-    reqData.firstName,
-    reqData.lastName,
-    reqData.displayName,
-    reqData.email,
-    reqData.org_id,
-    reqData.skills,
-    reqData.timezone,
-  ]
+              VALUES ($1, $2, $3, $4, $5, 'mentee');`
+  const values = [reqData.id, reqData.firstName, reqData.lastName, reqData.displayName, reqData.email]
+  return {
+    sql: sql,
+    values: values,
+  }
+}
+
+const addMentee = (reqData) => {
+  const sql = `INSERT INTO mentee (id, org_id, skills, timezone)
+              VALUES ($1, $2, $3, $4);`
+  const values = [reqData.id, reqData.org_id, reqData.skills, reqData.timezone]
   return {
     sql: sql,
     values: values,
@@ -117,20 +158,9 @@ const addMentee = (reqData) => {
 }
 
 const addMentor = (reqData) => {
-  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, userType)
-              VALUES ($1, $2, $3, $4, $5, 'mentor');
-              INSERT INTO mentor (id, org_id, skills, timezone)
-              VALUES ($1, $6, $7, $8);`
-  const values = [
-    reqData.id,
-    reqData.firstName,
-    reqData.lastName,
-    reqData.displayName,
-    reqData.email,
-    reqData.org_id,
-    reqData.skills,
-    reqData.timezone,
-  ]
+  const sql = `INSERT INTO mentor (id, org_id, skills, timezone)
+              VALUES ($1, $2, $3, $4);`
+  const values = [reqData.id, reqData.org_id, reqData.skills, reqData.timezone]
   return {
     sql: sql,
     values: values,
@@ -218,5 +248,3 @@ const setMentor = (reqData) => {
     values: values,
   }
 }
-
-module.exports = setMentor
