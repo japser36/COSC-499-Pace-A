@@ -11,29 +11,14 @@ CREATE TABLE users (
 	lastName VARCHAR(127),
 	displayName VARCHAR(255),
 	email VARCHAR(127),
+	skills VARCHAR(127),
+	timezone INT,
+	org_id VARCHAR(127),
 	userType VARCHAR(7),
-	PRIMARY KEY(id)
-);
-
-CREATE TABLE mentor (
-	id VARCHAR(127),
-	org_id VARCHAR(127),
-	skills VARCHAR(255),
-	timezone INT,
+	mentor_id VARCHAR(127) DEFAULT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (id) REFERENCES users(id),
-	FOREIGN KEY (org_id) REFERENCES org(id)
-);
-
-CREATE TABLE mentee (
-	id VARCHAR(127),
-	mentor_id VARCHAR(127),
-	org_id VARCHAR(127),
-	skills VARCHAR(255),
-	timezone INT,
-	PRIMARY KEY (id),
-	FOREIGN KEY (id) REFERENCES users(id),
-	FOREIGN KEY (mentor_id) REFERENCES mentor(id),
-	FOREIGN KEY (org_id) REFERENCES org(id)
+	CHECK (userType = 'mentee' OR userType = 'mentor'),
+	FOREIGN KEY (org_id) REFERENCES org(id),
+	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
