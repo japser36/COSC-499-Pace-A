@@ -7,6 +7,7 @@ export default function Shamus() {
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
+      <h1>{}</h1>
     </>
   )
 }
