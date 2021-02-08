@@ -14,6 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "test_testing.js", "src/tests/shamus.test.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/__tests__/api.test.ts"],
   "exclude": ["node_modules"]
 }
