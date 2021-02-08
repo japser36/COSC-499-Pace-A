@@ -7,7 +7,7 @@ export default async function skills(req: NextApiRequest, res: NextApiResponse) 
   res.setHeader('Content-Type', 'application/json')
 
   const token = await getToken()
-  const query = qs.stringify({ q: 'java', fields: 'name', limit: '200' })
+  const query = qs.stringify({ q: req.query.filter, fields: 'name', limit: 1000 })
   const url = 'https://emsiservices.com/skills/versions/latest/skills?' + query
   const options = {
     method: 'GET',

@@ -1,6 +1,5 @@
 import SkillSelect from '../../components/SkillSelect'
 import { useState } from 'react'
-import fetch from 'node-fetch'
 
 export default function Skills() {
   const [skills, setSkills] = useState(null)

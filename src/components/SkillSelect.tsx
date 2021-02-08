@@ -17,6 +17,7 @@ export default function SkillSelect({ setSkills }) {
   const [open, setOpen] = useState(false)
   const [options, setOptions] = useState<Skills[]>([])
   const [selected, setSelected] = useState<Skills[]>([])
+  const [filter, setFilter] = useState('')
   const loading = open && options.length === 0
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function SkillSelect({ setSkills }) {
 
     ;(async () => {
       let skills = []
-      await fetch('../api/skills', { method: 'GET' })
+      await fetch('../api/skills?filter=' + filter, { method: 'GET' })
         .then((res) => res.json())
         .then((res) => (skills = res))
 
@@ -40,7 +41,7 @@ export default function SkillSelect({ setSkills }) {
     return () => {
       active = false
     }
-  }, [loading])
+  }, [loading, filter])
 
   useEffect(() => {
     if (!open) {
@@ -50,9 +51,17 @@ export default function SkillSelect({ setSkills }) {
 
   return (
     <>
+      <TextField
+        label="Broad Search"
+        variant="outlined"
+        onChange={(event) => {
+          setFilter(event.target.value)
+        }}
+      />
       <AutoComplete
         freeSolo
         multiple
+        clearOnBlur
         id="skillsform"
         style={{ width: 300 }}
         open={open}
@@ -72,7 +81,7 @@ export default function SkillSelect({ setSkills }) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Select Skills"
+            label="Narrow Search"
             variant="outlined"
             InputProps={{
               ...params.InputProps,
