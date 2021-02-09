@@ -27,14 +27,14 @@ filter - String. used to filter the results returned from Emsi's 'list all skill
 
 ### Response Example:
 
-[{name:"Ruby (Programming Language)"},
+`[{name:"Ruby (Programming Language)"},
 {name:"Ruby On Rails"},
 {name:"RubyGems"},
 {name:"RubyMine"},
 {name:"Ruby Version Management"},
 {name:"RubyCocoa"},
 {name:"Rubylith"},
-{name:"Ramaze (Free Software Programmed In Ruby)"}]
+{name:"Ramaze (Free Software Programmed In Ruby)"}]`
 
 ## /org/[id] - GET
 
@@ -46,8 +46,8 @@ id - String. the organization id
 
 ### Response Example
 
-{success:true,
-rows:[{id:"TESTORG1",org_name:"ORGNAME1",email:"org1@test.ca"}]}
+`{success:true,
+rows:[{id:"TESTORG1",org_name:"ORGNAME1",email:"org1@test.ca"}]}`
 
 ## /org/insert - POST
 
@@ -69,8 +69,8 @@ id - String. The organizations id
 
 ### Response Example:
 
-{success:true,
-rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN_mentee1",email:"mentee1@test.ca",skills:"[{name: "javascript"}]",timezone:-8,org_id:"TESTORG1",usertype:"mentee",mentor_id:null},{id:"MENTOR1",firstname:"FN_mentor1",lastname:"LN_mentor1",displayname:"DN_mentor1",email:"mentor1@test.ca",skills:"[{name: "javascript"}]",timezone:-8,org_id:"TESTORG1",usertype:"mentor",mentor_id:null}]}
+`{success:true,
+rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN_mentee1",email:"mentee1@test.ca",skills:"[{name: "javascript"}]",timezone:-8,org_id:"TESTORG1",usertype:"mentee",mentor_id:null},{id:"MENTOR1",firstname:"FN_mentor1",lastname:"LN_mentor1",displayname:"DN_mentor1",email:"mentor1@test.ca",skills:"[{name: "javascript"}]",timezone:-8,org_id:"TESTORG1",usertype:"mentor",mentor_id:null}]}`
 
 ## /user/[id] - GET
 
@@ -82,8 +82,8 @@ id - String. The users id.
 
 ### Response Example
 
-{success:true,
-rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN_mentee1",email:"mentee1@test.ca",skills:"[{name: 'javacsript'}]",timezone:-8,org_id:"TESTORG1",usertype:"mentee",mentor_id:MENTOR1}]}
+`{success:true,
+rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN_mentee1",email:"mentee1@test.ca",skills:"[{name: 'javacsript'}]",timezone:-8,org_id:"TESTORG1",usertype:"mentee",mentor_id:MENTOR1}]}`
 
 ## /user/insert - POST
 
