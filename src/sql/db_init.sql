@@ -22,6 +22,22 @@ CREATE TABLE users (
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
+CREATE TABLE skill (
+	name VARCHAR(127),
+	PRIMARY KEY(name)
+);
+
+INSERT INTO skill (name) VALUES ('Math');
+INSERT INTO skill (name) VALUES ('Language');
+INSERT INTO skill (name) VALUES ('Programming');
+INSERT INTO skill (name) VALUES ('Visual Arts');
+INSERT INTO skill (name) VALUES ('Cooking');
+INSERT INTO skill (name) VALUES ('Management');
+INSERT INTO skill (name) VALUES ('Physics');
+INSERT INTO skill (name) VALUES ('Chemistry');
+INSERT INTO skill (name) VALUES ('Biology');
+INSERT INTO skill (name) VALUES ('Public Speaking');
+
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG1', 'ORGNAME1', 'org1@test.ca');
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG2', 'ORGNAME2', 'org2@test.ca');
 INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType) VALUES ('MENTEE1', 'FNmentee1', 'LNmentee1', 'DNmentee1', 'mentee1@test.ca', 'noskills', -8, 'TESTORG1', 'mentee');
