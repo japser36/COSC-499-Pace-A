@@ -8,7 +8,7 @@ export default async function setMentor(req: NextApiRequest, res: NextApiRespons
   const sql = `UPDATE users
               SET skills = $1
               WHERE id = $2`
-  const values = [JSON.stringify(req.body.skills), req.body.id]
+  const values = [req.body.skills, req.body.id]
 
   await pool
     .query(sql, values)

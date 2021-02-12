@@ -8,6 +8,7 @@ export async function matchMentors(mentee_id) {
     return matched
 }
 
+//Retuens the org_id of the given mentee
 async function getOrgID(mentee_id) {
     let org_id = ''
     await fetch('../api/user/' + mentee_id, { method: 'GET' })
@@ -17,6 +18,8 @@ async function getOrgID(mentee_id) {
     return org_id
 }
 
+
+//Returns a list of mentors (with attributes id, skills, timezone) that share the given org_id.
 async function getOrgMentors(org_id) {
     let mentor_ids =[]
     await fetch('../api/org/users/' + org_id, { method: 'GET' })
@@ -24,8 +27,10 @@ async function getOrgMentors(org_id) {
         .then((res) => {
             const users = res.rows
             users.forEach((user, index) => {
-                if (user.usertype === 'mentor')
-                    mentor_ids.push(user.id)
+                if (user.usertype === 'mentor') {
+                    const mentor = {id: user.id, skills: user.skills, timezone: user.timezone}
+                    mentor_ids.push(mentor)
+                }
             })
         })
         .catch((error) => {console.log('error: ' + error)})
