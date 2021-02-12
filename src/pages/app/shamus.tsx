@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import { matchMentors } from '../../utils/matching'
 
 export default function Shamus() {
+  console.log(matchMentors('MENTEE1'))
   return (
     <>
       <Head>
