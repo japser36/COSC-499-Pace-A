@@ -5,14 +5,13 @@ import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
 
 export default function Skills() {
-
   const handleButton = async () => {
     await fetch('../api/user/set-skills', {
       method: 'POST',
       body: JSON.stringify({
         id: id,
-        skills: JSON.stringify(skills)
-      })
+        skills: JSON.stringify(skills),
+      }),
     })
   }
 
@@ -29,12 +28,12 @@ export default function Skills() {
         Submit Skills
       </Button>
       <TextField
-        label='user id'
-        variant='outlined'
+        label="user id"
+        variant="outlined"
         onChange={(event) => {
           setId(event.target.value)
         }}
-      /> 
+      />
       <SkillSelect setSkills={setSkills}></SkillSelect>
     </>
   )
