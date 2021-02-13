@@ -2,25 +2,30 @@ import fetch from 'node-fetch'
 
 export async function matchMentors(mentee_id) {
     let matched = []
-    const org_id = await getOrgID(mentee_id)
-    const org_mentors = await getOrgMentors(org_id)
-    console.log(org_mentors)
+    const mentee = await getMentee(mentee_id)
+    const mentors = await getMentors(mentee.org_id)
+    console.log(mentee)
+    mentors.forEach((mentor) => {
+        console.log(mentor)
+        console.log(commonSkills(mentee, mentor))
+        console.log(timezoneDiff(mentee, mentor))
+    })
     return matched
 }
 
-//Retuens the org_id of the given mentee
-async function getOrgID(mentee_id) {
-    let org_id = ''
+//Returns the attributes of the mentee with the given id
+async function getMentee(mentee_id) {
+    let mentee
     await fetch('../api/user/' + mentee_id, { method: 'GET' })
         .then((res) => res.json())
-        .then((res) => org_id = res.rows[0].org_id)
+        .then((res) => mentee = res.rows[0])
         .catch((error) => {console.log('error: ' + error)})
-    return org_id
+    return mentee
 }
 
 
 //Returns a list of mentors (with attributes id, skills, timezone) that share the given org_id.
-async function getOrgMentors(org_id) {
+async function getMentors(org_id) {
     let mentor_ids =[]
     await fetch('../api/org/users/' + org_id, { method: 'GET' })
         .then((res) => res.json())
@@ -35,4 +40,26 @@ async function getOrgMentors(org_id) {
         })
         .catch((error) => {console.log('error: ' + error)})
     return mentor_ids
+}
+
+//Returns a count of skills shared between s1 and s2
+function commonSkills(mentee, mentor) {
+    let count = 0
+    const mentee_skills = JSON.parse(mentee.skills)
+    const mentor_skills = JSON.parse(mentor.skills)
+    
+    for (let i = 0; i < mentee_skills.length; i++) {
+        for (let j = 0; j < mentor_skills.length; j++) {
+            if(mentee_skills[i].name === mentor_skills[j].name) {
+                count++
+            }
+        }
+    }
+
+    return count
+}
+
+//Returns the difference in timezones
+function timezoneDiff(mentee, mentor) {
+    return Math.abs(mentee.timezone - mentor.timezone) 
 }

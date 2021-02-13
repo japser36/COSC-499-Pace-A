@@ -4,11 +4,12 @@ import pool from '../../../lib/db'
 export default async function setMentor(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
+  const data = JSON.parse(req.body)
 
   const sql = `UPDATE users
               SET skills = $1
               WHERE id = $2`
-  const values = [req.body.skills, req.body.id]
+  const values = [data.skills, data.id]
 
   await pool
     .query(sql, values)
