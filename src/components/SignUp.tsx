@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import { getFirebaseAuth } from '../lib/firebase'
 import axios from 'axios'
+import {Collapse} from 'react-collapse';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('')

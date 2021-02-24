@@ -2,24 +2,22 @@
 import { useUser } from '../../lib/auth/useUser'
 import Layout from '../../components/layout'
 import Button from '@material-ui/core/Button'
+import Navbar from '../../components/Navbar/Navbar'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import authPage from '../authPage'
+import dashboard from '../dashboard'
+import profile from '../profile'
 
 export default function LoggedIn() {
-  const { user, logout } = useUser()
 
   return (
-    <Layout title="Auth Landing">
-      {user ? (
-        <>
-          <h4>You are signed in!</h4>
-          <p>-Details-</p>
-          <p>UID: {user.uid}</p>
-          <p>Email: {user.email}</p>
-          <p>Name: {user.displayName}</p>
-          <p>EmailVerified: {user.emailVerified ? 'true' : 'false'}</p>
-        </>
-      ) : (
-        <p>You are not signed in.</p>
-      )}
-    </Layout>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/authPage"  component={authPage} />
+        <Route path="/dashboard"  component={dashboard} />
+        <Route path="/profile"  component={profile} />
+      </Switch>
+    </Router>
   )
 }
