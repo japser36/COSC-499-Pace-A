@@ -19,22 +19,12 @@ Does not take any paramaters.
 
 ## /skills - GET
 
-Unlike the other endpoints, this endpoint creates a connection to the 'Emsi Skills API' (https://api.emsidata.com/apis/skills). Response is length limited to 1000.
-
-### Paramaters:
-
-filter - String. used to filter the results returned from Emsi's 'list all skills' endpoint
+Returns all the skills stored in the database. Response is length limited to 1000 skills.
 
 ### Response Example:
 
-`[{name:"Ruby (Programming Language)"},
-{name:"Ruby On Rails"},
-{name:"RubyGems"},
-{name:"RubyMine"},
-{name:"Ruby Version Management"},
-{name:"RubyCocoa"},
-{name:"Rubylith"},
-{name:"Ramaze (Free Software Programmed In Ruby)"}]`
+`{success:true,
+rows:[{name:"Math"},{name:"Language"},{name:"Programming"},{name:"Visual Arts"},{name:"Cooking"},{name:"Management"},{name:"Physics"},{name:"Chemistry"},{name:"Biology"},{name:"Public Speaking"}]}`
 
 ## /org/[id] - GET
 
@@ -109,3 +99,17 @@ Sets a users mentor_id. For use only if the user is a mentee.
 
 mentor_id - String. Value to be assigned to users mentor_id column.
 mentee_id - String. Id of the user who's mentor_id column is to be updated.
+
+## /user/set-skills - POST
+
+Sets a users skills.
+
+### Paramaters:
+
+id - String. The users id.
+skills - Skill Array. An array of Skill objects.
+
+### Request Body Example
+
+{id: 'MENTEE1',
+skills: [{name: 'Math'},{name: 'Programming'}]}

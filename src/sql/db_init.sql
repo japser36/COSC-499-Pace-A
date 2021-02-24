@@ -11,7 +11,7 @@ CREATE TABLE users (
 	lastName VARCHAR(127),
 	displayName VARCHAR(255),
 	email VARCHAR(127),
-	skills VARCHAR(127),
+	skills VARCHAR(255),
 	timezone INT,
 	org_id VARCHAR(127),
 	userType VARCHAR(7),
