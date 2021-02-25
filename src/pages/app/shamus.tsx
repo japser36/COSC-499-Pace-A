@@ -1,12 +1,15 @@
 import Head from 'next/head'
+import { matchMentors } from '../../utils/matching'
 
-export default function Shamus() {
+export default function Shamus({ data }) {
+  matchMentors('MENTEE1')
   return (
     <>
       <Head>
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
+      <h2>{data}</h2>
     </>
   )
 }
