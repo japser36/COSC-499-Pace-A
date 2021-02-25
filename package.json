@@ -36,7 +36,6 @@
     "react-collapse": "^5.1.0",
     "react-dom": "16.13.1",
     "react-icons": "^4.2.0",
-    "react-router-dom": "^5.2.0",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
     "sass": "^1.27.0",

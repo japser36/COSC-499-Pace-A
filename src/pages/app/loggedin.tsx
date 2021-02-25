@@ -9,15 +9,9 @@ import dashboard from '../dashboard'
 import profile from '../profile'
 
 export default function LoggedIn() {
-
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/authPage"  component={authPage} />
-        <Route path="/dashboard"  component={dashboard} />
-        <Route path="/profile"  component={profile} />
-      </Switch>
-    </Router>
+    <Layout>
+      <p>Logged in!</p>
+    </Layout>
   )
 }

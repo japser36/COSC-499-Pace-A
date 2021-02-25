@@ -1,6 +1,6 @@
-import { FaBars, FaRegBell, FaUser } from 'react-icons/fa';
-import { NavLink as Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { FaBars, FaRegBell, FaUser } from 'react-icons/fa'
+import Link from 'next/link'
+import styled from 'styled-components'
 
 export const Nav = styled.nav`
   background: #000;
@@ -11,8 +11,7 @@ export const Nav = styled.nav`
   z-index: 10;
   /* Third Nav */
   /* justify-content: flex-start; */
-`;
-
+`
 
 export const NavLink = styled(Link)`
   color: #fff;
@@ -25,7 +24,7 @@ export const NavLink = styled(Link)`
   &.active {
     color: #15cdfc;
   }
-`;
+`
 
 export const Bars = styled(FaBars)`
   display: none;
@@ -39,29 +38,29 @@ export const Bars = styled(FaBars)`
     font-size: 1.8rem;
     cursor: pointer;
   }
-`;
+`
 
 export const NavBell = styled(FaRegBell)`
-    display: block;
-    color: #fff;
-    position: absolute;
-    top: 0;
-    right: 50px;
-    transform: translate(-100%, 75%);
-    font-size: 1.8rem;
-    cursor: pointer;
-`;
+  display: block;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 50px;
+  transform: translate(-100%, 75%);
+  font-size: 1.8rem;
+  cursor: pointer;
+`
 
 export const NavUser = styled(FaUser)`
-    display: block;
-    color: #fff;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 75%);
-    font-size: 1.8rem;
-    cursor: pointer;
-`;
+  display: block;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-100%, 75%);
+  font-size: 1.8rem;
+  cursor: pointer;
+`
 
 export const NavMenu = styled.div`
   display: flex;
@@ -75,7 +74,7 @@ export const NavMenu = styled.div`
   @media screen and (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 export const NavBtn = styled.nav`
   display: flex;
@@ -87,29 +86,29 @@ export const NavBtn = styled.nav`
   @media screen and (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 export const NavInput = styled.input`
-    padding: 10px 22px;
-    border-radius: 4px;
-    border: none;
-    placeholder: Search...;
-`;
+  padding: 10px 22px;
+  border-radius: 4px;
+  border: none;
+  placeholder: Search...;
+`
 
 export const NavLinkDash = styled(Link)`
-    color: #fff;
-    display: flex;
-    align-items: center;
-    margin-left: auto; 
-    margin-right: 0;
-    text-decoration: none;
-    padding: 0 1rem;
-    height: 100%;
-    cursor: pointer;
-    &.active {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 0;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+  &.active {
     color: #15cdfc;
-    }
-`;
+  }
+`
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
@@ -128,4 +127,4 @@ export const NavBtnLink = styled(Link)`
     background: #fff;
     color: #010606;
   }
-`;
+`
