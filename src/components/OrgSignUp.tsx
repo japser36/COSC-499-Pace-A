@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { getFirebaseAuth } from '../lib/firebase'
 import fetch from 'node-fetch'
 
@@ -59,6 +59,19 @@ const OrgSignUp = () => {
         setConfirmPassword(value)
     }
   }
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if (value !== password) {
+          return false;
+      }
+      return true;
+    });
+    return () => {
+      ValidatorForm.removeValidationRule('isPasswordMatch');
+    }
+  })
+
   return (
     <div>
       {verificationSent ? (
@@ -66,45 +79,64 @@ const OrgSignUp = () => {
       ) : (
         <>
           <h1>Register an organization</h1>
-          <div>
-            {error !== null && <div>{error}</div>}
+          {error !== null && <div>{error}</div>}
+          <ValidatorForm onSubmit={addOrg}>
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
               <Grid item>
-                <TextField required id="org-name" label="Organization Name" value={orgName} onChange={handleChange} />
+                <TextValidator
+                  id="org-name"
+                  label="Organization Name *" 
+                  value={orgName} 
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['this field is required']} 
+                />
                </Grid>
               <Grid item>
-                <TextField required id="email" label="Email" value={email} onChange={handleChange} />
+                <TextValidator 
+                  id="email" 
+                  label="Email *" 
+                  value={email} 
+                  onChange={handleChange}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['this field is required', 'email is not valid']} 
+                />
               </Grid>
               <Grid item>
-                <TextField
-                  required
+                <TextValidator
                   id="password"
-                  label="Password"
+                  label="Password *"
                   value={password}
                   onChange={handleChange}
                   type="password"
+                  validators={['required']}
+                  errorMessages={['this field is required']}
                 />
               </Grid>
               <Grid item>
-                <TextField
-                  required
+                <TextValidator
                   id="confirm-password"
-                  label="Confirm Password"
+                  label="Confirm Password *"
                   value={confirmPassword}
                   onChange={handleChange}
                   type="password"
+                  validators={['required', 'isPasswordMatch']}
+                  errorMessages={['this field is required', 'password does not match']}
                 />
               </Grid>
               <Grid item>
-                <Button variant="contained" onClick={addOrg}>
+                <Button 
+                  type='submit' 
+                  variant="contained">
                     Register
                 </Button>
               </Grid>
             </Grid>
-          </div>
+          </ValidatorForm>
         </>
       )}
     </div>
   )
 }
+
 export default OrgSignUp

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { getFirebaseAuth } from '../lib/firebase'
 
 const SignIn = () => {
@@ -40,29 +41,39 @@ const SignIn = () => {
   return (
     <div>
       <h1>Sign In</h1>
-      <div>
-        {error !== null && <div>{error}</div>}
+      {error !== null && <div>{error}</div>}
+      <ValidatorForm onSubmit={signIn}>
         <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
           <Grid item>
-            <TextField required id="email" label="Email" value={email} onChange={handleChange} />
+            <TextValidator
+              id="email" 
+              label="Email" 
+              value={email} 
+              onChange={handleChange}
+              validators={['required', 'isEmail']}
+              errorMessages={['this field is required', 'email is not valid']}
+            />
           </Grid>
           <Grid item>
-            <TextField
-              required
+            <TextValidator
               id="password"
               label="Password"
               value={password}
               onChange={handleChange}
               type="password"
+              validators={['required']}
+              errorMessages={['this field is required']}
             />
           </Grid>
           <Grid>
-            <Button variant="contained" onClick={signIn}>
+            <Button 
+              type='submit'
+              variant="contained">
                 Sign In
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </ValidatorForm>
     </div>
   )
 }

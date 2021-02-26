@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
@@ -74,6 +75,19 @@ const UserSignUp = ({ userType, org_id }) => {
       setConfirmPassword(value)
     }
   }
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      if (value !== password) {
+          return false;
+      }
+      return true;
+    });
+    return () => {
+      ValidatorForm.removeValidationRule('isPasswordMatch');
+    }
+  })
+
   return (
     <div>
       {verificationSent ? (
@@ -81,39 +95,67 @@ const UserSignUp = ({ userType, org_id }) => {
       ) : (
         <>
           <h1>Sign up as a {userType}</h1>
-          <div>
-            {error !== null && <div>{error}</div>}
+          {error !== null && <div>{error}</div>}
+          <ValidatorForm onSubmit={createUser}>
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
               <Grid item>
-                <TextField required id="first-name" label="First Name" value={firstName} onChange={handleChange} />
+                <TextValidator
+                  id="first-name" 
+                  label="First Name *" 
+                  value={firstName} 
+                  onChange={handleChange}
+                  validators={['required']}
+                  errorMessages={['this field is required']} 
+                />
               </Grid>
               <Grid>
-                <TextField required id="last-name" label="Last Name" value={lastName} onChange={handleChange} />
-              </Grid>
-              <Grid item>
-                <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
-              </Grid>
-              <Grid item>
-                <TextField required id="email" label="Email" value={email} onChange={handleChange} />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  id="password"
-                  label="Password"
-                  value={password}
+                <TextValidator 
+                  id="last-name" 
+                  label="Last Name *" 
+                  value={lastName} 
                   onChange={handleChange}
-                  type="password"
+                  validators={['required']}
+                  errorMessages={['this field is required']} 
                 />
               </Grid>
               <Grid item>
-                <TextField
-                  required
+                <TextField 
+                  id="display-name"
+                  label="Display Name" 
+                  value={displayName} 
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item>
+                <TextValidator
+                  id="email" 
+                  label="Email *"
+                  value={email} 
+                  onChange={handleChange}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['this field is required', 'email is not valid']} 
+                />
+              </Grid>
+              <Grid item>
+                <TextValidator
+                  id="password"
+                  label="Password *"
+                  value={password}
+                  onChange={handleChange}
+                  type="password"
+                  validators={['required']}
+                  errorMessages={['this field is required']} 
+                />
+              </Grid>
+              <Grid item>
+                <TextValidator
                   id="confirm-password"
-                  label="Confirm Password"
+                  label="Confirm Password *"
                   value={confirmPassword}
                   onChange={handleChange}
                   type="password"
+                  validators={['required', 'isPasswordMatch']}
+                  errorMessages={['this field is required', 'password does not match']} 
                 />
               </Grid>
               <Grid item>
@@ -123,12 +165,14 @@ const UserSignUp = ({ userType, org_id }) => {
                 <SkillSelect setSkills={setSkills}/>
               </Grid>
               <Grid>
-                <Button variant="contained" onClick={createUser}>
+                <Button
+                  type='submit'
+                  variant="contained">
                     Sign Up
                 </Button>
               </Grid>
             </Grid>
-          </div>
+          </ValidatorForm>
         </>
       )}
     </div>
