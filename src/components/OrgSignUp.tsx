@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import { getFirebaseAuth } from '../lib/firebase'
 import fetch from 'node-fetch'
 
@@ -15,60 +15,62 @@ const OrgSignUp = () => {
   const auth = getFirebaseAuth()
   const addOrg = () => {
     auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      // Signed in
-      auth.currentUser.sendEmailVerification().then(() => {
-        setVerificationSent(true)
-      })
-      //Add new user to the database
-      fetch('/api/org/insert', {
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        // Signed in
+        auth.currentUser.sendEmailVerification().then(() => {
+          setVerificationSent(true)
+        })
+        //Add new user to the database
+        fetch('/api/org/insert', {
           method: 'POST',
           body: JSON.stringify({
-              id: user.user.uid,
-              org_name: orgName,
-              email: email
+            id: user.user.uid,
+            org_name: orgName,
+            email: email,
           }),
-          headers: {'Content-Type': 'application/json'}
-      }).then(res => res.json())
-        .then(json => console.log(json))
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((json) => console.log(json))
         fetch('/api/metauser/insert', {
-            method: 'POST',
-            body: JSON.stringify({
-                id: user.user.uid,
-                userType: 'org'
-            }),
-            headers: {'Content-Type': 'application/json'}
-        }).then(res => res.json())
-          .then(json => console.log(json))
-    })
-    .catch((e) => {
-      setError(e.message)
-    })
+          method: 'POST',
+          body: JSON.stringify({
+            id: user.user.uid,
+            userType: 'org',
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((json) => console.log(json))
+      })
+      .catch((e) => {
+        setError(e.message)
+      })
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.id
     const value = event.target.value
     if (id === 'org-name') {
-        setOrgName(value)
+      setOrgName(value)
     } else if (id === 'email') {
-        setEmail(value)
+      setEmail(value)
     } else if (id === 'password') {
-        setPassword(value)
+      setPassword(value)
     } else if (id === 'confirm-password') {
-        setConfirmPassword(value)
+      setConfirmPassword(value)
     }
   }
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if (value !== password) {
-          return false;
+        return false
       }
-      return true;
-    });
+      return true
+    })
     return () => {
-      ValidatorForm.removeValidationRule('isPasswordMatch');
+      ValidatorForm.removeValidationRule('isPasswordMatch')
     }
   })
 
@@ -85,21 +87,21 @@ const OrgSignUp = () => {
               <Grid item>
                 <TextValidator
                   id="org-name"
-                  label="Organization Name *" 
-                  value={orgName} 
+                  label="Organization Name *"
+                  value={orgName}
                   onChange={handleChange}
                   validators={['required']}
-                  errorMessages={['this field is required']} 
+                  errorMessages={['this field is required']}
                 />
-               </Grid>
+              </Grid>
               <Grid item>
-                <TextValidator 
-                  id="email" 
-                  label="Email *" 
-                  value={email} 
+                <TextValidator
+                  id="email"
+                  label="Email *"
+                  value={email}
                   onChange={handleChange}
                   validators={['required', 'isEmail']}
-                  errorMessages={['this field is required', 'email is not valid']} 
+                  errorMessages={['this field is required', 'email is not valid']}
                 />
               </Grid>
               <Grid item>
@@ -125,10 +127,8 @@ const OrgSignUp = () => {
                 />
               </Grid>
               <Grid item>
-                <Button 
-                  type='submit' 
-                  variant="contained">
-                    Register
+                <Button type="submit" variant="contained">
+                  Register
                 </Button>
               </Grid>
             </Grid>

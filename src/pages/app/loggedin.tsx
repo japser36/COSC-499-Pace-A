@@ -4,7 +4,6 @@ import Layout from '../../components/layout'
 import Profile from '../../components/Profile'
 import Button from '@material-ui/core/Button'
 
-
 const LoggedIn = () => {
   const { user, logout } = useUser()
   return (
@@ -13,9 +12,16 @@ const LoggedIn = () => {
         <>
           <h4>Signed in successfully!</h4>
           <p>-Details-</p>
-          <Profile id={user.uid}/>
+          <Profile id={user.uid} />
           <p>Email Verified: {user.emailVerified ? 'true' : 'false'}</p>
-          <Button variant='contained' onClick={() => {logout()}}>Logout</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              logout()
+            }}
+          >
+            Logout
+          </Button>
         </>
       ) : (
         <>

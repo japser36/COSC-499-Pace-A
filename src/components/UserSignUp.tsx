@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
@@ -29,30 +29,32 @@ const UserSignUp = ({ userType, org_id }) => {
         })
         //Add new user to the database
         fetch('/api/user/insert', {
-            method: 'POST',
-            body: JSON.stringify({
-                id: user.user.uid,
-                firstName: firstName,
-                lastName: lastName,
-                displayName: displayName,
-                email: email,
-                timezone: timezone.value,
-                skills: JSON.stringify(skills),
-                org_id: org_id,
-                userType: userType
-            }),
-            headers: {'Content-Type': 'application/json'}
-        }).then(res => res.json())
-          .then(json => console.log(json))
-          fetch('/api/metauser/insert', {
-            method: 'POST',
-            body: JSON.stringify({
-                id: user.user.uid,
-                userType: userType
-            }),
-            headers: {'Content-Type': 'application/json'}
-        }).then(res => res.json())
-          .then(json => console.log(json))
+          method: 'POST',
+          body: JSON.stringify({
+            id: user.user.uid,
+            firstName: firstName,
+            lastName: lastName,
+            displayName: displayName,
+            email: email,
+            timezone: timezone.value,
+            skills: JSON.stringify(skills),
+            org_id: org_id,
+            userType: userType,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((json) => console.log(json))
+        fetch('/api/metauser/insert', {
+          method: 'POST',
+          body: JSON.stringify({
+            id: user.user.uid,
+            userType: userType,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((res) => res.json())
+          .then((json) => console.log(json))
       })
       .catch((e) => {
         setError(e.message)
@@ -79,12 +81,12 @@ const UserSignUp = ({ userType, org_id }) => {
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if (value !== password) {
-          return false;
+        return false
       }
-      return true;
-    });
+      return true
+    })
     return () => {
-      ValidatorForm.removeValidationRule('isPasswordMatch');
+      ValidatorForm.removeValidationRule('isPasswordMatch')
     }
   })
 
@@ -100,40 +102,35 @@ const UserSignUp = ({ userType, org_id }) => {
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
               <Grid item>
                 <TextValidator
-                  id="first-name" 
-                  label="First Name *" 
-                  value={firstName} 
+                  id="first-name"
+                  label="First Name *"
+                  value={firstName}
                   onChange={handleChange}
                   validators={['required']}
-                  errorMessages={['this field is required']} 
+                  errorMessages={['this field is required']}
                 />
               </Grid>
               <Grid>
-                <TextValidator 
-                  id="last-name" 
-                  label="Last Name *" 
-                  value={lastName} 
+                <TextValidator
+                  id="last-name"
+                  label="Last Name *"
+                  value={lastName}
                   onChange={handleChange}
                   validators={['required']}
-                  errorMessages={['this field is required']} 
+                  errorMessages={['this field is required']}
                 />
               </Grid>
               <Grid item>
-                <TextField 
-                  id="display-name"
-                  label="Display Name" 
-                  value={displayName} 
-                  onChange={handleChange}
-                />
+                <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
               </Grid>
               <Grid item>
                 <TextValidator
-                  id="email" 
+                  id="email"
                   label="Email *"
-                  value={email} 
+                  value={email}
                   onChange={handleChange}
                   validators={['required', 'isEmail']}
-                  errorMessages={['this field is required', 'email is not valid']} 
+                  errorMessages={['this field is required', 'email is not valid']}
                 />
               </Grid>
               <Grid item>
@@ -144,7 +141,7 @@ const UserSignUp = ({ userType, org_id }) => {
                   onChange={handleChange}
                   type="password"
                   validators={['required']}
-                  errorMessages={['this field is required']} 
+                  errorMessages={['this field is required']}
                 />
               </Grid>
               <Grid item>
@@ -155,20 +152,18 @@ const UserSignUp = ({ userType, org_id }) => {
                   onChange={handleChange}
                   type="password"
                   validators={['required', 'isPasswordMatch']}
-                  errorMessages={['this field is required', 'password does not match']} 
+                  errorMessages={['this field is required', 'password does not match']}
                 />
               </Grid>
               <Grid item>
-                  <TimezoneSelect setTimezone={setTimezone}/>
+                <TimezoneSelect setTimezone={setTimezone} />
               </Grid>
               <Grid>
-                <SkillSelect setSkills={setSkills}/>
+                <SkillSelect setSkills={setSkills} />
               </Grid>
               <Grid>
-                <Button
-                  type='submit'
-                  variant="contained">
-                    Sign Up
+                <Button type="submit" variant="contained">
+                  Sign Up
                 </Button>
               </Grid>
             </Grid>

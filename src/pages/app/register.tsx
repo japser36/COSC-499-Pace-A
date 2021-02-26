@@ -7,13 +7,34 @@ export default function Register() {
   const [userType, setUserType] = useState('default')
   return (
     <Layout>
-      <Button variant='contained' onClick={() => {setUserType('org')}}>Register an Organization</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setUserType('org')
+        }}
+      >
+        Register an Organization
+      </Button>
       <br></br>
-      <Button variant='contained' onClick={() => {setUserType('mentee')}}>Register as a Mentee</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setUserType('mentee')
+        }}
+      >
+        Register as a Mentee
+      </Button>
       <br></br>
-      <Button variant='contained' onClick={() => {setUserType('mentor')}}>Register as a Mentor</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setUserType('mentor')
+        }}
+      >
+        Register as a Mentor
+      </Button>
       <br></br>
-      <SignUp userType={userType}/>
+      <SignUp userType={userType} />
     </Layout>
   )
 }

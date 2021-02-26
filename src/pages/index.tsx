@@ -9,9 +9,9 @@ const Home = () => {
   return (
     <Layout home>
       <p>{user ? 'Signed in.' : 'Not Signed in.'}</p>
-        <>
-          {user ? (
-            <>
+      <>
+        {user ? (
+          <>
             <Link href="/app/loggedin">
               <a>View User Information</a>
             </Link>
@@ -19,15 +19,15 @@ const Home = () => {
             <Link href="/">
               <a onClick={() => logout()}>Sign Out</a>
             </Link>
-            </>
-          ) : (
-            <div>
+          </>
+        ) : (
+          <div>
             <Link href="/app/login">
               <a>Sign In</a>
             </Link>
-            </div>
-          )}
-        </>
+          </div>
+        )}
+      </>
     </Layout>
   )
 }

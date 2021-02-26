@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import { getFirebaseAuth } from '../lib/firebase'
 
 const SignIn = () => {
@@ -46,9 +46,9 @@ const SignIn = () => {
         <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
           <Grid item>
             <TextValidator
-              id="email" 
-              label="Email" 
-              value={email} 
+              id="email"
+              label="Email"
+              value={email}
               onChange={handleChange}
               validators={['required', 'isEmail']}
               errorMessages={['this field is required', 'email is not valid']}
@@ -66,10 +66,8 @@ const SignIn = () => {
             />
           </Grid>
           <Grid>
-            <Button 
-              type='submit'
-              variant="contained">
-                Sign In
+            <Button type="submit" variant="contained">
+              Sign In
             </Button>
           </Grid>
         </Grid>

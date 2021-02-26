@@ -3,14 +3,14 @@ import { useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { TextValidator } from 'react-material-ui-form-validator';
+import { TextValidator } from 'react-material-ui-form-validator'
 import fetch from 'node-fetch'
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
 interface Timezone {
-  value: number,
-  label: string,
+  value: number
+  label: string
   abbr: string
 }
 
@@ -63,7 +63,7 @@ const TimezoneSelect = ({ setTimezone }) => {
           setOpen(false)
         }}
         onChange={(event, value) => {
-            setTimezone(value)
+          setTimezone(value)
         }}
         getOptionSelected={(option, value) => option.label === value.label}
         getOptionLabel={(option) => option.label}

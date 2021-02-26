@@ -7,10 +7,7 @@ export default async function addMetaUser(req: NextApiRequest, res: NextApiRespo
 
   const sql = `INSERT INTO metauser (id, userType)
               VALUES ($1, $2);`
-  const values = [
-    req.body.id,
-    req.body.userType,
-  ]
+  const values = [req.body.id, req.body.userType]
 
   await pool
     .query(sql, values)
