@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { getFirebaseAuth } from '../lib/firebase'
-import { useUser } from '../lib/auth/useUser'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -57,10 +56,12 @@ const SignIn = () => {
               type="password"
             />
           </Grid>
+          <Grid>
+            <Button variant="contained" onClick={signIn}>
+                Sign In
+            </Button>
+          </Grid>
         </Grid>
-        <Button variant="contained" onClick={signIn}>
-          Sign In
-        </Button>
       </div>
     </div>
   )
