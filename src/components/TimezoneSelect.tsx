@@ -2,21 +2,21 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Button from '@material-ui/core/Button'
+import { TextValidator } from 'react-material-ui-form-validator'
 import fetch from 'node-fetch'
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
-interface Skills {
-  name: string
+interface Timezone {
+  value: number
+  label: string
+  abbr: string
 }
 
-const SkillSelect = ({ setSkills }) => {
+const TimezoneSelect = ({ setTimezone }) => {
   const [open, setOpen] = useState(false)
-  const [options, setOptions] = useState<Skills[]>([])
-  //const [selected, setSelected] = useState<Skills[]>([])
+  const [options, setOptions] = useState<Timezone[]>([])
   const loading = open && options.length === 0
 
   useEffect(() => {
@@ -27,14 +27,14 @@ const SkillSelect = ({ setSkills }) => {
     }
 
     ;(async () => {
-      let skills = []
-      await fetch('../api/skills', { method: 'GET' })
+      let timezones = []
+      await fetch('../api/timezones', { method: 'GET' })
         .then((res) => res.json())
-        .then((res) => (skills = res.rows))
+        .then((res) => (timezones = res.rows))
 
-      //console.log(skills)
+      //console.log(timezones)
       if (active) {
-        setOptions(Object.keys(skills).map((key) => skills[key]) as Skills[])
+        setOptions(Object.keys(timezones).map((key) => timezones[key]) as Timezone[])
       }
     })()
 
@@ -52,10 +52,8 @@ const SkillSelect = ({ setSkills }) => {
   return (
     <>
       <AutoComplete
-        freeSolo
-        multiple
         clearOnBlur
-        id="skillsform"
+        id="timezoneselect"
         style={{ width: 300 }}
         open={open}
         onOpen={() => {
@@ -65,16 +63,18 @@ const SkillSelect = ({ setSkills }) => {
           setOpen(false)
         }}
         onChange={(event, value) => {
-          setSkills(Object.keys(value).map((key) => value[key]) as Skills[])
+          setTimezone(value)
         }}
-        getOptionSelected={(option, value) => option.name === value.name}
-        getOptionLabel={(option) => option.name}
+        getOptionSelected={(option, value) => option.label === value.label}
+        getOptionLabel={(option) => option.label}
         options={options}
         loading={loading}
         renderInput={(params) => (
-          <TextField
+          <TextValidator
             {...params}
-            label="Select Skills"
+            label="Timezone *"
+            validators={['required']}
+            errorMessages={['this field is required']}
             InputProps={{
               ...params.InputProps,
               endAdornment: (
@@ -91,4 +91,4 @@ const SkillSelect = ({ setSkills }) => {
   )
 }
 
-export default SkillSelect
+export default TimezoneSelect

@@ -28,7 +28,7 @@ const safeSend = async ({
   status?: number
   data: string
 }) => {
-  //console.log(`Sending Response [${status}]:`, data)
+  console.log(`Sending Response [${status}]:`, data)
   if (res.headersSent) {
     console.warn('Stopped a response since the response was already sent!')
   } else {
