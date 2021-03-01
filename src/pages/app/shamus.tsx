@@ -1,15 +1,29 @@
 import Head from 'next/head'
 import { matchMentors } from '../../utils/matching'
+import fetch from 'node-fetch'
+import Button from '@material-ui/core/Button'
 
-export default function Shamus({ data }) {
-  matchMentors('MENTEE1')
+export default function Shamus() {
+  const sendInvite = () => {
+    fetch('/api/sendmail/invitementor', {
+      method: 'POST',
+      body: JSON.stringify({
+        recipient: 'shamusboulianne@gmail.com',
+        org_id: 'TESTORG1'
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
   return (
     <>
       <Head>
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
-      <h2>{data}</h2>
+      <Button variant="contained" onClick={sendInvite}>
+        Send Invite Email
+      </Button>
     </>
   )
 }

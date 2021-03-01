@@ -7,7 +7,7 @@ import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
 
-const UserSignUp = ({ userType, org_id }) => {
+const UserSignUp = ({ userType, org_id, org_name }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -27,6 +27,7 @@ const UserSignUp = ({ userType, org_id }) => {
         auth.currentUser.sendEmailVerification().then(() => {
           setVerificationSent(true)
         })
+        auth.signOut()
         //Add new user to the database
         fetch('/api/user/insert', {
           method: 'POST',
@@ -96,7 +97,7 @@ const UserSignUp = ({ userType, org_id }) => {
         'Email verification sent.'
       ) : (
         <>
-          <h1>Sign up as a {userType}</h1>
+          <h1>Become a {userType} for {org_name}</h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">

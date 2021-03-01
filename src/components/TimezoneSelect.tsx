@@ -28,7 +28,7 @@ const TimezoneSelect = ({ setTimezone }) => {
 
     ;(async () => {
       let timezones = []
-      await fetch('../api/timezones', { method: 'GET' })
+      await fetch('/api/timezones', { method: 'GET' })
         .then((res) => res.json())
         .then((res) => (timezones = res.rows))
 
