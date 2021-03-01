@@ -7,7 +7,7 @@ import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
 
-const UserSignUp = ({ userType, org_id, org_name, mentor_email }) => {
+const UserSignUp = ({ userType, org_id, org_name, mentor_email=null }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
