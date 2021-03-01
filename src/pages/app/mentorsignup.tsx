@@ -1,6 +1,6 @@
 import Layout from '../../components/layout'
 import UserSignUp from '../../components/UserSignUp'
-import { getOrg, getAllOrgIds } from '../../utils/org'
+import { server } from '../../config'
 
 const MentorSignUp = ({ org_id, org_name, mentor_email }) => {
   return (
@@ -16,8 +16,10 @@ const MentorSignUp = ({ org_id, org_name, mentor_email }) => {
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.query)
-  const org = await getOrg(context.query.org_id)
+  let org
+  await fetch(`${server}/api/org/${context.query.org_id}`, {method: 'GET'})
+    .then((res) => res.json())
+    .then((res) => (org = res.rows[0]))
   return {
     props: {
       org_id: org.id,
