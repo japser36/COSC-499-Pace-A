@@ -7,11 +7,11 @@ import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
 
-const UserSignUp = ({ userType, org_id, org_name }) => {
+const UserSignUp = ({ userType, org_id, org_name, mentor_email }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(mentor_email ? mentor_email : '')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [timezone, setTimezone] = useState(null)
@@ -130,6 +130,9 @@ const UserSignUp = ({ userType, org_id, org_name }) => {
                   label="Email *"
                   value={email}
                   onChange={handleChange}
+                  InputProps={{
+                    readOnly: mentor_email ? true : false
+                  }}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']}
                 />
