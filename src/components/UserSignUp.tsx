@@ -161,6 +161,7 @@ const UserSignUp = ({ userType, org_id }) => {
               <Grid>
                 <SkillSelect setSkills={setSkills} />
               </Grid>
+            <br></br>
               <Grid>
                 <Button type="submit" variant="contained">
                   Sign Up
