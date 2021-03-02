@@ -21,6 +21,7 @@ const OrgSignUp = () => {
         auth.currentUser.sendEmailVerification().then(() => {
           setVerificationSent(true)
         })
+        auth.signOut()
         //Add new user to the database
         fetch('/api/org/insert', {
           method: 'POST',
