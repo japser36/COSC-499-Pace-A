@@ -11,7 +11,7 @@ export default function Login() {
 
   return (
   
-    <form action="action_page.php">
+    <form>
 
       <label htmlFor="FirstName"><b>First Name</b></label>
       <input id = "FirstName" type="text" placeholder="First Name" name="FirstName" required></input>
