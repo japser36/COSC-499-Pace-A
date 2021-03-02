@@ -12,6 +12,5 @@ export default function Login() {
   userType='Mentee'
   org_id={orgid}
 />
-       
   )
 }
