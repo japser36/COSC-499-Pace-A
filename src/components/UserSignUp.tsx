@@ -192,6 +192,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                   validators={['requireSkills']}
                   errorMessages={['this field is required']} />
               </Grid>
+            <br></br>
               <Grid>
                 <Button type="submit" variant="contained">
                   Sign Up
