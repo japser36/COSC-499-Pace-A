@@ -7,11 +7,11 @@ import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
 
-const UserSignUp = ({ userType, org_id }) => {
+const UserSignUp = ({ userType, org_id, org_name, mentor_email=null }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(mentor_email ? mentor_email : '')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [timezone, setTimezone] = useState(null)
@@ -27,6 +27,7 @@ const UserSignUp = ({ userType, org_id }) => {
         auth.currentUser.sendEmailVerification().then(() => {
           setVerificationSent(true)
         })
+        auth.signOut()
         //Add new user to the database
         fetch('/api/user/insert', {
           method: 'POST',
@@ -36,8 +37,8 @@ const UserSignUp = ({ userType, org_id }) => {
             lastName: lastName,
             displayName: displayName,
             email: email,
-            timezone: timezone.value,
-            skills: JSON.stringify(skills),
+            timezone: timezone ? timezone.value : null,
+            skills: skills ? JSON.stringify(skills) : null,
             org_id: org_id,
             userType: userType,
           }),
@@ -96,7 +97,7 @@ const UserSignUp = ({ userType, org_id }) => {
         'Email verification sent.'
       ) : (
         <>
-          <h1>Sign up as a {userType}</h1>
+          <h1>Become a {userType} for {org_name}</h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
@@ -129,6 +130,9 @@ const UserSignUp = ({ userType, org_id }) => {
                   label="Email *"
                   value={email}
                   onChange={handleChange}
+                  InputProps={{
+                    readOnly: mentor_email ? true : false
+                  }}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']}
                 />

@@ -1,11 +1,11 @@
-CREATE TABLE org (
+CREATE TABLE IF NOT EXISTS org (
 	id VARCHAR(127),
 	org_name VARCHAR(127),
 	email VARCHAR(127),
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 	id VARCHAR(127),
 	firstName VARCHAR(127),
 	lastName VARCHAR(127),
@@ -22,18 +22,21 @@ CREATE TABLE users (
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
-CREATE TABLE alluser (
+DROP TABLE IF EXISTS alluser;
+CREATE TABLE IF NOT EXISTS metauser (
 	id VARCHAR(127),
 	userType VARCHAR(7),
 	PRIMARY KEY(id)
-)
+);
 
-CREATE TABLE skill (
+DROP TABLE IF EXISTS skill;
+CREATE TABLE IF NOT EXISTS skill (
 	name VARCHAR(127),
 	PRIMARY KEY(name)
 );
 
-CREATE TABLE timezone (
+DROP TABLE IF EXISTS timezone;
+CREATE TABLE IF NOT EXISTS timezone (
 	value INT,
 	label VARCHAR(127),
 	abbr VARCHAR(127),

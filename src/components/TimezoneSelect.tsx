@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { TextValidator } from 'react-material-ui-form-validator'
 import fetch from 'node-fetch'
+import TextField from '@material-ui/core/TextField'
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
@@ -28,7 +28,7 @@ const TimezoneSelect = ({ setTimezone }) => {
 
     ;(async () => {
       let timezones = []
-      await fetch('../api/timezones', { method: 'GET' })
+      await fetch('/api/timezones', { method: 'GET' })
         .then((res) => res.json())
         .then((res) => (timezones = res.rows))
 
@@ -70,11 +70,9 @@ const TimezoneSelect = ({ setTimezone }) => {
         options={options}
         loading={loading}
         renderInput={(params) => (
-          <TextValidator
+          <TextField
             {...params}
-            label="Timezone *"
-            validators={['required']}
-            errorMessages={['this field is required']}
+            label="Timezone"
             InputProps={{
               ...params.InputProps,
               endAdornment: (

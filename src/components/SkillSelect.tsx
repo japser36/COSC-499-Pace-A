@@ -28,7 +28,7 @@ const SkillSelect = ({ setSkills }) => {
 
     ;(async () => {
       let skills = []
-      await fetch('../api/skills', { method: 'GET' })
+      await fetch('/api/skills', { method: 'GET' })
         .then((res) => res.json())
         .then((res) => (skills = res.rows))
 
