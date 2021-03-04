@@ -14,6 +14,16 @@ export default function Shamus() {
       headers: { 'Content-Type': 'application/json' },
     })
   }
+  const NotifyOfMatch = () => {
+    fetch('/api/sendmail/notifyofmatch', {
+      method: 'POST',
+      body: JSON.stringify({
+        mentee_id: 'bbVz7WDdeBMirPLWDmsS0fbVjLr1',
+        mentor_id: 'MyT8IaUH8dWhl6scNuN39I1MXC42'
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
 
   return (
     <>
@@ -23,6 +33,9 @@ export default function Shamus() {
       <h1>Shamus Dev Page</h1>
       <Button variant="contained" onClick={sendInvite}>
         Send Invite Email
+      </Button>
+      <Button variant="contained" onClick={NotifyOfMatch}>
+        Send Matched Notification
       </Button>
     </>
   )
