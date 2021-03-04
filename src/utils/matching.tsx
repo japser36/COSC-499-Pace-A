@@ -67,7 +67,9 @@ function numCommonSkills(mentee, mentor) {
 
 //Returns the difference in timezones
 function timezoneDiff(mentee, mentor) {
-  return Math.abs(mentee.timezone - mentor.timezone)
+  const mentee_timezone = JSON.parse(mentee.timezone)
+  const mentor_timezone = JSON.parse(mentor.timezone)
+  return Math.abs(mentee_timezone.value - mentor_timezone.value)
 }
 
 //Returns a heuristic value based on number of common skills and timezone difference

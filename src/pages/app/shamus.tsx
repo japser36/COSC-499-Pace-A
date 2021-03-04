@@ -18,8 +18,8 @@ export default function Shamus() {
     fetch('/api/sendmail/notifyofmatch', {
       method: 'POST',
       body: JSON.stringify({
-        mentee_id: 'bbVz7WDdeBMirPLWDmsS0fbVjLr1',
-        mentor_id: 'MyT8IaUH8dWhl6scNuN39I1MXC42'
+        mentee_id: 'DeBFR9YirCgB2SaLhB6lNBVE4lK2',
+        mentor_id: '87225EYB2SR3Q1nbu2pDGQ1FsVP2'
       }),
       headers: { 'Content-Type': 'application/json' },
     })
