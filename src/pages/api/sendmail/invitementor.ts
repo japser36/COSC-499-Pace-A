@@ -7,7 +7,7 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
   res.setHeader('Content-Type', 'application/json')
 
   let org
-  await fetch(`${server}/api/org/${req.body.org_id}`, {method: 'GET'})
+  await fetch(`${server}/api/org/${req.body.org_id}`, { method: 'GET' })
     .then((res) => res.json())
     .then((res) => (org = res.rows[0]))
 
@@ -19,25 +19,24 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
     service: 'gmail',
     auth: {
       user: 'mentor.io.noreply@gmail.com',
-      pass: 'cosc499pacea'
-    }
+      pass: 'cosc499pacea',
+    },
   })
 
   const mailOptions = {
     from: 'mentor.io.noreply@gmail.com',
     to: req.body.recipient,
     subject: 'Invitation to Become a Mentor',
-    html: emailBody
+    html: emailBody,
   }
 
   await transporter.sendMail(mailOptions, async (error, info) => {
     if (error) {
-      await safeSend({res, status: 400, data: JSON.stringify({ error: error.toString() })})
+      await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
     } else {
       await safeSend({ res, data: JSON.stringify({ success: true, info }) })
     }
   })
-
 }
 
 const safeSend = async ({

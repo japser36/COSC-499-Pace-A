@@ -7,7 +7,7 @@ import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
 import { getFirebaseAuth } from '../lib/firebase'
 
-const UserSignUp = ({ userType, org_id, org_name, mentor_email=null }) => {
+const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -97,7 +97,9 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email=null }) => {
         'Email verification sent.'
       ) : (
         <>
-          <h1>Become a {userType} for {org_name}</h1>
+          <h1>
+            Become a {userType} for {org_name}
+          </h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
             <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
@@ -131,7 +133,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email=null }) => {
                   value={email}
                   onChange={handleChange}
                   InputProps={{
-                    readOnly: mentor_email ? true : false
+                    readOnly: mentor_email ? true : false,
                   }}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']}

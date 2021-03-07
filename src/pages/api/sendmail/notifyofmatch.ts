@@ -6,16 +6,16 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-    let mentee
-    await fetch(`${server}/api/user/${req.body.mentee_id}`, {method: 'GET'})
-        .then((res) => res.json())
-        .then((res) => (mentee = res.rows[0]))
-    let mentor
-    await fetch(`${server}/api/user/${req.body.mentor_id}`, {method: 'GET'})
-        .then((res) => res.json())
-        .then((res) => (mentor = res.rows[0]))
+  let mentee
+  await fetch(`${server}/api/user/${req.body.mentee_id}`, { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => (mentee = res.rows[0]))
+  let mentor
+  await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => (mentor = res.rows[0]))
 
-    const link = `${server}/app/match?mentee_id=${mentee.id}&mentor_id=${mentor.id}`
+  const link = `${server}/app/match?mentee_id=${mentee.id}&mentor_id=${mentor.id}`
 
   const emailBody = `<h3>A new mentee has matched with you. Review their details and decide if you want to mentor them.</h3>
   <p>Mentee: ${mentee.displayname}</p>
@@ -28,35 +28,34 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
     service: 'gmail',
     auth: {
       user: 'mentor.io.noreply@gmail.com',
-      pass: 'cosc499pacea'
-    }
+      pass: 'cosc499pacea',
+    },
   })
 
   const mailOptions = {
     from: 'mentor.io.noreply@gmail.com',
     to: mentor.email,
     subject: 'A mentee has matched with you!',
-    html: emailBody
+    html: emailBody,
   }
 
   await transporter.sendMail(mailOptions, async (error, info) => {
     if (error) {
-      await safeSend({res, status: 400, data: JSON.stringify({ error: error.toString() })})
+      await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
     } else {
       await safeSend({ res, data: JSON.stringify({ success: true, info }) })
     }
   })
-
 }
 
 const parseSkills = (skills) => {
-    let out = ''
-    skills = JSON.parse(skills)
-    skills.forEach(skill => {
-        out = out.concat(skill.name, ', ')
-    });
-    return out
-} 
+  let out = ''
+  skills = JSON.parse(skills)
+  skills.forEach((skill) => {
+    out = out.concat(skill.name, ', ')
+  })
+  return out
+}
 
 const safeSend = async ({
   res,
