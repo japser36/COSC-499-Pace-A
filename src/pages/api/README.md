@@ -134,3 +134,15 @@ skills - Skill Array. An array of Skill objects.
 
 {id: 'MENTEE1',
 skills: [{name: 'Math'},{name: 'Programming'}]}
+
+## /user/get-mentees/[mentor_id]
+
+Returns all the users with the given mentor_id.
+
+### Paramaters:
+
+mentor_id - String. A mentors id.
+
+### Response Example
+
+`{"success":true,"rows":[{"id":"MENTEE1","firstname":"FNmentee1","lastname":"LNmentee1","displayname":"DNmentee1","email":"mentee1@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG1","usertype":"mentee","mentor_id":"MENTOR1"},{"id":"MENTEE2","firstname":"FNmentee2","lastname":"LNmentee2","displayname":"DNmentee2","email":"mentee2@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG2","usertype":"mentee","mentor_id":"MENTOR1"}]}`

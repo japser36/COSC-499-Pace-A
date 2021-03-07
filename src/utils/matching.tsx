@@ -54,6 +54,7 @@ function numCommonSkills(mentee, mentor) {
   const mentee_skills = JSON.parse(mentee.skills)
   const mentor_skills = JSON.parse(mentor.skills)
 
+  if (mentee_skills && mentor_skills) {
   for (let i = 0; i < mentee_skills.length; i++) {
     for (let j = 0; j < mentor_skills.length; j++) {
       if (mentee_skills[i].name === mentor_skills[j].name) {
@@ -61,6 +62,7 @@ function numCommonSkills(mentee, mentor) {
       }
     }
   }
+}
 
   return count
 }
