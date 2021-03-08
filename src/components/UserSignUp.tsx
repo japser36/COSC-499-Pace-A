@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { 
+  Grid,
+  TextField,
+  Button
+} from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from './TimezoneSelect'
 import SkillSelect from './SkillSelect'
@@ -15,7 +17,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [timezone, setTimezone] = useState(null)
-  const [skills, setSkills] = useState(null)
+  const [skills, setSkills] = useState([])
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
   const auth = getFirebaseAuth()
@@ -38,7 +40,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
             displayName: displayName ? displayName : firstName + ' ' + lastName,
             email: email,
             timezone: timezone ? JSON.stringify(timezone) : null,
-            skills: skills ? JSON.stringify(skills) : null,
+            skills: skills.length===0 ? JSON.stringify(skills) : null,
             org_id: org_id,
             userType: userType,
           }),
@@ -80,14 +82,29 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   }
 
   useEffect(() => {
+    console.log(skills)
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if (value !== password) {
         return false
       }
       return true
     })
+    ValidatorForm.addValidationRule('requireTimezone', (value) => {
+      if (!timezone) {
+        return false
+      }
+      return true
+    })
+    ValidatorForm.addValidationRule('requireSkills', (value) => {
+      if (skills.length === 0) {
+        return false
+      }
+      return true
+    })
     return () => {
       ValidatorForm.removeValidationRule('isPasswordMatch')
+      ValidatorForm.removeValidationRule('requireTimezone')
+      ValidatorForm.removeValidationRule('requireSkills')
     }
   })
 
@@ -162,10 +179,18 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                 />
               </Grid>
               <Grid item>
-                <TimezoneSelect setTimezone={setTimezone} />
+                <TimezoneSelect 
+                  setTimezone={setTimezone}
+                  required
+                  validators={['requireTimezone']}
+                  errorMessages={['this field is required']} />
               </Grid>
               <Grid>
-                <SkillSelect setSkills={setSkills} />
+                <SkillSelect 
+                  setSkills={setSkills}
+                  required
+                  validators={['requireSkills']}
+                  errorMessages={['this field is required']} />
               </Grid>
               <Grid>
                 <Button type="submit" variant="contained">

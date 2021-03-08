@@ -39,7 +39,7 @@ export default function Shamus() {
       <Button variant="contained" onClick={NotifyOfMatch}>
         Send Matched Notification
       </Button>
-      <UserCard id="MENTOR1" />
+      <UserCard id="MENTEE1" />
     </>
   )
 }
