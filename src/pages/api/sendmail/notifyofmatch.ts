@@ -15,15 +15,14 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
     .then((res) => res.json())
     .then((res) => (mentor = res.rows[0]))
 
-  const link = `${server}/app/match?mentee_id=${mentee.id}&mentor_id=${mentor.id}`
+  const link = `${server}/app/login`
 
-  const emailBody = `<h3>A new mentee has matched with you. Review their details and decide if you want to mentor them.</h3>
+  const emailBody = `<h3>You've been matched with a new mentee. Review their details and decide if you want to mentor them.</h3>
   <p>Mentee: ${mentee.displayname}</p>
   <p>Desired Skills: ${parseSkills(mentee.skills)}</p>
   <p>Timezone: ${JSON.parse(mentee.timezone).label}
   <br></br>
-  <p><a href=${link}>Click here to begin mentoring ${mentee.displayname}</a></p>
-  <p>Ignore this email to decline.</p>`
+  <p><a href=${link}>Click here to login to mentor.io</a></p>`
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

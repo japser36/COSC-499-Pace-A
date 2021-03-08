@@ -20,8 +20,8 @@ export default function Shamus() {
     fetch('/api/sendmail/notifyofmatch', {
       method: 'POST',
       body: JSON.stringify({
-        mentee_id: 'DeBFR9YirCgB2SaLhB6lNBVE4lK2',
-        mentor_id: '87225EYB2SR3Q1nbu2pDGQ1FsVP2',
+        mentee_id: 'MENTEE1',
+        mentor_id: 'MxSFrMRCggPNEOrdcrIZkQ85Fk63',
       }),
       headers: { 'Content-Type': 'application/json' },
     })
@@ -39,7 +39,7 @@ export default function Shamus() {
       <Button variant="contained" onClick={NotifyOfMatch}>
         Send Matched Notification
       </Button>
-      <UserCard id="MENTEE1" />
+      <UserCard id="MxSFrMRCggPNEOrdcrIZkQ85Fk63" />
     </>
   )
 }
