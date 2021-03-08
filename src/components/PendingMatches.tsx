@@ -24,7 +24,7 @@ const PendingMatches = ({ mentor_id }) => {
           key={pendingmatch.id}
           mentee_id={pendingmatch.mentee_id}
           mentor_id={mentor_id}
-          shared_skills={pendingmatch.skills}
+          matched_skills={pendingmatch.skills}
         />
       ))}
     </Paper>

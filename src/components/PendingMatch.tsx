@@ -13,21 +13,31 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
-import { fetcher, acceptPendingMatch } from '../utils/api'
+import { fetcher, acceptPendingMatch, declinePendingMatch } from '../utils/api'
 
-const PendingMatch = ({ mentee_id, mentor_id, shared_skills }) => {
+const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
-  const [accepted, setAccepted] = useState(false)
+  const [status, setStatus] = useState('pending')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
   const handleAccept = () => {
     acceptPendingMatch(mentee_id, mentor_id)
       .then(() => {
-        setAccepted(true)
+        setStatus('accepted')
         setOpen(false)
       })
       .catch((error) => {
         console.log(error)
       })
+  }
+  const handleDecline = () => {
+    declinePendingMatch(mentee_id, mentor_id)
+        .then(() => {
+            setStatus('declined')
+            setOpen(false)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
   }
 
   if (error) {
@@ -41,30 +51,34 @@ const PendingMatch = ({ mentee_id, mentor_id, shared_skills }) => {
   return (
     <Card variant="outlined">
       <CardHeader
-        disabled={accepted}
+        disabled={status}
         onClick={() => {
           setOpen(!open)
         }}
         action={<IconButton>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
-        title={accepted ? `${mentee.displayname}: Accepted` : mentee.displayname}
+        title={mentee.displayname}
+        subheader={status}
       />
       <Divider />
       <Collapse in={open} unmountOnExit>
         <CardContent>
-          <Typography variant="h6">{'Shared Skills:'}</Typography>
-          {JSON.parse(shared_skills).map((skill) => (
+          <Typography variant="body1">{JSON.parse(mentee.timezone).label}</Typography>
+          <Typography variant="h6">{'Matched Skills:'}</Typography>
+          {JSON.parse(matched_skills).map((skill) => (
             <Typography key={skill.name} variant="body1">
               {skill.name}
             </Typography>
           ))}
-          <Typography variant="body1">{JSON.parse(mentee.timezone).label}</Typography>
-          {accepted ? null : (
+          {status==='pending' ? (
             <CardActions>
               <Button size="large" variant="contained" onClick={handleAccept}>
                 ACCEPT
               </Button>
+              <Button size="large" variant="contained" onClick={handleDecline}>
+                DECLINE
+              </Button>
             </CardActions>
-          )}
+          ) : null}
         </CardContent>
       </Collapse>
     </Card>

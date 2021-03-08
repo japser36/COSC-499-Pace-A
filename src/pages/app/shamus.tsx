@@ -3,6 +3,7 @@ import { matchMentors } from '../../utils/matching'
 import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
 import PendingMatches from '../../components/PendingMatches'
+import UserCard from '../../components/UserCard'
 
 export default function Shamus() {
   const sendInvite = () => {
@@ -38,7 +39,7 @@ export default function Shamus() {
       <Button variant="contained" onClick={NotifyOfMatch}>
         Send Matched Notification
       </Button>
-      <PendingMatches mentor_id="MENTOR1" />
+      <UserCard id="MENTOR1" />
     </>
   )
 }

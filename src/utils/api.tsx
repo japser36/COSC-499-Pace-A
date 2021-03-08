@@ -20,4 +20,15 @@ const acceptPendingMatch = async (mentee_id, mentor_id) => {
   })
 }
 
-export { fetcher, acceptPendingMatch }
+const declinePendingMatch = async (mentee_id, mentor_id) =>{
+    await fetch(`/api/pendingmatches/deleterow`, {
+        method: 'POST',
+        body: JSON.stringify({
+          mentee_id: mentee_id,
+          mentor_id: mentor_id
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+}
+
+export { fetcher, acceptPendingMatch, declinePendingMatch }
