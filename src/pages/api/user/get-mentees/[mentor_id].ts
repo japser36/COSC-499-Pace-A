@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import pool from '../../../lib/db'
+import pool from '../../../../lib/db'
 
-export default async function getOrg(req: NextApiRequest, res: NextApiResponse) {
+export default async function getMentees(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  const sql = `SELECT id FROM org;`
-  const values = []
+  const sql = `SELECT * FROM users WHERE mentor_id=$1;`
+  const values = [req.query.mentor_id]
 
   await pool
     .query(sql, values)
@@ -28,7 +28,7 @@ const safeSend = async ({
   status?: number
   data: string
 }) => {
-  // console.log(`Sending Response [${status}]:`, data)
+  console.log(`Sending Response [${status}]:`, data)
   if (res.headersSent) {
     console.warn('Stopped a response since the response was already sent!')
   } else {

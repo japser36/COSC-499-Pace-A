@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Button from '@material-ui/core/Button'
 import fetch from 'node-fetch'
+import { TextValidator } from 'react-material-ui-form-validator'
+
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
@@ -13,10 +12,9 @@ interface Skills {
   name: string
 }
 
-const SkillSelect = ({ setSkills }) => {
+const SkillSelect = ({ setSkills, required = false, validators = [], errorMessages = [] }) => {
   const [open, setOpen] = useState(false)
   const [options, setOptions] = useState<Skills[]>([])
-  //const [selected, setSelected] = useState<Skills[]>([])
   const loading = open && options.length === 0
 
   useEffect(() => {
@@ -52,7 +50,6 @@ const SkillSelect = ({ setSkills }) => {
   return (
     <>
       <AutoComplete
-        freeSolo
         multiple
         clearOnBlur
         id="skillsform"
@@ -72,9 +69,11 @@ const SkillSelect = ({ setSkills }) => {
         options={options}
         loading={loading}
         renderInput={(params) => (
-          <TextField
+          <TextValidator
             {...params}
-            label="Select Skills"
+            validators={validators}
+            errorMessages={errorMessages}
+            label={required ? 'Select Skills *' : 'Select Skills'}
             InputProps={{
               ...params.InputProps,
               endAdornment: (
