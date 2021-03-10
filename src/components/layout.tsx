@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import Navbar from './Navbar/Navbar'
 
 export const siteTitle = 'Capstone Pace A'
 
@@ -48,6 +49,7 @@ export default function Layout({
             <h2 className={utilStyles.heading2Xl}>{title}</h2>
           </>
         )}
+        <Navbar />
       </header>
       <main>{children}</main>
       {!home && (
