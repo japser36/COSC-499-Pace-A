@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import UserSignUp from '../../components/UserSignUp'
+//import UserSignUp from '../../components/UserSignUp'
 //import useSWR from 'swr'
 
 export default function Login(): JSX.Element {
@@ -14,5 +14,5 @@ export default function Login(): JSX.Element {
     return <p> Loading... </p>
   }
 
-  return <UserSignUp userType="Mentee" org_id={orgid} />
+  //return <UserSignUp userType="Mentee" org_id={orgid} />
 }
