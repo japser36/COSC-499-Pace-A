@@ -1,12 +1,3 @@
-import { useState } from 'react'
-import UserTypeField from './UserTypeField'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import MenuItem from '@material-ui/core/MenuItem'
-import { getFirebaseAuth } from '../lib/firebase'
-import axios from 'axios'
-import {Collapse} from 'react-collapse';
 import OrgSignUp from '../components/OrgSignUp'
 import UserSignUp from '../components/UserSignUp'
 

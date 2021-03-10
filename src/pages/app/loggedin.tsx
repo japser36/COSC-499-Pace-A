@@ -3,11 +3,6 @@ import { useUser } from '../../lib/auth/useUser'
 import Layout from '../../components/layout'
 import Profile from '../../components/Profile'
 import Button from '@material-ui/core/Button'
-import Navbar from '../../components/Navbar/Navbar'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import authPage from '../authPage'
-import dashboard from '../dashboard'
-import profile from '../profile'
 
 const LoggedIn = () => {
   const { user, logout } = useUser()
