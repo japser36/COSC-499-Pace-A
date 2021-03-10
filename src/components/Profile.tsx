@@ -22,7 +22,7 @@ const Profile = ({ id }) => {
     case 'mentor':
       return <MentorProfile id={id} />
     default:
-      return <></>
+      return <>There is no profile for this user/user type</>
   }
 }
 

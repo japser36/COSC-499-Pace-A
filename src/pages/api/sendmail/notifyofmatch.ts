@@ -2,19 +2,27 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
 import { server } from '../../../config'
 
-export default async function InviteMentor(req: NextApiRequest, res: NextApiResponse) {
+export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  let org
-  await fetch(`${server}/api/org/${req.body.org_id}`, { method: 'GET' })
+  let mentee
+  await fetch(`${server}/api/user/${req.body.mentee_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => (org = res.rows[0]))
+    .then((res) => (mentee = res.rows[0]))
+  let mentor
+  await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => (mentor = res.rows[0]))
 
-  const link = `${server}/app/mentorsignup?org_id=${org.id}&recipient=${req.body.recipient}`
+  const link = `${server}/app/login`
 
-  const emailBody = `<p>You've been invited by ${org.org_name} to become a mentor with their organization.</p>
-  <a href=${link}>Click here to accept and sign up today.</a>`
+  const emailBody = `<h3>You've been matched with a new mentee. Review their details and decide if you want to mentor them.</h3>
+  <p>Mentee: ${mentee.displayname}</p>
+  <p>Desired Skills: ${parseSkills(mentee.skills)}</p>
+  <p>Timezone: ${JSON.parse(mentee.timezone).label}
+  <br></br>
+  <p><a href=${link}>Click here to login to mentor.io</a></p>`
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -25,8 +33,8 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
 
   const mailOptions = {
     from: 'mentor.io.noreply@gmail.com',
-    to: req.body.recipient,
-    subject: 'Invitation to Become a Mentor',
+    to: mentor.email,
+    subject: 'A mentee has matched with you!',
     html: emailBody,
   }
 
@@ -37,6 +45,15 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
       await safeSend({ res, data: JSON.stringify({ success: true, info }) })
     }
   })
+}
+
+const parseSkills = (skills) => {
+  let out = ''
+  skills = JSON.parse(skills)
+  skills.forEach((skill) => {
+    out = out.concat(skill.name, ', ')
+  })
+  return out
 }
 
 const safeSend = async ({
