@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import Navbar from './Navbar/Navbar'
 
 export const siteTitle = 'Mentor.io'
 
@@ -58,7 +59,20 @@ export default function Layout({
             </Link>
           </div>
         )}
+<<<<<<< HEAD
       </div>
+=======
+        <Navbar />
+      </header>
+      <main>{children}</main>
+      {!home && (
+        <div className={styles.backToHome}>
+          <Link href="/">
+            <a>← Back to home</a>
+          </Link>
+        </div>
+      )}
+>>>>>>> develop
     </div>
   )
 }
