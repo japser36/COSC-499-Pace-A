@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import SignIn from './SignIn'
-import SignUp from './SignUp'
 import PasswordReset from './PasswordReset'
 import Button from '@material-ui/core/Button'
 
 const SignInFlow = () => {
   const [component, setComponent] = useState('signin')
+  const router = useRouter()
   switch (component) {
     case 'signin':
       return (
@@ -16,7 +17,7 @@ const SignInFlow = () => {
             <Button
               variant="text"
               onClick={() => {
-                setComponent('signup')
+                router.push('../app/register')
               }}
             >
               Sign Up Here
@@ -31,23 +32,6 @@ const SignInFlow = () => {
               }}
             >
               Reset Your Password
-            </Button>
-          </p>
-        </div>
-      )
-    case 'signup':
-      return (
-        <div>
-          <SignUp />
-          <p>
-            Already have an account?
-            <Button
-              variant="text"
-              onClick={() => {
-                setComponent('signin')
-              }}
-            >
-              Sign In Here
             </Button>
           </p>
         </div>

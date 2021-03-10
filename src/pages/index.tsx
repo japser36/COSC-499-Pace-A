@@ -1,27 +1,35 @@
 import Link from 'next/link'
 import { useUser } from '../lib/auth/useUser'
 import Layout from '../components/layout'
+import { useState } from 'react'
 
-export default function Home() {
+const Home = () => {
   const { user, logout } = useUser()
+  const [userType, setUserType] = useState('default')
   return (
     <Layout home>
       <p>{user ? 'Signed in.' : 'Not Signed in.'}</p>
-      <h5>Mini Dev Menu:</h5>
-      <ul>
-        <li></li>
-        <li>
-          {user ? (
+      <>
+        {user ? (
+          <>
+            <Link href="/app/loggedin">
+              <a>View User Information</a>
+            </Link>
+            <br></br>
             <Link href="/">
-              <a onClick={() => logout()}>Sign Out Test</a>
+              <a onClick={() => logout()}>Sign Out</a>
             </Link>
-          ) : (
+          </>
+        ) : (
+          <div>
             <Link href="/app/login">
-              <a>Sign In Test</a>
+              <a>Sign In</a>
             </Link>
-          )}
-        </li>
-      </ul>
+          </div>
+        )}
+      </>
     </Layout>
   )
 }
+
+export default Home

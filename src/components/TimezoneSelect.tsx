@@ -5,16 +5,17 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import fetch from 'node-fetch'
 import { TextValidator } from 'react-material-ui-form-validator'
 
-
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
-interface Skills {
-  name: string
+interface Timezone {
+  value: number
+  label: string
+  abbr: string
 }
 
-const SkillSelect = ({ setSkills, required = false, validators = [], errorMessages = [] }) => {
+const TimezoneSelect = ({ setTimezone, required = false, validators = [], errorMessages = [] }) => {
   const [open, setOpen] = useState(false)
-  const [options, setOptions] = useState<Skills[]>([])
+  const [options, setOptions] = useState<Timezone[]>([])
   const loading = open && options.length === 0
 
   useEffect(() => {
@@ -25,14 +26,14 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
     }
 
     ;(async () => {
-      let skills = []
-      await fetch('/api/skills', { method: 'GET' })
+      let timezones = []
+      await fetch('/api/timezones', { method: 'GET' })
         .then((res) => res.json())
-        .then((res) => (skills = res.rows))
+        .then((res) => (timezones = res.rows))
 
-      //console.log(skills)
+      //console.log(timezones)
       if (active) {
-        setOptions(Object.keys(skills).map((key) => skills[key]) as Skills[])
+        setOptions(Object.keys(timezones).map((key) => timezones[key]) as Timezone[])
       }
     })()
 
@@ -50,9 +51,8 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
   return (
     <>
       <AutoComplete
-        multiple
         clearOnBlur
-        id="skillsform"
+        id="timezoneselect"
         style={{ width: 300 }}
         open={open}
         onOpen={() => {
@@ -62,10 +62,10 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
           setOpen(false)
         }}
         onChange={(event, value) => {
-          setSkills(Object.keys(value).map((key) => value[key]) as Skills[])
+          setTimezone(value)
         }}
-        getOptionSelected={(option, value) => option.name === value.name}
-        getOptionLabel={(option) => option.name}
+        getOptionSelected={(option, value) => option.label === value.label}
+        getOptionLabel={(option) => option.label}
         options={options}
         loading={loading}
         renderInput={(params) => (
@@ -73,7 +73,7 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
             {...params}
             validators={validators}
             errorMessages={errorMessages}
-            label={required ? 'Select Skills *' : 'Select Skills'}
+            label={required ? 'Timezone *' : 'Timezone'}
             InputProps={{
               ...params.InputProps,
               endAdornment: (
@@ -90,4 +90,4 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
   )
 }
 
-export default SkillSelect
+export default TimezoneSelect

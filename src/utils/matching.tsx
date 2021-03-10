@@ -54,10 +54,12 @@ function numCommonSkills(mentee, mentor) {
   const mentee_skills = JSON.parse(mentee.skills)
   const mentor_skills = JSON.parse(mentor.skills)
 
-  for (let i = 0; i < mentee_skills.length; i++) {
-    for (let j = 0; j < mentor_skills.length; j++) {
-      if (mentee_skills[i].name === mentor_skills[j].name) {
-        count++
+  if (mentee_skills && mentor_skills) {
+    for (let i = 0; i < mentee_skills.length; i++) {
+      for (let j = 0; j < mentor_skills.length; j++) {
+        if (mentee_skills[i].name === mentor_skills[j].name) {
+          count++
+        }
       }
     }
   }
@@ -67,7 +69,9 @@ function numCommonSkills(mentee, mentor) {
 
 //Returns the difference in timezones
 function timezoneDiff(mentee, mentor) {
-  return Math.abs(mentee.timezone - mentor.timezone)
+  const mentee_timezone = JSON.parse(mentee.timezone)
+  const mentor_timezone = JSON.parse(mentor.timezone)
+  return Math.abs(mentee_timezone.value - mentor_timezone.value)
 }
 
 //Returns a heuristic value based on number of common skills and timezone difference

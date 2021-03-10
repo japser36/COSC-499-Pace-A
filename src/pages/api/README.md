@@ -19,12 +19,29 @@ Does not take any paramaters.
 
 ## /skills - GET
 
-Returns all the skills stored in the database. Response is length limited to 1000 skills.
+Returns all the skills stored in the database.
 
 ### Response Example:
 
 `{success:true,
 rows:[{name:"Math"},{name:"Language"},{name:"Programming"},{name:"Visual Arts"},{name:"Cooking"},{name:"Management"},{name:"Physics"},{name:"Chemistry"},{name:"Biology"},{name:"Public Speaking"}]}`
+
+## /timezones - GET
+
+Returns all the timezones stored in the database.
+
+### Response Example:
+
+`{"success":true,"rows":[{"value":0,"label":"(GMT+0:00) Greenwich Mean Time","abbr":"GMT"},{"value":0,"label":"(GMT+0:00) UniversalCoordinated Time","abbr":"UTC"},{"value":1,"label":"(GMT+1:00) European Central Time","abbr":"ECT"},{"value":2,"label":"(GMT+2:00) Eastern European Time","abbr":"EET"},{"value":2,"label":"(GMT+2:00) Arabic Standard Time","abbr":"ART"},{"value":3,"label":"(GMT+3:00) Eastern African Time","abbr":"EAT"},{"value":4,"label":"(GMT+4:00) Near East Time","abbr":"NET"},{"value":5,"label":"(GMT+5:00) Pakistan Lahore Time","abbr":"PLT"},{"value":6,"label":"(GMT+6:00) Bangladesh Standard Time","abbr":"BST"},{"value":7,"label":"(GMT+7:00) Vietnam Standard Time","abbr":"VST"},{"value":8,"label":"(GMT+8:00) China Taiwan Time","abbr":"CTT"},{"value":9,"label":"(GMT+9:00) Japan Standard Time","abbr":"JST"},{"value":10,"label":"(GMT+10:00) Australia Eastern Time","abbr":"AET"},{"value":11,"label":"(GMT+11:00) Solomon Standard Time","abbr":"SST"},{"value":12,"label":"(GMT+12:00) New Zealand Standard Time","abbr":"NST"},{"value":-11,"label":"(GMT-11:00) Midway Islands Time","abbr":"MIT"},{"value":-10,"label":"(GMT-10:00) Hawaii Standard Time","abbr":"HST"},{"value":-9,"label":"(GMT-9:00) Alaska Standard Time","abbr":"AST"},{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"},{"value":-7,"label":"(GMT-7:00) Phoenix Standard Time","abbr":"PNT"},{"value":-7,"label":"(GMT-7:00) Mountain Standard Time","abbr":"MST"},{"value":-6,"label":"(GMT-6:00) Central Standard Time","abbr":"CST"},{"value":-5,"label":"(GMT-5:00) Eastern Standard Time","abbr":"EST"},{"value":-5,"label":"(GMT-5:00) Indiana Eastern Standard Time","abbr":"IET"},{"value":-4,"label":"(GMT-4:00) Puerto Rico and US Virgin Islands Time","abbr":"PRT"},{"value":-3,"label":"(GMT-3:00) Argentina Standard Time","abbr":"AGT"},{"value":-3,"label":"(GMT-3:00) Brazil Eastern Time","abbr":"BET"},{"value":-1,"label":"(GMT-1:00) Central African Time","abbr":"CAT"}]}`
+
+## /sendmail/invitementor - POST
+
+Sends an email to the given recipient with an invitation link to sign up as a mentor.
+
+### Paramaters:
+
+org_id - String. The id of the organization sending the invite.
+recipient - String. The email to which the invite will be sent.
 
 ## /org/[id] - GET
 
@@ -32,12 +49,16 @@ Returns the database entry for the organization with the given id.
 
 ### Paramaters:
 
-id - String. the organization id
+id - String. The organization id
 
 ### Response Example
 
 `{success:true,
 rows:[{id:"TESTORG1",org_name:"ORGNAME1",email:"org1@test.ca"}]}`
+
+## /org/getall - GET
+
+Returns the id for every org in the database.
 
 ## /org/insert - POST
 
@@ -113,3 +134,45 @@ skills - Skill Array. An array of Skill objects.
 
 {id: 'MENTEE1',
 skills: [{name: 'Math'},{name: 'Programming'}]}
+
+## /user/get-mentees/[mentor_id] - GET
+
+Returns all the mentees with the given mentor_id.
+
+### Paramaters:
+
+mentor_id - String. A mentors id.
+
+### Response Example
+
+`{"success":true,"rows":[{"id":"MENTEE1","firstname":"FNmentee1","lastname":"LNmentee1","displayname":"DNmentee1","email":"mentee1@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG1","usertype":"mentee","mentor_id":"MENTOR1"},{"id":"MENTEE2","firstname":"FNmentee2","lastname":"LNmentee2","displayname":"DNmentee2","email":"mentee2@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG2","usertype":"mentee","mentor_id":"MENTOR1"}]}`
+
+## /pendingmatches/[mentor_id] - GET
+
+Returns all the pending matches with the given mentor_id
+
+### Paramaters:
+
+mentor_id - String. A mentors id.
+
+### Response Example
+
+`{"success":true,"rows":[{"id":1,"mentee_id":"MENTEE2","mentor_id":"MENTOR1","skills":"[{\"name\":\"Programming\"},{\"name\":\"Math\"}]"},{"id":2,"mentee_id":"MENTEE3","mentor_id":"MENTOR1","skills":"[{\"name\":\"Programming\"},{\"name\":\"Physics\"}]"},{"id":3,"mentee_id":"MENTEE4","mentor_id":"MENTOR1","skills":"[{\"name\":\"Programming\"}]"}]}`
+
+## /pendingmatches/delete - POST
+
+deletes all the pending matches accociated with the given mentee.
+
+### Paramaters:
+
+mentee_id - String. a mentees id.
+
+## /pendingmatches/deleterow - POST
+
+deletes the pending match accociated with the given mentee and mentor.
+
+### Paramaters:
+
+mentee_id - String. a mentees id.
+mentor_id - String. a mentors id.
+
