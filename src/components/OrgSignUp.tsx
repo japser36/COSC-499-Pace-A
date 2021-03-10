@@ -84,7 +84,7 @@ const OrgSignUp = () => {
           <h1>Register an organization</h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={addOrg}>
-            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="center">
               <Grid item>
                 <TextValidator
                   id="org-name"
@@ -128,6 +128,7 @@ const OrgSignUp = () => {
                 />
               </Grid>
               <Grid item>
+                <br></br>
                 <Button type="submit" variant="contained">
                   Register
                 </Button>
