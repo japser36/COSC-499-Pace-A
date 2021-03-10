@@ -2,13 +2,16 @@ import Link from 'next/link'
 import { useUser } from '../lib/auth/useUser'
 import Layout from '../components/layout'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import Button from '@material-ui/core/Button'
 
 const Home = () => {
   const { user, logout } = useUser()
   const [userType, setUserType] = useState('default')
+  const router = useRouter()
   return (
     <Layout home>
-      <p>{user ? 'Signed in.' : 'Not Signed in.'}</p>
+      <p>{user ? 'You are signed in.' : 'You can sign in or sign up below.'}</p>
       <>
         {user ? (
           <>
@@ -22,9 +25,23 @@ const Home = () => {
           </>
         ) : (
           <div>
-            <Link href="/app/login">
-              <a>Sign In</a>
-            </Link>
+            <Button
+              variant="text"
+              onClick={() => {
+                router.push('/app/login')
+              }}
+            >
+              Sign In
+            </Button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button
+              variant="text"
+              onClick={() => {
+                router.push('/app/register')
+              }}
+            >
+              Sign Up
+            </Button>
           </div>
         )}
       </>
