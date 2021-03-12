@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import Navbar from './Navbar/Navbar'
 
 export const siteTitle = 'Mentor.io'
 
