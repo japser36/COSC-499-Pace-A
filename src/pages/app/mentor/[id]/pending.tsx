@@ -1,4 +1,4 @@
-import PendingMatches from '../../../../components/PendingMatches'
+import PendingMatches from '../../../../components/UserDisplays/PendingMatches'
 import { server } from '../../../../config'
 
 const Pending = ({ pendingmatches }) => {

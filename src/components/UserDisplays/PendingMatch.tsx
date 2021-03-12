@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
-import { fetcher, acceptPendingMatch, declinePendingMatch } from '../utils/api'
+import { fetcher, acceptPendingMatch, declinePendingMatch } from '../../utils/api'
 
 const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import TimezoneSelect from '../TimezoneSelect'
-import SkillSelect from '../SkillSelect'
+import TimezoneSelect from '../Inputs/TimezoneSelect'
+import SkillSelect from '../Inputs/SkillSelect'
 import { getFirebaseAuth } from '../../lib/firebase'
 
 const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
@@ -190,7 +190,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                   errorMessages={['this field is required']}
                 />
               </Grid>
-            <br></br>
+              <br></br>
               <Grid>
                 <Button type="submit" variant="contained">
                   Sign Up

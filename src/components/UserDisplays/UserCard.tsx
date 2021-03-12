@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
-import { fetcher } from '../utils/api'
+import { fetcher } from '../../utils/api'
 import useSWR from 'swr'
 
 const UserCard = ({ id }) => {

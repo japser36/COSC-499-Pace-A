@@ -1,4 +1,4 @@
-import MentorInvite from '../../../../components/MentorInvite'
+import MentorInvite from '../../../../components/Inputs/MentorInvite'
 
 const InviteMentor = ({ org_id }) => {
   return <MentorInvite org_id={org_id} />

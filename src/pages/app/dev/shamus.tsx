@@ -2,20 +2,8 @@ import Head from 'next/head'
 import { matchMentors } from '../../../utils/matching'
 import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
-import PendingMatches from '../../../components/PendingMatches'
-import UserCard from '../../../components/UserCard'
 
 export default function Shamus() {
-  const sendInvite = () => {
-    fetch('/api/sendmail/invitementor', {
-      method: 'POST',
-      body: JSON.stringify({
-        recipient: 'shamusboulianne@gmail.com',
-        org_id: 'TESTORG1',
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
   const NotifyOfMatch = () => {
     fetch('/api/sendmail/notifyofmatch', {
       method: 'POST',
@@ -33,13 +21,9 @@ export default function Shamus() {
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
-      <Button variant="contained" onClick={sendInvite}>
-        Send Invite Email
-      </Button>
       <Button variant="contained" onClick={NotifyOfMatch}>
         Send Matched Notification
       </Button>
-      <UserCard id="MxSFrMRCggPNEOrdcrIZkQ85Fk63" />
     </>
   )
 }

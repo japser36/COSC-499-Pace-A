@@ -1,17 +1,9 @@
-import UserList from '../../../../components/UserList'
+import UserList from '../../../../components/UserDisplays/UserList'
 import { server } from '../../../../config'
 
 const Users = ({ users }) => {
   users = JSON.parse(users).rows
-  return (
-    <>
-      {users.length === 0 ? (
-        <>TODO: display something when org has no users</>
-      ) : (
-        <UserList users={users} />
-      )}
-    </>
-  )
+  return <>{users.length === 0 ? <>TODO: display something when org has no users</> : <UserList users={users} />}</>
 }
 
 export async function getServerSideProps(context) {

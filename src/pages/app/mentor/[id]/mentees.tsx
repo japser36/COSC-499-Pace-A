@@ -1,17 +1,11 @@
-import UserList from '../../../../components/UserList'
+import UserList from '../../../../components/UserDisplays/UserList'
 import { server } from '../../../../config'
 import fetch from 'node-fetch'
 
 const Mentees = ({ mentees }) => {
   mentees = JSON.parse(mentees).rows
   return (
-    <>
-      {mentees.length === 0 ? (
-        <>TODO: display something when mentor has no mentees</>
-      ) : (
-        <UserList users={mentees} />
-      )}
-    </>
+    <>{mentees.length === 0 ? <>TODO: display something when mentor has no mentees</> : <UserList users={mentees} />}</>
   )
 }
 
