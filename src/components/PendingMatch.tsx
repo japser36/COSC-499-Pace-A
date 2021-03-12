@@ -31,13 +31,13 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   }
   const handleDecline = () => {
     declinePendingMatch(mentee_id, mentor_id)
-        .then(() => {
-            setStatus('declined')
-            setOpen(false)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+      .then(() => {
+        setStatus('declined')
+        setOpen(false)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   if (error) {
@@ -69,7 +69,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
               {skill.name}
             </Typography>
           ))}
-          {status==='pending' ? (
+          {status === 'pending' ? (
             <CardActions>
               <Button size="large" variant="contained" onClick={handleAccept}>
                 ACCEPT

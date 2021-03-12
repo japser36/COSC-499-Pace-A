@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import { matchMentors } from '../../utils/matching'
+import { matchMentors } from '../../../utils/matching'
 import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
-import PendingMatches from '../../components/PendingMatches'
-import UserCard from '../../components/UserCard'
+import PendingMatches from '../../../components/PendingMatches'
+import UserCard from '../../../components/UserCard'
 
 export default function Shamus() {
   const sendInvite = () => {

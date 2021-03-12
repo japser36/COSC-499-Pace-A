@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
-import Link from 'next/link'
-import Navbar from './Navbar/Navbar'
+import Header from './Header/Header'
+import { Container } from '@material-ui/core'
 
 export const siteTitle = 'Capstone Pace A'
 
@@ -35,30 +35,13 @@ export default function Layout({
         <title>{fullTitle}</title>
       </Head>
       <header className={styles.header}>
-        {home ? (
-          <>
-            <h1 className={utilStyles.heading2Xl}>{siteTitle}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <h1 className={utilStyles.headingLg}>{siteTitle}</h1>
-              </a>
-            </Link>
-            <h2 className={utilStyles.heading2Xl}>{title}</h2>
-          </>
-        )}
-        <Navbar />
+        <Header />
       </header>
-      <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+      <main>
+        <Container >
+          {children}
+        </Container>
+        </main>
     </div>
   )
 }

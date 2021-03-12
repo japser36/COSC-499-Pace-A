@@ -1,6 +1,6 @@
-import Layout from '../../components/layout'
-import UserSignUp from '../../components/UserSignUp'
-import { server } from '../../config'
+import Layout from '../../../components/layout'
+import UserSignUp from '../../../components/SignIn/UserSignUp'
+import { server } from '../../../config'
 
 const MentorSignUp = ({ org_id, org_name, mentor_email }) => {
   return (

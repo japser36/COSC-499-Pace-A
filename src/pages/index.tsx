@@ -1,33 +1,24 @@
 import Link from 'next/link'
 import { useUser } from '../lib/auth/useUser'
 import Layout from '../components/layout'
-import { useState } from 'react'
+import { Button } from '@material-ui/core'
 
 const Home = () => {
-  const { user, logout } = useUser()
-  const [userType, setUserType] = useState('default')
+  const { user } = useUser()
   return (
     <Layout home>
-      <p>{user ? 'Signed in.' : 'Not Signed in.'}</p>
-      <>
-        {user ? (
-          <>
-            <Link href="/app/loggedin">
-              <a>View User Information</a>
-            </Link>
-            <br></br>
-            <Link href="/">
-              <a onClick={() => logout()}>Sign Out</a>
-            </Link>
-          </>
-        ) : (
-          <div>
-            <Link href="/app/login">
-              <a>Sign In</a>
-            </Link>
-          </div>
-        )}
-      </>
+      {user ? (
+        <>
+          //TODO: show logged in home page
+        </>
+      ) : (
+        <div>
+          //TODO: show loggedout home page
+          <Link href={'/app/org/register'} passHref>
+            <Button>Register an Organization</Button>
+          </Link>
+        </div>
+      )}
     </Layout>
   )
 }
