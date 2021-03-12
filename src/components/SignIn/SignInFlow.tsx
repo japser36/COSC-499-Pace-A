@@ -10,14 +10,14 @@ const SignInFlow = () => {
       return (
         <div>
           <SignIn />
-            <Button
-              variant="text"
-              onClick={() => {
-                setComponent('passwordreset')
-              }}
-            >
-              Reset Your Password
-            </Button>
+          <Button
+            variant="text"
+            onClick={() => {
+              setComponent('passwordreset')
+            }}
+          >
+            Reset Your Password
+          </Button>
         </div>
       )
     case 'passwordreset':

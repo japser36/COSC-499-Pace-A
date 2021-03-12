@@ -10,15 +10,7 @@ function renderTitle(title = ''): string {
   return title ? `${title} | ${siteTitle}` : siteTitle
 }
 
-export default function Layout({
-  children,
-  home,
-  title = '',
-}: {
-  children: React.ReactNode
-  home?: boolean
-  title?: string
-}) {
+export default function Layout({ children, title = '' }: { children: React.ReactNode; title?: string }) {
   const fullTitle = renderTitle(title)
   return (
     <div className={styles.container}>
@@ -38,10 +30,8 @@ export default function Layout({
         <Header />
       </header>
       <main>
-        <Container >
-          {children}
-        </Container>
-        </main>
+        <Container>{children}</Container>
+      </main>
     </div>
   )
 }

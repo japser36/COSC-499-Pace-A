@@ -1,13 +1,8 @@
-import Layout from '../../../components/layout'
 import UserSignUp from '../../../components/SignIn/UserSignUp'
 import { server } from '../../../config'
 
 const MentorSignUp = ({ org_id, org_name, mentor_email }) => {
-  return (
-    <Layout>
-      <UserSignUp userType="mentor" org_id={org_id} org_name={org_name} mentor_email={mentor_email} />
-    </Layout>
-  )
+  return <UserSignUp userType="mentor" org_id={org_id} org_name={org_name} mentor_email={mentor_email} />
 }
 
 export async function getServerSideProps(context) {
@@ -19,7 +14,7 @@ export async function getServerSideProps(context) {
     props: {
       org_id: org.id,
       org_name: org.org_name,
-      mentor_email: context.query.recipient,
+      mentor_email: context.query.email,
     },
   }
 }

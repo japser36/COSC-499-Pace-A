@@ -11,7 +11,7 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
     .then((res) => res.json())
     .then((res) => (org = res.rows[0]))
 
-  const link = `${server}/app/mentor/register?org_id=${org.id}&recipient=${req.body.recipient}`
+  const link = `${server}/app/mentor/register?org_id=${org.id}&email=${req.body.recipient}`
 
   const emailBody = `<p>You've been invited by ${org.org_name} to become a mentor with their organization.</p>
   <a href=${link}>Click here to accept and sign up today.</a>`

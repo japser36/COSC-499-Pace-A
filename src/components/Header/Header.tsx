@@ -17,31 +17,31 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-          <Grid container alignItems='center' justify='space-between' >
-              <Grid container item alignItems='center' xs>
-              <Grid item >
-        <Link href={navlink.home} passHref>
-          <IconButton edge="start" color='inherit'>
-            <Home />
-          </IconButton>
-        </Link>
-        </Grid>
-        <Grid item >
-        <Typography variant="h6">Mentor.io</Typography>
-        </Grid>
-        </Grid>
-        <Tabs userType={userType} />
-        <Grid item xs >
-          {user ? (
-            <ProfileButton logout={logout}/>
-          ) : (
-            <Link href={navlink.login} passHref>
-              <Button color='inherit'>
-              <Typography variant="h6">Login</Typography>
-              </Button>
-            </Link>
-          )}
-        </Grid>
+        <Grid container alignItems="center" justify="space-between">
+          <Grid container item alignItems="center" xs>
+            <Grid item>
+              <Link href={navlink.home} passHref>
+                <IconButton edge="start" color="inherit">
+                  <Home />
+                </IconButton>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">Mentor.io</Typography>
+            </Grid>
+          </Grid>
+          {user ? <Tabs id={user.uid} userType={userType} /> : <></>}
+          <Grid item xs>
+            {user ? (
+              <ProfileButton logout={logout} />
+            ) : (
+              <Link href={navlink.login} passHref>
+                <Button color="inherit">
+                  <Typography variant="h6">Login</Typography>
+                </Button>
+              </Link>
+            )}
+          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

@@ -5,7 +5,7 @@ export default async function getMentees(req: NextApiRequest, res: NextApiRespon
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  const sql = `SELECT * FROM users WHERE mentor_id=$1;`
+  const sql = `SELECT id FROM users WHERE mentor_id=$1;`
   const values = [req.query.mentor_id]
 
   await pool
