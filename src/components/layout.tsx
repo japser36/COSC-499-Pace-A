@@ -14,7 +14,6 @@ export default function Layout({ children, title = '' }: { children: React.React
   const fullTitle = renderTitle(title)
   return (
     <div className={styles.containerPage}>
-    <div className={styles.container}>
       <Head>
         <meta name="description" content={`${fullTitle} - COSC 499 Project`} />
         <meta
@@ -31,9 +30,8 @@ export default function Layout({ children, title = '' }: { children: React.React
         <Header />
       </header>
       <main>
-        <Container>{children}</Container>
+        <Container className={styles.container}>{children}</Container>
       </main>
-      </div>
     </div>
   )
 }
