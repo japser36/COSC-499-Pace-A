@@ -18,8 +18,8 @@ export default function Layout({ children, title = '' }: { children: React.React
       <Head>
         <meta name="description" content={`${fullTitle} - COSC 499 Project`} />
         <meta
-          content={`https://og-image.now.sh/${encodeURI(
           property="og:image"
+          content={`https://og-image.now.sh/${encodeURI(
             fullTitle
           )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
