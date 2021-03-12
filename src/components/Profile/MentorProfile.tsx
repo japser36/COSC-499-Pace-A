@@ -3,7 +3,6 @@ import useSWR from 'swr'
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const MentorProfile = ({ id }) => {
-  const url = '/api/user/' + id
   const { data: user_res, error } = useSWR('/api/user/' + id, fetcher)
   const { data: org_res } = useSWR(() => '/api/org/' + user_res.rows[0].org_id, fetcher)
 

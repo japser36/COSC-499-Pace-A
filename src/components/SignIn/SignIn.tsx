@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import { getFirebaseAuth } from '../lib/firebase'
+import { getFirebaseAuth } from '../../lib/firebase'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const router = useRouter()
-  //const { user, logout } = useUser()
   const auth = getFirebaseAuth()
   const signIn = () => {
     auth
@@ -19,7 +17,7 @@ const SignIn = () => {
       .then((authUser) => {
         if (authUser.user.emailVerified) {
           // Signed In
-          router.push('../app/loggedin')
+          router.push('../app/profile')
         } else {
           auth.signOut()
           setError('Email not verified')

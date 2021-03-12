@@ -1,27 +1,19 @@
 import { useState, useEffect } from 'react'
-import { 
-  Grid,
-  TextField,
-  Button
-} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import TimezoneSelect from './TimezoneSelect'
-import SkillSelect from './SkillSelect'
-import { getFirebaseAuth } from '../lib/firebase'
+import { getFirebaseAuth } from '../../lib/firebase'
+import fetch from 'node-fetch'
 
-const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [displayName, setDisplayName] = useState('')
-  const [email, setEmail] = useState(mentor_email ? mentor_email : '')
+const OrgSignUp = () => {
+  const [orgName, setOrgName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [timezone, setTimezone] = useState(null)
-  const [skills, setSkills] = useState([])
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
   const auth = getFirebaseAuth()
-  const createUser = () => {
+  const addOrg = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
@@ -31,18 +23,12 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
         })
         auth.signOut()
         //Add new user to the database
-        fetch('/api/user/insert', {
+        fetch('/api/org/insert', {
           method: 'POST',
           body: JSON.stringify({
             id: user.user.uid,
-            firstName: firstName,
-            lastName: lastName,
-            displayName: displayName ? displayName : firstName + ' ' + lastName,
+            org_name: orgName,
             email: email,
-            timezone: JSON.stringify(timezone),
-            skills: JSON.stringify(skills),
-            org_id: org_id,
-            userType: userType,
           }),
           headers: { 'Content-Type': 'application/json' },
         })
@@ -52,7 +38,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
           method: 'POST',
           body: JSON.stringify({
             id: user.user.uid,
-            userType: userType,
+            userType: 'org',
           }),
           headers: { 'Content-Type': 'application/json' },
         })
@@ -66,12 +52,8 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.id
     const value = event.target.value
-    if (id === 'first-name') {
-      setFirstName(value)
-    } else if (id === 'last-name') {
-      setLastName(value)
-    } else if (id === 'display-name') {
-      setDisplayName(value)
+    if (id === 'org-name') {
+      setOrgName(value)
     } else if (id === 'email') {
       setEmail(value)
     } else if (id === 'password') {
@@ -82,29 +64,14 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   }
 
   useEffect(() => {
-    console.log(skills)
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if (value !== password) {
         return false
       }
       return true
     })
-    ValidatorForm.addValidationRule('requireTimezone', (value) => {
-      if (!timezone) {
-        return false
-      }
-      return true
-    })
-    ValidatorForm.addValidationRule('requireSkills', (value) => {
-      if (skills.length === 0) {
-        return false
-      }
-      return true
-    })
     return () => {
       ValidatorForm.removeValidationRule('isPasswordMatch')
-      ValidatorForm.removeValidationRule('requireTimezone')
-      ValidatorForm.removeValidationRule('requireSkills')
     }
   })
 
@@ -114,34 +81,19 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
         'Email verification sent.'
       ) : (
         <>
-          <h1>
-            Become a {userType} for {org_name}
-          </h1>
+          <h1>Register an organization</h1>
           {error !== null && <div>{error}</div>}
-          <ValidatorForm onSubmit={createUser}>
-            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+          <ValidatorForm onSubmit={addOrg}>
+            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="center">
               <Grid item>
                 <TextValidator
-                  id="first-name"
-                  label="First Name *"
-                  value={firstName}
+                  id="org-name"
+                  label="Organization Name *"
+                  value={orgName}
                   onChange={handleChange}
                   validators={['required']}
                   errorMessages={['this field is required']}
                 />
-              </Grid>
-              <Grid>
-                <TextValidator
-                  id="last-name"
-                  label="Last Name *"
-                  value={lastName}
-                  onChange={handleChange}
-                  validators={['required']}
-                  errorMessages={['this field is required']}
-                />
-              </Grid>
-              <Grid item>
-                <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
               </Grid>
               <Grid item>
                 <TextValidator
@@ -149,9 +101,6 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                   label="Email *"
                   value={email}
                   onChange={handleChange}
-                  InputProps={{
-                    readOnly: mentor_email ? true : false,
-                  }}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']}
                 />
@@ -179,23 +128,9 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                 />
               </Grid>
               <Grid item>
-                <TimezoneSelect 
-                  setTimezone={setTimezone}
-                  required
-                  validators={['requireTimezone']}
-                  errorMessages={['this field is required']} />
-              </Grid>
-              <Grid>
-                <SkillSelect 
-                  setSkills={setSkills}
-                  required
-                  validators={['requireSkills']}
-                  errorMessages={['this field is required']} />
-              </Grid>
-            <br></br>
-              <Grid>
+                <br></br>
                 <Button type="submit" variant="contained">
-                  Sign Up
+                  Register
                 </Button>
               </Grid>
             </Grid>
@@ -205,4 +140,5 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
     </div>
   )
 }
-export default UserSignUp
+
+export default OrgSignUp

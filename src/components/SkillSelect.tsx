@@ -5,7 +5,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import fetch from 'node-fetch'
 import { TextValidator } from 'react-material-ui-form-validator'
 
-
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
 
 interface Skills {
