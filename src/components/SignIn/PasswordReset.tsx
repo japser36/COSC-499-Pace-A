@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { getFirebaseAuth } from '../lib/firebase'
+import { getFirebaseAuth } from '../../lib/firebase'
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('')

@@ -3,10 +3,18 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from 'firebase/app'
 import { getFirebaseAuth } from '../firebase'
+import fetch from 'node-fetch'
 
 const useUser = () => {
   const [user, setUser] = useState<firebase.User>()
+  const [userType, setUserType] = useState('')
   const router = useRouter()
+
+  const fetchAndSetUserType = async (id) => {
+    await fetch(`/api/metauser/${id}`, { method: 'GET' })
+      .then((res) => res.json())
+      .then((res) => setUserType(res.rows[0].usertype))
+  }
 
   const logout = () => {
     return getFirebaseAuth()
@@ -14,7 +22,7 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         console.log('Signed out successfully.')
-        router.push('/app/login')
+        router.push('/')
       })
       .catch((e) => {
         console.error(e)
@@ -29,6 +37,7 @@ const useUser = () => {
       if (user) {
         // user still signed in
         setUser(user)
+        fetchAndSetUserType(user.uid)
       } else {
         // user is not signed in anymore
         setUser(undefined)
@@ -40,7 +49,7 @@ const useUser = () => {
     }
   }, [])
 
-  return { user, logout }
+  return { user, userType, logout }
 }
 
 export { useUser }
