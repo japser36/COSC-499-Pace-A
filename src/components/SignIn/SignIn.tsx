@@ -17,7 +17,7 @@ const SignIn = () => {
       .then((authUser) => {
         if (authUser.user.emailVerified) {
           // Signed In
-          router.push('../app/profile')
+          router.push('/app/profile')
         } else {
           auth.signOut()
           setError('Email not verified')

@@ -3,9 +3,7 @@ import { Home } from '@material-ui/icons'
 import ProfileButton from './ProfileButton'
 import Tabs from './Tabs/Tabs'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { firebaseClient } from '../../lib/auth/firebaseClient'
-
+ 
 const navlink = {
   home: '/',
   profile: '/profile',
@@ -13,21 +11,6 @@ const navlink = {
 }
 
 const Header = ({ auth, usertype }) => {
-
-  const router = useRouter()
-  const logout = () => {
-    return firebaseClient.auth()
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-        console.log('Signed out successfully.')
-        router.push('/')
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-  }
-
   return (
     <AppBar position="static">
       <Toolbar>
@@ -47,7 +30,7 @@ const Header = ({ auth, usertype }) => {
           {auth ? <Tabs userType={usertype} /> : <></>}
           <Grid item xs>
             {auth ? (
-              <ProfileButton logout={logout} />
+              <ProfileButton />
             ) : (
               <Link href={navlink.login} passHref>
                 <Button color="inherit">

@@ -3,7 +3,6 @@ import { getUserType, getOrgUsers } from '../../../utils/api'
 import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
-import { redirectToLogin } from '../../../utils/misc'
 
 const Users = (props) => {
   const auth = props.auth
@@ -38,7 +37,6 @@ export const getServerSideProps = async (context) => {
     };
   } catch (error) {
     console.log(error)
-    redirectToLogin(context)
     return {
       props: {
         auth: false

@@ -41,20 +41,23 @@ export function AuthProvider({ children }: any) {
   );
 }
 
-export const logout = () => {
-  const router = useRouter()
-  return firebaseClient.auth()
-    .signOut()
-    .then(() => {
-      // Sign-out successful.
-      console.log('Signed out successfully.')
-      router.push('/')
-    })
-    .catch((e) => {
-      console.error(e)
-    })
-}
-
 export const useAuth = () => {
-  return useContext(AuthContext)
+  const router = useRouter()
+  const logout = () => {
+    return firebaseClient.auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        console.log('Signed out successfully.')
+        router.push('/')
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+  }
+
+  return {
+    user: useContext(AuthContext).user,
+    logout: logout
+  }
 }
