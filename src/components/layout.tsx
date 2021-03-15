@@ -10,7 +10,7 @@ function renderTitle(title = ''): string {
   return title ? `${title} | ${siteTitle}` : siteTitle
 }
 
-export default function Layout({ children, title = '' }: { children: React.ReactNode; title?: string }) {
+export default function Layout({ children, title = '', auth, usertype = ''}: { children: React.ReactNode; title?: string; auth: boolean; usertype?: string }) {
   const fullTitle = renderTitle(title)
   return (
     <div className={styles.containerPage}>
@@ -27,7 +27,7 @@ export default function Layout({ children, title = '' }: { children: React.React
         <title>{fullTitle}</title>
       </Head>
       <header className={styles.header}>
-        <Header />
+        <Header auth={auth} usertype={usertype}/>
       </header>
       <main>
         <Container className={styles.container}>{children}</Container>

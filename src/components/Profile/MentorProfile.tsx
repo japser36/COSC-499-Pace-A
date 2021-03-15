@@ -1,21 +1,7 @@
-import useSWR from 'swr'
+import UserCard from "../UserDisplays/UserCard"
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
-const MentorProfile = ({ id }) => {
-  const { data: user_res, error } = useSWR('/api/user/' + id, fetcher)
-  const { data: org_res } = useSWR(() => '/api/org/' + user_res.rows[0].org_id, fetcher)
-
-  if (error) {
-    console.log(error)
-    return <>Error...</>
-  }
-  if (!org_res) {
-    return <>Loading...</>
-  }
-
-  const user = user_res.rows[0]
-  const org = org_res.rows[0]
+const MentorProfile = ({ user }) => {
   return (
     <>
       <p>ID: {user.id}</p>
@@ -25,7 +11,6 @@ const MentorProfile = ({ id }) => {
       <p>Email: {user.email}</p>
       <p>Timezone: {JSON.parse(user.timezone).label}</p>
       <p>Skills: {user.skills}</p>
-      <p>Organization: {org.org_name}</p>
     </>
   )
 }

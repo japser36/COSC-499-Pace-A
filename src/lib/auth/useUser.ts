@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from 'firebase/app'
-import { getFirebaseAuth } from '../firebase'
+import { firebaseClient } from './firebaseClient'
 import fetch from 'node-fetch'
 
 const useUser = () => {
@@ -17,7 +17,7 @@ const useUser = () => {
   }
 
   const logout = () => {
-    return getFirebaseAuth()
+    return firebaseClient.auth()
       .signOut()
       .then(() => {
         // Sign-out successful.
@@ -33,7 +33,7 @@ const useUser = () => {
     // Firebase updates the id token every hour, this
     // makes sure the react state and the cookie are
     // both kept up to date
-    const cancelAuthListener = getFirebaseAuth().onIdTokenChanged(async (user) => {
+    const cancelAuthListener = firebaseClient.auth().onIdTokenChanged(async (user) => {
       if (user) {
         // user still signed in
         setUser(user)
@@ -52,4 +52,4 @@ const useUser = () => {
   return { user, userType, logout }
 }
 
-export { useUser }
+export default useUser

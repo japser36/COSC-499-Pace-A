@@ -1,18 +1,7 @@
 import useSWR from 'swr'
+import { fetcher } from '../../utils/api'
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
-
-const OrgProfile = ({ id }) => {
-  const { data, error } = useSWR('/api/org/' + id, fetcher)
-
-  if (error) {
-    console.log(error)
-    return <>Error...</>
-  }
-  if (!data) {
-    return <>Loading...</>
-  }
-  const org = data.rows[0]
+const OrgProfile = ({ org }) => {
   return (
     <>
       <p>ID: {org.id}</p>

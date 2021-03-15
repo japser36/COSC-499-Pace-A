@@ -1,12 +1,12 @@
 import OrgTabs from './OrgTabs'
 import MentorTabs from './MentorTabs'
 
-const Profile = ({ id, userType }) => {
+const Profile = ({ userType }) => {
   switch (userType) {
     case 'org':
-      return <OrgTabs id={id} />
+      return <OrgTabs />
     case 'mentor':
-      return <MentorTabs id={id} />
+      return <MentorTabs />
     default:
       return <></>
   }
