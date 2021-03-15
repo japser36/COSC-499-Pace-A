@@ -78,10 +78,16 @@ export const declinePendingMatch = async (mentee_id, mentor_id) => {
   })
 }
 
-export const getOrgUsers =async (org_id) => {
+export const getOrgUsers = async (org_id) => {
   let users = null
   await fetch(`${server}/api/org/users/${org_id}`, { method: 'GET' })
       .then((res) => res.json())
       .then((res) => users = res.rows)
   return users
+}
+
+export const getMenteesMentor = async (mentee_id) => {
+  const mentee = await getUser(mentee_id)
+  const mentor = await getUser(mentee.mentor_id)
+  return mentor
 }

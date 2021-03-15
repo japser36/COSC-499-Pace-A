@@ -5,7 +5,7 @@ const UserList = ({ users }) => {
   return (
     <Paper elevation={0}>
       {users.map((user) => (
-        <UserCard key={user.id} id={user.id} />
+        <UserCard key={user.id} user={user} />
       ))}
     </Paper>
   )

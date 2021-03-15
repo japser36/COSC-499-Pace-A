@@ -27,7 +27,7 @@ const Header = ({ auth, usertype }) => {
               <Typography variant="h6">Mentor.io</Typography>
             </Grid>
           </Grid>
-          {auth ? <Tabs userType={usertype} /> : <></>}
+          {auth ? <Tabs usertype={usertype} /> : <></>}
           <Grid item xs>
             {auth ? (
               <ProfileButton />

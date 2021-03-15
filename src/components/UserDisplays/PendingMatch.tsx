@@ -19,6 +19,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState('pending')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
+  
   const handleAccept = () => {
     acceptPendingMatch(mentee_id, mentor_id)
       .then(() => {
@@ -48,6 +49,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
     return <CircularProgress />
   }
   const mentee = data.rows[0]
+
   return (
     <Card variant="outlined">
       <CardHeader

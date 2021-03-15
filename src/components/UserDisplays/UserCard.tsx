@@ -10,24 +10,13 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
-import { fetcher } from '../../utils/api'
-import useSWR from 'swr'
 
-const UserCard = ({ id }) => {
+const UserCard = ({ user }) => {
   const [open, setOpen] = useState(false)
-  const { data, error } = useSWR('/api/user/' + id, fetcher)
-  if (error) {
-    console.log(error)
-    return <>{error}</>
-  }
-  if (!data) {
-    return <CircularProgress />
-  }
-  const user = data.rows[0]
+  
   return (
     <Card variant="outlined">
       <CardHeader
-        disabled={status}
         onClick={() => {
           setOpen(!open)
         }}
