@@ -1,13 +1,16 @@
 .container {
   max-width: 36rem;
-  height: 20rem;
+  height: 34rem;
   padding: 0 1rem;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 15%;
+  margin-top: 4%;
   background-color: white;
   border-radius: 20px;
   color: orange;
+  text-align: center;
+  block-size: fit-content;
+  overflow: hidden;
 }
 
 .containerHome {

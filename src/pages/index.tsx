@@ -11,10 +11,11 @@ const Home = () => {
   const router = useRouter()
   return (
     <Layout home>
-      <p>{user ? 'You are signed in.' : 'You can sign in or sign up below.'}</p>
+      <p>{user ? 'You are signed in.' : 'You can sign in or sign up below.'}</p> <br></br>
       <>
         {user ? (
           <>
+            <br></br>
             <Link href="/app/loggedin">
               <a>View User Information</a>
             </Link>
@@ -22,11 +23,13 @@ const Home = () => {
             <Link href="/">
               <a onClick={() => logout()}>Sign Out</a>
             </Link>
+            <br></br>
           </>
         ) : (
           <div>
+            <br></br>
             <Button
-              variant="text"
+              variant="contained"
               onClick={() => {
                 router.push('/app/login')
               }}
@@ -35,13 +38,15 @@ const Home = () => {
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Button
-              variant="text"
+              variant="contained"
               onClick={() => {
                 router.push('/app/register')
               }}
             >
               Sign Up
             </Button>
+            <br></br>
+            <br></br>
           </div>
         )}
       </>
