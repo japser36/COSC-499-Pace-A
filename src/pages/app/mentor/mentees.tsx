@@ -8,8 +8,9 @@ const Mentees = (props) => {
   const auth = props.auth
   const usertype = props.usertype
   const mentees = JSON.parse(props.mentees)
+
   return (
-    <Layout title='Mentees' auth={auth} usertype={usertype}>
+    <Layout title='Mentees' needsAuth auth={auth} usertype={usertype}>
       {
         mentees ? <UserList users={mentees}/> : <>TODO: display something when mentor has no mentees</>
       }
@@ -37,7 +38,9 @@ export const getServerSideProps = async (context) => {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
+        usertype: null,
+        mentees: null
       },
     };
   }

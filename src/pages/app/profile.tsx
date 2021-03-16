@@ -1,5 +1,6 @@
 import Profile from '../../components/Profile/Profile'
 import Layout from '../../components/layout'
+import NoAuthCard from '../../components/NoAuthCard'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../lib/auth/firebaseAdmin'
 import { getUserType, getUser, getOrg } from '../../utils/api'
@@ -11,8 +12,7 @@ const ProfilePage = (props) => {
   const usertype = props.usertype
 
   return (
-    <Layout title='Profile' auth={auth} usertype={usertype}>
-      TODO: improve the profile page
+    <Layout title='Profile' needsAuth auth={auth} usertype={usertype}>
       <Profile user={user} org={org} usertype={usertype} />
     </Layout>
   )
@@ -39,7 +39,10 @@ export const getServerSideProps = async (context) => {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
+        user: null,
+        org: null,
+        usertype: null
       },
     };
   }
