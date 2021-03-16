@@ -1,12 +1,12 @@
 import OrgProfile from './OrgProfile'
 import MentorProfile from './MentorProfile'
 
-const Profile = ({ id, userType }) => {
-  switch (userType) {
+const Profile = ({ user, org, usertype }) => {
+  switch (usertype) {
     case 'org':
-      return <OrgProfile id={id} />
+      return <OrgProfile org={org} />
     case 'mentor':
-      return <MentorProfile id={id} />
+      return <MentorProfile user={user} />
     default:
       return <>There is no profile for this user/userType</>
   }

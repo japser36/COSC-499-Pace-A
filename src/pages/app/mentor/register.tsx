@@ -1,19 +1,23 @@
 import UserSignUp from '../../../components/SignIn/UserSignUp'
-import { server } from '../../../config'
+import Layout from '../../../components/layout'
+import { getOrg } from '../../../utils/api'
 
-const MentorSignUp = ({ org_id, org_name, mentor_email }) => {
-  return <UserSignUp userType="mentor" org_id={org_id} org_name={org_name} mentor_email={mentor_email} />
+const MentorSignUp = (props) => {
+  const org = JSON.parse(props.org)
+  const mentor_email = props.mentor_email
+
+  return (
+    <Layout title='Register Mentor' auth={false} >
+      <UserSignUp userType="mentor" org_id={org.org_id} org_name={org.org_name} mentor_email={mentor_email} />
+    </Layout>
+  )
 }
 
 export async function getServerSideProps(context) {
-  let org
-  await fetch(`${server}/api/org/${context.query.org_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => (org = res.rows[0]))
+  const org = await getOrg(context.query.org_id)
   return {
     props: {
-      org_id: org.id,
-      org_name: org.org_name,
+      org: JSON.stringify(org),
       mentor_email: context.query.email,
     },
   }

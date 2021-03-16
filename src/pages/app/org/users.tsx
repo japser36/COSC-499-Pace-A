@@ -1,16 +1,19 @@
-import OrgSignUp from '../../../components/SignIn/OrgSignUp'
+import UserList from '../../../components/UserDisplays/UserList'
+import { getUserType, getOrgUsers } from '../../../utils/api'
+import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
-import Layout from '../../../components/layout'
-import { getUserType } from '../../../utils/api'
 
-const RegisterOrg = (props) => {
+const Users = (props) => {
   const auth = props.auth
   const usertype = props.usertype
+  const users = JSON.parse(props.users)
 
   return (
-    <Layout title='Register Org' auth={auth} usertype={usertype} >
-      <OrgSignUp />
+    <Layout title='Users' auth={auth} usertype={usertype} >
+      {
+      users ? <UserList users={users} /> : <>TODO: display something when org has no users</>
+      }
     </Layout>
   )
 }
@@ -21,11 +24,15 @@ export const getServerSideProps = async (context) => {
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token)
     const uid = token.uid
     const usertype = await getUserType(uid)
+    if (usertype !== 'org') throw 'Must be an organization to see this page'
+    const users = await getOrgUsers(uid)
+
 
     return {
       props: { 
         auth: true,
-        usertype: usertype
+        usertype: usertype,
+        users: JSON.stringify(users)
       },
     };
   } catch (error) {
@@ -38,4 +45,4 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-export default RegisterOrg
+export default Users

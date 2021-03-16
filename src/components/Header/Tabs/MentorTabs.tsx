@@ -1,10 +1,10 @@
 import { Grid, Typography, Button } from '@material-ui/core'
 import Link from 'next/link'
 
-const MentorTabs = ({ id }) => {
+const MentorTabs = () => {
   const navlink = {
-    mentees: `/app/mentor/${id}/mentees`,
-    pendingmatches: `/app/mentor/${id}/pending`,
+    mentees: '/app/mentor/mentees',
+    pendingmatches: '/app/mentor/pending',
   }
   return (
     <>

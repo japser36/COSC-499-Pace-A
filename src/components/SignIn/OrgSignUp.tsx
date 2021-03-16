@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import { getFirebaseAuth } from '../../lib/firebase'
+import { firebaseClient } from '../../lib/auth/firebaseClient'
 import fetch from 'node-fetch'
 
 const OrgSignUp = () => {
@@ -12,7 +12,7 @@ const OrgSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
-  const auth = getFirebaseAuth()
+  const auth = firebaseClient.auth()
   const addOrg = () => {
     auth
       .createUserWithEmailAndPassword(email, password)

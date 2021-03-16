@@ -1,10 +1,10 @@
 import { Grid, Typography, Button } from '@material-ui/core'
 import Link from 'next/link'
 
-const OrgTabs = ({ id }) => {
+const OrgTabs = () => {
   const navlink = {
-    users: `/app/org/${id}/users`,
-    mentorinvite: `/app/org/${id}/invitementor`,
+    users: '/app/org/users',
+    mentorinvite: '/app/org/invitementor',
   }
   return (
     <>

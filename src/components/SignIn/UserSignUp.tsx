@@ -3,7 +3,7 @@ import { Grid, TextField, Button } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from '../Inputs/TimezoneSelect'
 import SkillSelect from '../Inputs/SkillSelect'
-import { getFirebaseAuth } from '../../lib/firebase'
+import { firebaseClient } from '../../lib/auth/firebaseClient'
 
 const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
@@ -16,7 +16,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const [skills, setSkills] = useState([])
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
-  const auth = getFirebaseAuth()
+  const auth = firebaseClient.auth()
   const createUser = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -126,7 +126,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                   errorMessages={['this field is required']}
                 />
               </Grid>
-              <Grid>
+              <Grid item>
                 <TextValidator
                   id="last-name"
                   label="Last Name *"
@@ -182,7 +182,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                   errorMessages={['this field is required']}
                 />
               </Grid>
-              <Grid>
+              <Grid item>
                 <SkillSelect
                   setSkills={setSkills}
                   required
@@ -191,7 +191,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
                 />
               </Grid>
               <br></br>
-              <Grid>
+              <Grid item>
                 <Button type="submit" variant="contained">
                   Sign Up
                 </Button>

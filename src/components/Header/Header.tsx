@@ -3,17 +3,14 @@ import { Home } from '@material-ui/icons'
 import ProfileButton from './ProfileButton'
 import Tabs from './Tabs/Tabs'
 import Link from 'next/link'
-import { useUser } from '../../lib/auth/useUser'
-
+ 
 const navlink = {
   home: '/',
   profile: '/profile',
   login: '/app/login',
 }
 
-const Header = () => {
-  const { user, userType, logout } = useUser()
-
+const Header = ({ auth, usertype }) => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -30,10 +27,10 @@ const Header = () => {
               <Typography variant="h6">Mentor.io</Typography>
             </Grid>
           </Grid>
-          {user ? <Tabs id={user.uid} userType={userType} /> : <></>}
+          {auth ? <Tabs usertype={usertype} /> : <></>}
           <Grid item xs>
-            {user ? (
-              <ProfileButton logout={logout} />
+            {auth ? (
+              <ProfileButton />
             ) : (
               <Link href={navlink.login} passHref>
                 <Button color="inherit">

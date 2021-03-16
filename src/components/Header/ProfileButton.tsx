@@ -2,14 +2,16 @@ import { useState, MouseEvent } from 'react'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import Link from 'next/link'
+import { useAuth } from '../../lib/auth/AuthProvider'
 
 const navlink = {
   profile: '/app/profile',
   login: '/app/login',
 }
 
-const ProfileButton = ({ logout }) => {
+const ProfileButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const { logout } = useAuth()
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)

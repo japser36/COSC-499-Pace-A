@@ -1,16 +1,18 @@
-import OrgSignUp from '../../../components/SignIn/OrgSignUp'
+import MentorInvite from '../../../components/Inputs/MentorInvite'
+import { getUserType } from '../../../utils/api'
+import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
-import Layout from '../../../components/layout'
-import { getUserType } from '../../../utils/api'
 
-const RegisterOrg = (props) => {
+
+const InviteMentor = (props) => {
   const auth = props.auth
   const usertype = props.usertype
+  const org_id = props.org_id
 
   return (
-    <Layout title='Register Org' auth={auth} usertype={usertype} >
-      <OrgSignUp />
+    <Layout title='Mentor Invite' auth={auth} usertype={usertype}>
+      <MentorInvite org_id={org_id} />
     </Layout>
   )
 }
@@ -22,10 +24,13 @@ export const getServerSideProps = async (context) => {
     const uid = token.uid
     const usertype = await getUserType(uid)
 
+    if (usertype !== 'org') throw 'Must be an organization to see this page'
+
     return {
       props: { 
         auth: true,
-        usertype: usertype
+        usertype: usertype,
+        org_id: uid
       },
     };
   } catch (error) {
@@ -38,4 +43,4 @@ export const getServerSideProps = async (context) => {
   }
 };
 
-export default RegisterOrg
+export default InviteMentor
