@@ -1,10 +1,12 @@
+import SignInFlow from '../../components/SignIn/SignInFlow'
 import Layout from '../../components/layout'
-import SignInFlow from '../../components/SignInFlow'
 
-export default function Login() {
+const Login = () => {
   return (
-    <Layout>
+    <Layout title='Login' auth={false}>
       <SignInFlow />
     </Layout>
   )
 }
+
+export default Login
