@@ -6,12 +6,13 @@ import { getUserType, getUser, getOrg } from '../../utils/api'
 
 const ProfilePage = (props) => {
   const auth = props.auth
+  console.log('Blah!', props)
   const user = JSON.parse(props.user)
   const org = JSON.parse(props.org)
   const usertype = props.usertype
 
   return (
-    <Layout title='Profile' auth={auth} usertype={usertype}>
+    <Layout title="Profile" auth={auth} usertype={usertype}>
       TODO: improve the profile page
       <Profile user={user} org={org} usertype={usertype} />
     </Layout>
@@ -28,21 +29,21 @@ export const getServerSideProps = async (context) => {
     const org = await getOrg(uid)
 
     return {
-      props: { 
+      props: {
         auth: true,
         user: JSON.stringify(user),
         org: JSON.stringify(org),
-        usertype: usertype
+        usertype: usertype,
       },
-    };
+    }
   } catch (error) {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
       },
-    };
+    }
   }
-};
+}
 
 export default ProfilePage
