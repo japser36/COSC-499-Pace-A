@@ -10,7 +10,7 @@ const Users = (props) => {
   const users = JSON.parse(props.users)
 
   return (
-    <Layout title='Users' auth={auth} usertype={usertype} >
+    <Layout title='Users' needsAuth auth={auth} usertype={usertype} >
       {
       users ? <UserList users={users} /> : <>TODO: display something when org has no users</>
       }
@@ -39,7 +39,9 @@ export const getServerSideProps = async (context) => {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
+        usertype: null,
+        users: null
       },
     };
   }

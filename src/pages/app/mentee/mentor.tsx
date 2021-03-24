@@ -5,12 +5,12 @@ import { getMenteesMentor, getUserType } from '../../../utils/api'
 import UserCard from '../../../components/UserDisplays/UserCard'
 
 const Mentor = (props) => {
-    const auth = props.auth
+  const auth = props.auth
   const usertype = props.usertype
   const mentor = JSON.parse(props.mentor)
 
   return (
-      <Layout title='Mentor' auth={auth} usertype={usertype} >
+      <Layout title='Mentor' needsAuth auth={auth} usertype={usertype} >
           {mentor ? <UserCard user={mentor} />
           : <>TODO: show something when mentee has no mentor</>
           }
@@ -38,7 +38,9 @@ export const getServerSideProps = async (context) => {
       console.log(error)
       return {
         props: {
-          auth: false
+          auth: false,
+          usertype: null,
+          mentor: null
         },
       };
     }
