@@ -10,44 +10,15 @@ const Mentor = (props) => {
   const mentor = JSON.parse(props.mentor)
 
   return (
-<<<<<<< HEAD
-    <Layout title="Mentor" auth={auth} usertype={usertype}>
-      {mentor ? <UserCard user={mentor} /> : <>TODO: show something when mentee has no mentor</>}
-    </Layout>
-=======
       <Layout title='Mentor' needsAuth auth={auth} usertype={usertype} >
           {mentor ? <UserCard user={mentor} />
           : <>TODO: show something when mentee has no mentor</>
           }
       </Layout>
->>>>>>> develop
   )
 }
 
 export const getServerSideProps = async (context) => {
-<<<<<<< HEAD
-  try {
-    const cookies = nookies.get(context)
-    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token)
-    const uid = token.uid
-    const usertype = await getUserType(uid)
-    if (usertype !== 'org') throw 'Must be an organization to see this page'
-    const mentor = await getMenteesMentor(uid)
-
-    return {
-      props: {
-        auth: true,
-        usertype: usertype,
-        mentor: JSON.stringify(mentor),
-      },
-    }
-  } catch (error) {
-    console.log(error)
-    return {
-      props: {
-        auth: false,
-      },
-=======
     try {
       const cookies = nookies.get(context)
       const token = await firebaseAdmin.auth().verifyIdToken(cookies.token)
@@ -72,9 +43,8 @@ export const getServerSideProps = async (context) => {
           mentor: null
         },
       };
->>>>>>> develop
     }
   }
-}
+} 
 
 export default Mentor
