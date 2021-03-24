@@ -13,12 +13,7 @@ const ProfilePage = (props) => {
   const usertype = props.usertype
 
   return (
-<<<<<<< HEAD
-    <Layout title="Profile" auth={auth} usertype={usertype}>
-      TODO: improve the profile page
-=======
     <Layout title='Profile' needsAuth auth={auth} usertype={usertype}>
->>>>>>> develop
       <Profile user={user} org={org} usertype={usertype} />
     </Layout>
   )
