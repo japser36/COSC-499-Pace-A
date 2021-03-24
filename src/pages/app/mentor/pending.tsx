@@ -9,7 +9,7 @@ const Pending = (props) => {
   const usertype = props.usertype
   const pendingmatches = JSON.parse(props.pendingmatches)
   return (
-    <Layout title='Pending Matches' auth={auth} usertype={usertype}>
+    <Layout title='Pending Matches' needsAuth auth={auth} usertype={usertype}>
       {pendingmatches ? 
       <PendingMatches pendingmatches={pendingmatches} />
       : <>TODO: display something when mentor has no pending matches</>
@@ -38,7 +38,9 @@ export const getServerSideProps = async (context) => {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
+        usertype: null,
+        pendingmatches: null
       },
     };
   }

@@ -11,7 +11,7 @@ const InviteMentor = (props) => {
   const org_id = props.org_id
 
   return (
-    <Layout title='Mentor Invite' auth={auth} usertype={usertype}>
+    <Layout title='Mentor Invite' needsAuth auth={auth} usertype={usertype}>
       <MentorInvite org_id={org_id} />
     </Layout>
   )
@@ -37,7 +37,9 @@ export const getServerSideProps = async (context) => {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
+        usertype: null,
+        org_id: null
       },
     };
   }

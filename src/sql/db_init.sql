@@ -1,11 +1,14 @@
-CREATE TABLE IF NOT EXISTS org (
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS org;
+
+CREATE TABLE org (
 	id TEXT,
 	org_name TEXT,
 	email TEXT,
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
 	id TEXT,
 	firstName TEXT,
 	lastName TEXT,

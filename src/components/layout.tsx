@@ -3,6 +3,7 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Header from './Header/Header'
 import { Container } from '@material-ui/core'
+import NoAuthCard from './NoAuthCard'
 
 export const siteTitle = 'Mentor.io'
 
@@ -10,7 +11,7 @@ function renderTitle(title = ''): string {
   return title ? `${title} | ${siteTitle}` : siteTitle
 }
 
-export default function Layout({ children, title = '', auth, usertype = ''}: { children: React.ReactNode; title?: string; auth: boolean; usertype?: string }) {
+export default function Layout({ children, title = '', auth, needsAuth=false, usertype = ''}: { children: React.ReactNode; title?: string; auth: boolean; needsAuth?: boolean; usertype?: string }) {
   const fullTitle = renderTitle(title)
   return (
     <div className={styles.containerPage}>
@@ -30,7 +31,10 @@ export default function Layout({ children, title = '', auth, usertype = ''}: { c
         <Header auth={auth} usertype={usertype}/>
       </header>
       <main>
-        <Container className={styles.container}>{children}</Container>
+        <Container className={styles.container}>
+          {needsAuth && !auth ? <NoAuthCard /> 
+          : <>{children}</>}
+        </Container>
       </main>
     </div>
   )
