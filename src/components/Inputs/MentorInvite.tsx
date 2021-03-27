@@ -35,7 +35,7 @@ const MentorInvite = ({ org_id }) => {
     <Paper elevation={0}>
       {sent ? (
         <>
-          <Grid container direction="column" alignItems="center" justify="center">
+          <Grid container alignItems="center" justify="center">
             <Grid item>
               <Typography variant="h6">Inivitation has been sent.</Typography>
             </Grid>
@@ -53,7 +53,7 @@ const MentorInvite = ({ org_id }) => {
         </>
       ) : (
         <ValidatorForm onSubmit={sendInvite}>
-          <Grid container direction="column" alignItems="center" justify="center">
+          <Grid container alignItems="center" justify="center">
             <Grid item>
               <TextValidator
                 id="email"

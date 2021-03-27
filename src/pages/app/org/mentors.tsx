@@ -1,19 +1,24 @@
+import MentorInvite from '../../../components/Inputs/MentorInvite'
 import UserList from '../../../components/UserDisplays/UserList'
-import { getUserType, getOrgUsers } from '../../../utils/api'
+import { getUserType, getOrgMentors } from '../../../utils/api'
 import Layout from '../../../components/layout'
+import Typography from '@material-ui/core/Typography'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 
-const Users = (props) => {
+
+const Mentors = (props) => {
   const auth = props.auth
   const usertype = props.usertype
-  const users = JSON.parse(props.users)
+  const org_id = props.org_id
+  const mentors = JSON.parse(props.mentors)
 
   return (
-    <Layout title='Users' needsAuth auth={auth} usertype={usertype} >
-      {
-      users ? <UserList users={users} /> : <>TODO: display something when org has no users</>
-      }
+    <Layout title='Mentor Invite' needsAuth auth={auth} usertype={usertype}>
+      <Typography variant='h5'>Invite a new Mentor</Typography>
+      <MentorInvite org_id={org_id} />
+      <Typography variant='h5'>Current Mentors</Typography>
+      <UserList users={mentors} subheader='email' />
     </Layout>
   )
 }
@@ -25,14 +30,15 @@ export const getServerSideProps = async (context) => {
     const uid = token.uid
     const usertype = await getUserType(uid)
     if (usertype !== 'org') throw 'Must be an organization to see this page'
-    const users = await getOrgUsers(uid)
+    const mentors = await getOrgMentors(uid)
 
 
     return {
       props: { 
         auth: true,
         usertype: usertype,
-        users: JSON.stringify(users)
+        org_id: uid,
+        mentors: JSON.stringify(mentors)
       },
     };
   } catch (error) {
@@ -41,10 +47,11 @@ export const getServerSideProps = async (context) => {
       props: {
         auth: false,
         usertype: null,
-        users: null
+        org_id: null,
+        mentors: null
       },
     };
   }
 };
 
-export default Users
+export default Mentors

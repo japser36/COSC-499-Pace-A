@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Header from './Header/Header'
-import { Container } from '@material-ui/core'
+import { Container, Box } from '@material-ui/core'
 import NoAuthCard from './NoAuthCard'
 
 export const siteTitle = 'Mentor.io'
@@ -31,10 +31,10 @@ export default function Layout({ children, title = '', auth, needsAuth=false, us
         <Header auth={auth} usertype={usertype}/>
       </header>
       <main>
-        <Container className={styles.container}>
+        <Box component={Container} className={styles.container} overflow='auto'>
           {needsAuth && !auth ? <NoAuthCard /> 
           : <>{children}</>}
-        </Container>
+        </Box>
       </main>
     </div>
   )

@@ -2,23 +2,19 @@ import { Grid, Typography, Button } from '@material-ui/core'
 import Link from 'next/link'
 
 const OrgTabs = () => {
-  const navlink = {
-    users: '/app/org/users',
-    mentorinvite: '/app/org/invitementor',
-  }
   return (
     <>
       <Grid item xs>
-        <Link href={navlink.users} passHref>
+        <Link href='/app/org/mentees' passHref>
           <Button color="inherit">
-            <Typography variant="h6">Users</Typography>
+            <Typography variant="h6">Mentees</Typography>
           </Button>
         </Link>
       </Grid>
       <Grid item xs>
-        <Link href={navlink.mentorinvite} passHref>
+        <Link href='/app/org/mentors' passHref>
           <Button color="inherit">
-            <Typography variant="h6">Invite Mentors</Typography>
+            <Typography variant="h6">Mentors</Typography>
           </Button>
         </Link>
       </Grid>

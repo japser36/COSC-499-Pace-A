@@ -78,7 +78,6 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   }
 
   useEffect(() => {
-    console.log(skills)
     ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
       if (value !== password) {
         return false

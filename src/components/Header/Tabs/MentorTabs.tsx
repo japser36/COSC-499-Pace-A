@@ -2,23 +2,19 @@ import { Grid, Typography, Button } from '@material-ui/core'
 import Link from 'next/link'
 
 const MentorTabs = () => {
-  const navlink = {
-    mentees: '/app/mentor/mentees',
-    pendingmatches: '/app/mentor/pending',
-  }
   return (
     <>
       <Grid item xs>
-        <Link href={navlink.mentees} passHref>
+        <Link href={'/app/mentor/mymentees'} passHref>
           <Button color="inherit">
-            <Typography variant="h6">Mentees</Typography>
+            <Typography variant="h6">My Mentees</Typography>
           </Button>
         </Link>
       </Grid>
       <Grid item xs>
-        <Link href={navlink.pendingmatches} passHref>
+        <Link href='/app/mentor/matchedmentees' passHref>
           <Button color="inherit">
-            <Typography variant="h6">Pending Matches</Typography>
+            <Typography variant="h6">Matched Mentees</Typography>
           </Button>
         </Link>
       </Grid>

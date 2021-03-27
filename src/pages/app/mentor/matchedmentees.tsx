@@ -1,19 +1,19 @@
-import UserList from '../../../components/UserDisplays/UserList'
-import { getUserType, getMentorsMentees } from '../../../utils/api'
+import PendingMatches from '../../../components/UserDisplays/PendingMatches'
+import { getUserType, getPendingMatches } from '../../../utils/api'
 import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 
-const Mentees = (props) => {
+const MatchedMentees = (props) => {
   const auth = props.auth
   const usertype = props.usertype
-  const mentees = JSON.parse(props.mentees)
-
+  const pendingmatches = JSON.parse(props.pendingmatches)
   return (
-    <Layout title='Mentees' needsAuth auth={auth} usertype={usertype}>
-      {
-        mentees ? <UserList users={mentees}/> : <>TODO: display something when mentor has no mentees</>
-      }
+    <Layout title='Pending Matches' needsAuth auth={auth} usertype={usertype}>
+      {pendingmatches ? 
+      <PendingMatches pendingmatches={pendingmatches} />
+      : <>TODO: display something when mentor has no pending matches</>
+    }
     </Layout>
   )
 }
@@ -25,13 +25,13 @@ export const getServerSideProps = async (context) => {
     const uid = token.uid
     const usertype = await getUserType(uid)
     if (usertype !== 'mentor') throw 'Must be a mentor to see this page'
-    const mentees = await getMentorsMentees(uid)
+    const pendingmatches = await getPendingMatches(uid)
 
     return {
       props: { 
         auth: true,
         usertype: usertype,
-        mentees: JSON.stringify(mentees)
+        pendingmatches: JSON.stringify(pendingmatches)
       },
     };
   } catch (error) {
@@ -40,10 +40,10 @@ export const getServerSideProps = async (context) => {
       props: {
         auth: false,
         usertype: null,
-        mentees: null
+        pendingmatches: null
       },
     };
   }
 };
 
-export default Mentees
+export default MatchedMentees

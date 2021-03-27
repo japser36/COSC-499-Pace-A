@@ -10,10 +10,24 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
+import { parseSkills } from '../../utils/misc'
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, subheader=null }) => {
   const [open, setOpen] = useState(false)
-  
+  switch(subheader) {
+    case 'usertype':
+      subheader = user.usertype
+      break
+    case 'email':
+      subheader = user.email
+      break
+    case 'skills':
+      subheader = parseSkills(user.skills).toString()
+      break
+    default:
+      subheader = null
+      break
+  }
   return (
     <Card variant="outlined">
       <CardHeader
@@ -22,7 +36,7 @@ const UserCard = ({ user }) => {
         }}
         action={<IconButton>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
         title={user.displayname}
-        subheader={user.usertype}
+        subheader={subheader}
       />
       <Divider />
       <Collapse in={open} unmountOnExit>

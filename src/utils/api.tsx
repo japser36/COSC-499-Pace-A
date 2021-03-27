@@ -86,6 +86,22 @@ export const getOrgUsers = async (org_id) => {
   return users
 }
 
+export const getOrgMentees = async (org_id) => {
+  let mentees = null
+  await fetch(`${server}/api/org/mentees/${org_id}`, { method: 'GET' })
+      .then((res) => res.json())
+      .then((res) => mentees = res.rows)
+  return mentees
+}
+
+export const getOrgMentors = async (org_id) => {
+  let mentors = null
+  await fetch(`${server}/api/org/mentors/${org_id}`, { method: 'GET' })
+      .then((res) => res.json())
+      .then((res) => mentors = res.rows)
+  return mentors
+}
+
 export const getMenteesMentor = async (mentee_id) => {
   const mentee = await getUser(mentee_id)
   const mentor = await getUser(mentee.mentor_id)
