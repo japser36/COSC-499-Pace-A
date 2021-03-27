@@ -6,7 +6,6 @@ export default async function deleteUser(req: NextApiRequest, res: NextApiRespon
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  const sql = `DELETE FROM users WHERE id=$1;`
   const values = [req.body.id]
 
   firebaseAdmin
@@ -14,35 +13,22 @@ export default async function deleteUser(req: NextApiRequest, res: NextApiRespon
     .deleteUser(req.body.id)
     .then(async () => {
       await pool
-        .query(sql, values)
-        .then(async (result) => {
-          const rows = result ? result.rows : null
-          await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-        })
+        .query(`DELETE FROM users WHERE id=$1;`, values)
     })
     .then(async () => {
       await pool
         .query('DELETE FROM metauser WHERE id=$1', values)
-        .then(async (result) => {
-          const rows = result ? result.rows : null
-          await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-      })
     })
     .then(async () => {
       await pool
         .query('UPDATE users SET mentor_id = null WHERE mentor_id = $1', values)
-        .then(async (result) => {
-          const rows = result ? result.rows : null
-          await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-      })
     })
     .then(async () => {
       await pool
         .query('DELETE FROM pendingmatches WHERE mentee_id=$1 OR mentor_id=$1;', values)
-        .then(async (result) => {
-          const rows = result ? result.rows : null
-          await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
-      })
+    })
+    .then(async () => {
+      await safeSend({ res, data: JSON.stringify({ success: true }) })
     })
     .catch(async (error) => {
       await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
