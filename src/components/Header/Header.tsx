@@ -11,7 +11,7 @@ const Header = ({ auth, usertype }) => {
         <Grid container alignItems="center" justify="space-between">
           <Grid container item alignItems="center" xs>
             <Grid item>
-              <Link href='/' passHref>
+              <Link href="/" passHref>
                 <IconButton edge="start" color="inherit">
                   <Home />
                 </IconButton>
@@ -26,7 +26,7 @@ const Header = ({ auth, usertype }) => {
             {auth ? (
               <ProfileButton />
             ) : (
-              <Link href='/app/login' passHref>
+              <Link href="/app/login" passHref>
                 <Button color="inherit">
                   <Typography variant="h6">Login</Typography>
                 </Button>

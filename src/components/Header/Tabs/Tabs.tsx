@@ -10,7 +10,7 @@ const Profile = ({ usertype }) => {
       return <MentorTabs />
     case 'mentee':
       return <MenteeTabs />
-    default :
+    default:
       return <></>
   }
 }

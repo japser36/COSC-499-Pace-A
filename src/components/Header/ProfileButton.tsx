@@ -22,7 +22,7 @@ const ProfileButton = () => {
         <AccountCircle />
       </IconButton>
       <Menu id="profile-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <Link href='/app/profile'>
+        <Link href="/app/profile">
           <MenuItem onClick={handleClose}>Profile</MenuItem>
         </Link>
         <MenuItem

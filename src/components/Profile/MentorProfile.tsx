@@ -1,5 +1,4 @@
-import UserCard from "../UserDisplays/UserCard"
-
+import UserCard from '../UserDisplays/UserCard'
 
 const MentorProfile = ({ user }) => {
   return (

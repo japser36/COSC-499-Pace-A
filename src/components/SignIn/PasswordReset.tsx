@@ -15,7 +15,8 @@ const PasswordReset = () => {
     }
   }
   const sendResetEmail = () => {
-    firebaseClient.auth()
+    firebaseClient
+      .auth()
       .sendPasswordResetEmail(email)
       .then(() => {
         setEmailHasBeenSent(true)

@@ -11,7 +11,19 @@ function renderTitle(title = ''): string {
   return title ? `${title} | ${siteTitle}` : siteTitle
 }
 
-export default function Layout({ children, title = '', auth, needsAuth=false, usertype = ''}: { children: React.ReactNode; title?: string; auth: boolean; needsAuth?: boolean; usertype?: string }) {
+export default function Layout({
+  children,
+  title = '',
+  auth,
+  needsAuth = false,
+  usertype = '',
+}: {
+  children: React.ReactNode
+  title?: string
+  auth: boolean
+  needsAuth?: boolean
+  usertype?: string
+}) {
   const fullTitle = renderTitle(title)
   return (
     <div className={styles.containerPage}>
@@ -28,12 +40,11 @@ export default function Layout({ children, title = '', auth, needsAuth=false, us
         <title>{fullTitle}</title>
       </Head>
       <header className={styles.header}>
-        <Header auth={auth} usertype={usertype}/>
+        <Header auth={auth} usertype={usertype} />
       </header>
       <main>
-        <Box component={Container} className={styles.container} overflow='auto'>
-          {needsAuth && !auth ? <NoAuthCard /> 
-          : <>{children}</>}
+        <Box component={Container} className={styles.container} overflow="auto">
+          {needsAuth && !auth ? <NoAuthCard /> : <>{children}</>}
         </Box>
       </main>
     </div>

@@ -3,7 +3,7 @@ import Layout from '../../components/layout'
 
 const Login = () => {
   return (
-    <Layout title='Login' auth={false}>
+    <Layout title="Login" auth={false}>
       <SignInFlow />
     </Layout>
   )

@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 
-
 const Mentors = (props) => {
   const auth = props.auth
   const usertype = props.usertype
@@ -14,11 +13,11 @@ const Mentors = (props) => {
   const mentors = JSON.parse(props.mentors)
 
   return (
-    <Layout title='Mentor Invite' needsAuth auth={auth} usertype={usertype}>
-      <Typography variant='h5'>Invite a new Mentor</Typography>
+    <Layout title="Mentor Invite" needsAuth auth={auth} usertype={usertype}>
+      <Typography variant="h5">Invite a new Mentor</Typography>
       <MentorInvite org_id={org_id} />
-      <Typography variant='h5'>Current Mentors</Typography>
-      <UserList users={mentors} subheader='email' />
+      <Typography variant="h5">Current Mentors</Typography>
+      <UserList users={mentors} subheader="email" deletable />
     </Layout>
   )
 }
@@ -32,15 +31,14 @@ export const getServerSideProps = async (context) => {
     if (usertype !== 'org') throw 'Must be an organization to see this page'
     const mentors = await getOrgMentors(uid)
 
-
     return {
-      props: { 
+      props: {
         auth: true,
         usertype: usertype,
         org_id: uid,
-        mentors: JSON.stringify(mentors)
+        mentors: JSON.stringify(mentors),
       },
-    };
+    }
   } catch (error) {
     console.log(error)
     return {
@@ -48,10 +46,10 @@ export const getServerSideProps = async (context) => {
         auth: false,
         usertype: null,
         org_id: null,
-        mentors: null
+        mentors: null,
       },
-    };
+    }
   }
-};
+}
 
 export default Mentors

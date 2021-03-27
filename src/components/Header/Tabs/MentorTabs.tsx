@@ -12,7 +12,7 @@ const MentorTabs = () => {
         </Link>
       </Grid>
       <Grid item xs>
-        <Link href='/app/mentor/matchedmentees' passHref>
+        <Link href="/app/mentor/matchedmentees" passHref>
           <Button color="inherit">
             <Typography variant="h6">Matched Mentees</Typography>
           </Button>

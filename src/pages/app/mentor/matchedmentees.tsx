@@ -9,11 +9,12 @@ const MatchedMentees = (props) => {
   const usertype = props.usertype
   const pendingmatches = JSON.parse(props.pendingmatches)
   return (
-    <Layout title='Pending Matches' needsAuth auth={auth} usertype={usertype}>
-      {pendingmatches ? 
-      <PendingMatches pendingmatches={pendingmatches} />
-      : <>TODO: display something when mentor has no pending matches</>
-    }
+    <Layout title="Pending Matches" needsAuth auth={auth} usertype={usertype}>
+      {pendingmatches ? (
+        <PendingMatches pendingmatches={pendingmatches} />
+      ) : (
+        <>TODO: display something when mentor has no pending matches</>
+      )}
     </Layout>
   )
 }
@@ -28,22 +29,22 @@ export const getServerSideProps = async (context) => {
     const pendingmatches = await getPendingMatches(uid)
 
     return {
-      props: { 
+      props: {
         auth: true,
         usertype: usertype,
-        pendingmatches: JSON.stringify(pendingmatches)
+        pendingmatches: JSON.stringify(pendingmatches),
       },
-    };
+    }
   } catch (error) {
     console.log(error)
     return {
       props: {
         auth: false,
         usertype: null,
-        pendingmatches: null
+        pendingmatches: null,
       },
-    };
+    }
   }
-};
+}
 
 export default MatchedMentees
