@@ -20,6 +20,14 @@ export default async function deleteUser(req: NextApiRequest, res: NextApiRespon
           await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
         })
     })
+    .then(async () => {
+      await pool
+        .query('UPDATE users SET mentor_id = null WHERE mentor_id = $1', values)
+        .then(async (result) => {
+          const rows = result ? result.rows : null
+          await safeSend({ res, data: JSON.stringify({ success: true, rows }) })
+      })
+    })
     .catch(async (error) => {
       await safeSend({ res, status: 400, data: JSON.stringify({ error: error.toString() }) })
     })
