@@ -15,8 +15,8 @@ const MatchedMentees = (props) => {
         <PendingMatches pendingmatches={pendingmatches} />
       ) : (
         <>
-          <Typography >You don't have any matches right now</Typography>
-          <Typography >Wait for a new mentee to be matched with you and they will appear here.</Typography>
+          <Typography>{`You don't have any matches right now`}</Typography>
+          <Typography>{`Wait for a new mentee to be matched with you and they will appear here.`}</Typography>
         </>
       )}
     </Layout>

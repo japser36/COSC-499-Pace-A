@@ -23,10 +23,9 @@ const Mentors = (props) => {
         </>
       ) : (
         <>
-          <Typography variant="h5">There are currently no mentors associated with your organization.</Typography>
+          <Typography variant="h5">{`There are currently no mentors associated with your organization.`}</Typography>
         </>
-      ) 
-      }
+      )}
     </Layout>
   )
 }

@@ -7,10 +7,10 @@ const MenteeSignUp = (props) => {
   const org = JSON.parse(props.org)
 
   return (
-    <Box className={styles.containerPage} >
-    <Container className={styles.container}>
-      <UserSignUp userType="mentee" org_id={org.id} org_name={org.org_name} />
-    </Container>
+    <Box className={styles.containerPage}>
+      <Container className={styles.container}>
+        <UserSignUp userType="mentee" org_id={org.id} org_name={org.org_name} />
+      </Container>
     </Box>
   )
 }

@@ -19,7 +19,7 @@ const DeleteUserButton = ({ user, setDeleted }) => {
   return (
     <>
       <Button
-        variant='contained'
+        variant="contained"
         onClick={() => {
           setOpen(true)
         }}
@@ -29,7 +29,7 @@ const DeleteUserButton = ({ user, setDeleted }) => {
       <Dialog open={open}>
         <DialogTitle>Are you sure you want to delete this user?</DialogTitle>
         <DialogContent>
-            <UserCard user={user} />
+          <UserCard user={user} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleYes}>Yes</Button>

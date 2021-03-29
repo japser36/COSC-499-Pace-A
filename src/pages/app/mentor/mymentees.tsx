@@ -12,12 +12,14 @@ const MyMentees = (props) => {
 
   return (
     <Layout title="Mentees" needsAuth auth={auth} usertype={usertype}>
-      {mentees ? <UserList users={mentees} subheader='email'/> 
-      : <>
-        <Typography >You dont have any mentees right now.</Typography>
-        <Typography >You can accept new mentees that have matched with you on the 'matched mentees' page</Typography>
-      </>
-      }
+      {mentees ? (
+        <UserList users={mentees} subheader="email" />
+      ) : (
+        <>
+          <Typography>{'You dont have any mentees right now.'}</Typography>
+          <Typography>{`You can accept new mentees that have matched with you on the 'matched mentees' page`}</Typography>
+        </>
+      )}
     </Layout>
   )
 }

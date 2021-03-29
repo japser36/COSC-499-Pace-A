@@ -57,7 +57,7 @@ const UserCard = ({ user, subheader = null, deletable = false }) => {
         </CardContent>
         {deletable && !deleted ? (
           <CardActions>
-            <DeleteUserButton user={user} setDeleted={setDeleted}/>
+            <DeleteUserButton user={user} setDeleted={setDeleted} />
           </CardActions>
         ) : (
           <></>
