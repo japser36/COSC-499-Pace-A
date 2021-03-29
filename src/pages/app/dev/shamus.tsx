@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { matchMentors } from '../../../utils/matching'
 import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
+import {getIFrame} from '../../../utils/misc'
 
 export default function Shamus() {
   const NotifyOfMatch = () => {
@@ -24,7 +25,7 @@ export default function Shamus() {
       <Button variant="contained" onClick={NotifyOfMatch}>
         Send Matched Notification
       </Button>
-      <iframe src="http://localhost:3000/i/P2f7Yi5M4hUDL0obgfsrISx0WD53" title="Mentee Registration"></iframe>
+      <iframe src="http://localhost:3000/i/P2f7Yi5M4hUDL0obgfsrISx0WD53" title="Mentee Registration" />
     </>
   )
 }

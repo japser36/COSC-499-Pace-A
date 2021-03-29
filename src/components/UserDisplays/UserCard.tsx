@@ -10,7 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
-import DeleteUserButton from '../Inputs/DeleteUserButton'
+import DeleteUserButton from '../Misc/DeleteUserButton'
 import { useState } from 'react'
 import { parseSkills } from '../../utils/misc'
 

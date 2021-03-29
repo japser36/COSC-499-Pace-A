@@ -1,5 +1,7 @@
 import UserList from '../../../components/UserDisplays/UserList'
+import { Typography } from '@material-ui/core'
 import { getUserType, getOrgMentees } from '../../../utils/api'
+import IFrameCopy from '../../../components/Misc/IFrameCopy'
 import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
@@ -7,14 +9,17 @@ import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 const Mentees = (props) => {
   const auth = props.auth
   const usertype = props.usertype
+  const org_id = props.org_id
   const mentees = JSON.parse(props.mentees)
 
   return (
     <Layout title="Users" needsAuth auth={auth} usertype={usertype}>
-      {mentees ? (
+      {mentees && false ? (
         <UserList users={mentees} deletable />
       ) : (
-        <>TODO: display the copiable iframe code when org has no mentees</>
+        <>
+          <IFrameCopy org_id={org_id} />
+        </>
       )}
     </Layout>
   )
@@ -33,6 +38,7 @@ export const getServerSideProps = async (context) => {
       props: {
         auth: true,
         usertype: usertype,
+        org_id: uid,
         mentees: JSON.stringify(mentees),
       },
     }
@@ -42,6 +48,7 @@ export const getServerSideProps = async (context) => {
       props: {
         auth: false,
         usertype: null,
+        org_id: null,
         mentees: null,
       },
     }

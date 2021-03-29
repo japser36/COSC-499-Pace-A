@@ -1,4 +1,4 @@
-import MentorInvite from '../../../components/Inputs/MentorInvite'
+import MentorInvite from '../../../components/Misc/MentorInvite'
 import UserList from '../../../components/UserDisplays/UserList'
 import { getUserType, getOrgMentors } from '../../../utils/api'
 import Layout from '../../../components/layout'

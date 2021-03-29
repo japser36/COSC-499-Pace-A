@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import TimezoneSelect from '../Inputs/TimezoneSelect'
-import SkillSelect from '../Inputs/SkillSelect'
+import TimezoneSelect from '../Misc/TimezoneSelect'
+import SkillSelect from '../Misc/SkillSelect'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
 
 const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
