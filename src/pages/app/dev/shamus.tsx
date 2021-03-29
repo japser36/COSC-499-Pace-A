@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { matchMentors } from '../../../utils/matching'
 import fetch from 'node-fetch'
 import Button from '@material-ui/core/Button'
-import {getIFrame} from '../../../utils/misc'
+import { getIFrame } from '../../../utils/misc'
 
 export default function Shamus() {
   const NotifyOfMatch = () => {
