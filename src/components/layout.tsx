@@ -26,7 +26,7 @@ export default function Layout({
 }) {
   const fullTitle = renderTitle(title)
   return (
-    <div className={styles.containerPage}>
+    <Box className={styles.containerPage} >
       <Head>
         <meta name="description" content={`${fullTitle} - COSC 499 Project`} />
         <meta
@@ -43,10 +43,10 @@ export default function Layout({
         <Header auth={auth} usertype={usertype} />
       </header>
       <main>
-        <Box component={Container} className={styles.container} overflow="auto">
+        <Container className={styles.container} >
           {needsAuth && !auth ? <NoAuthCard /> : <>{children}</>}
-        </Box>
+        </Container>
       </main>
-    </div>
+    </Box>
   )
 }

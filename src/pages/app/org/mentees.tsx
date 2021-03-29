@@ -11,7 +11,8 @@ const Mentees = (props) => {
 
   return (
     <Layout title="Users" needsAuth auth={auth} usertype={usertype}>
-      {mentees ? <UserList users={mentees} deletable/> : <>TODO: display something when org has no mentees</>}
+      {mentees ? <UserList users={mentees} deletable/> 
+      : <>TODO: display the copiable iframe code when org has no mentees</>}
     </Layout>
   )
 }

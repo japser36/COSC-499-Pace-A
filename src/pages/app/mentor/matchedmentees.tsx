@@ -1,4 +1,5 @@
 import PendingMatches from '../../../components/UserDisplays/PendingMatches'
+import Typography from '@material-ui/core/Typography'
 import { getUserType, getPendingMatches } from '../../../utils/api'
 import Layout from '../../../components/layout'
 import nookies from 'nookies'
@@ -13,7 +14,10 @@ const MatchedMentees = (props) => {
       {pendingmatches ? (
         <PendingMatches pendingmatches={pendingmatches} />
       ) : (
-        <>TODO: display something when mentor has no pending matches</>
+        <>
+          <Typography >You don't have any matches right now</Typography>
+          <Typography >Wait for a new mentee to be matched with you and they will appear here.</Typography>
+        </>
       )}
     </Layout>
   )
