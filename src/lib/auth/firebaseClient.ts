@@ -11,8 +11,8 @@ if (!firebaseClient.apps.length) {
     messagingSenderId: '9643136081',
     appId: '1:9643136081:web:d11c6c486524e393f1d470',
     measurementId: 'G-RFW1NNCPMF',
-  });
+  })
   //firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION);
 }
 
-export { firebaseClient };
+export { firebaseClient }

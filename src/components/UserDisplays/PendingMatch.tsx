@@ -59,7 +59,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
         }}
         action={<IconButton>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
         title={mentee.displayname}
-        subheader={status}
+        subheader={status === 'pending' ? '' : status}
       />
       <Divider />
       <Collapse in={open} unmountOnExit>
