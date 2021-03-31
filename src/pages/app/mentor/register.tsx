@@ -7,8 +7,8 @@ const MentorSignUp = (props) => {
   const mentor_email = props.mentor_email
 
   return (
-    <Layout title='Register Mentor' auth={false} >
-      <UserSignUp userType="mentor" org_id={org.org_id} org_name={org.org_name} mentor_email={mentor_email} />
+    <Layout title="Register Mentor" auth={false}>
+      <UserSignUp userType="mentor" org_id={org.id} org_name={org.org_name} mentor_email={mentor_email} />
     </Layout>
   )
 }

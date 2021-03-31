@@ -10,7 +10,7 @@ const Home = (props) => {
   const usertype = props.usertype
 
   return (
-    <Layout title='Home' auth={auth} usertype={usertype}>
+    <Layout title="Home" auth={auth} usertype={usertype}>
       {auth ? (
         <>TODO: show logged in home page</>
       ) : (
@@ -33,19 +33,19 @@ export const getServerSideProps = async (context) => {
     const usertype = await getUserType(uid)
 
     return {
-      props: { 
+      props: {
         auth: true,
-        usertype: usertype
+        usertype: usertype,
       },
-    };
+    }
   } catch (error) {
     console.log(error)
     return {
       props: {
-        auth: false
+        auth: false,
       },
-    };
+    }
   }
-};
+}
 
 export default Home

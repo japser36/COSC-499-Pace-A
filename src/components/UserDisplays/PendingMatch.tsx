@@ -19,7 +19,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState('pending')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
-  
+
   const handleAccept = () => {
     acceptPendingMatch(mentee_id, mentor_id)
       .then(() => {
@@ -59,7 +59,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
         }}
         action={<IconButton>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
         title={mentee.displayname}
-        subheader={status}
+        subheader={status === 'pending' ? '' : status}
       />
       <Divider />
       <Collapse in={open} unmountOnExit>

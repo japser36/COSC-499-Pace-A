@@ -1,19 +1,24 @@
 import PendingMatches from '../../../components/UserDisplays/PendingMatches'
+import Typography from '@material-ui/core/Typography'
 import { getUserType, getPendingMatches } from '../../../utils/api'
 import Layout from '../../../components/layout'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 
-const Pending = (props) => {
+const MatchedMentees = (props) => {
   const auth = props.auth
   const usertype = props.usertype
   const pendingmatches = JSON.parse(props.pendingmatches)
   return (
-    <Layout title='Pending Matches' needsAuth auth={auth} usertype={usertype}>
-      {pendingmatches ? 
-      <PendingMatches pendingmatches={pendingmatches} />
-      : <>TODO: display something when mentor has no pending matches</>
-    }
+    <Layout title="Pending Matches" needsAuth auth={auth} usertype={usertype}>
+      {pendingmatches ? (
+        <PendingMatches pendingmatches={pendingmatches} />
+      ) : (
+        <>
+          <Typography>{`You don't have any matches right now`}</Typography>
+          <Typography>{`Wait for a new mentee to be matched with you and they will appear here.`}</Typography>
+        </>
+      )}
     </Layout>
   )
 }
@@ -28,22 +33,22 @@ export const getServerSideProps = async (context) => {
     const pendingmatches = await getPendingMatches(uid)
 
     return {
-      props: { 
+      props: {
         auth: true,
         usertype: usertype,
-        pendingmatches: JSON.stringify(pendingmatches)
+        pendingmatches: JSON.stringify(pendingmatches),
       },
-    };
+    }
   } catch (error) {
     console.log(error)
     return {
       props: {
         auth: false,
         usertype: null,
-        pendingmatches: null
+        pendingmatches: null,
       },
-    };
+    }
   }
-};
+}
 
-export default Pending
+export default MatchedMentees

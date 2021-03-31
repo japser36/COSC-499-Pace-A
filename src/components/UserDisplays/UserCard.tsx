@@ -4,16 +4,34 @@ import {
   Collapse,
   Card,
   CardContent,
+  CardActions,
   CardHeader,
   Typography,
   IconButton,
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
+import DeleteUserButton from '../Misc/DeleteUserButton'
 import { useState } from 'react'
+import { parseSkills } from '../../utils/misc'
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, subheader = null, deletable = false }) => {
   const [open, setOpen] = useState(false)
-  
+  const [deleted, setDeleted] = useState(false)
+  switch (subheader) {
+    case 'usertype':
+      subheader = user.usertype
+      break
+    case 'email':
+      subheader = user.email
+      break
+    case 'skills':
+      subheader = parseSkills(user.skills).toString()
+      break
+    default:
+      subheader = null
+      break
+  }
+
   return (
     <Card variant="outlined">
       <CardHeader
@@ -21,8 +39,8 @@ const UserCard = ({ user }) => {
           setOpen(!open)
         }}
         action={<IconButton>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
-        title={user.displayname}
-        subheader={user.usertype}
+        title={deleted ? user.displayname + ' - Deleted' : user.displayname}
+        subheader={subheader}
       />
       <Divider />
       <Collapse in={open} unmountOnExit>
@@ -37,6 +55,13 @@ const UserCard = ({ user }) => {
             </Typography>
           ))}
         </CardContent>
+        {deletable && !deleted ? (
+          <CardActions>
+            <DeleteUserButton user={user} setDeleted={setDeleted} />
+          </CardActions>
+        ) : (
+          <></>
+        )}
       </Collapse>
     </Card>
   )

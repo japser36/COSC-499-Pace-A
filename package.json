@@ -39,6 +39,7 @@
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
     "react-collapse": "^5.1.0",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "16.13.1",
     "react-icons": "^4.2.0",
     "react-material-ui-form-validator": "^2.1.4",
