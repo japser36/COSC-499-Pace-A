@@ -72,7 +72,7 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
             {...params}
             validators={validators}
             errorMessages={errorMessages}
-            label={required ? 'Select Skills *' : 'Select Skills'}
+            label={required ? 'Skills *' : 'Skills'}
             InputProps={{
               ...params.InputProps,
               endAdornment: (

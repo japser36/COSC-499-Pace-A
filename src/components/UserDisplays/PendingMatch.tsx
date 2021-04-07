@@ -14,11 +14,13 @@ import {
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { useState } from 'react'
 import { fetcher, acceptPendingMatch, declinePendingMatch } from '../../utils/api'
+import { parseSkills } from '../../utils/misc'
 
 const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState('')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
+  console.log(matched_skills)
 
   const handleAccept = () => {
     acceptPendingMatch(mentee_id, mentor_id)
@@ -66,9 +68,9 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
         <CardContent>
           <Typography variant="body1">{JSON.parse(mentee.timezone).label}</Typography>
           <Typography variant="h6">{'Matched Skills:'}</Typography>
-          {JSON.parse(matched_skills).map((skill) => (
-            <Typography key={skill.name} variant="body1">
-              {skill.name}
+          {parseSkills(matched_skills).map((skill) => (
+            <Typography key={skill} variant="body1">
+              {skill}
             </Typography>
           ))}
           {status === 'pending' ? (

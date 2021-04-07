@@ -5,27 +5,18 @@ import Button from '@material-ui/core/Button'
 import { getIFrame } from '../../../utils/misc'
 
 export default function Shamus() {
-  const NotifyOfMatch = () => {
-    fetch('/api/sendmail/notifyofmatch', {
-      method: 'POST',
-      body: JSON.stringify({
-        mentee_id: 'MENTEE1',
-        mentor_id: 'MxSFrMRCggPNEOrdcrIZkQ85Fk63',
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
   return (
     <>
       <Head>
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
-      <Button variant="contained" onClick={NotifyOfMatch}>
-        Send Matched Notification
-      </Button>
-      <iframe src="http://localhost:3000/i/P2f7Yi5M4hUDL0obgfsrISx0WD53" title="Mentee Registration" />
+      <iframe
+        src="http://localhost:3000/i/19y4rp4phaNONWawOqVQTQ7fpsm2"
+        title="Mentee Registration"
+        height="500"
+        width="1000"
+      />
     </>
   )
 }

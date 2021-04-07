@@ -12,7 +12,7 @@ const MyMentees = (props) => {
 
   return (
     <Layout title="Mentees" needsAuth auth={auth} usertype={usertype}>
-      {mentees ? (
+      {mentees.length > 0 ? (
         <UserList users={mentees} subheader="email" />
       ) : (
         <>
