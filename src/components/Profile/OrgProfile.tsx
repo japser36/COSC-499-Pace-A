@@ -42,12 +42,6 @@ const OrgProfile = ({ org, mentees, mentors }) => {
   }
 
   return (
-<<<<<<< HEAD
-    <>
-      <p>Email: {org.email}</p>
-      <p>Organization Name: {org.org_name}</p>
-    </>
-=======
     <Card>
       {editing ? (
         <CardHeader
@@ -134,7 +128,6 @@ const OrgProfile = ({ org, mentees, mentors }) => {
         <IFrameCopy org_id={org.id} />
       </CardActions>
     </Card>
->>>>>>> develop
   )
 }
 

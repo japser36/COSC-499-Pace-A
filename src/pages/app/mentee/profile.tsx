@@ -6,12 +6,7 @@ import { getUserType, getUser, getOrg } from '../../../utils/api'
 
 const MenteeProfilePage = (props) => {
   const auth = props.auth
-<<<<<<< HEAD:src/pages/app/profile.tsx
-  console.log('Blah!', props)
-  const user = JSON.parse(props.user)
-=======
   const mentee = JSON.parse(props.mentee)
->>>>>>> develop:src/pages/app/mentee/profile.tsx
   const org = JSON.parse(props.org)
   const usertype = props.usertype
 

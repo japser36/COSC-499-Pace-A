@@ -35,17 +35,6 @@ const MentorProfile = ({ mentor, org }) => {
   }
 
   return (
-<<<<<<< HEAD
-    <>
-      <p>First Name: {user.firstname}</p>
-      <p>Last Name: {user.lastname}</p>
-      <p>Display Name: {user.displayname}</p>
-      <p>Email: {user.email}</p>
-      <p>Timezone: {JSON.parse(user.timezone).label}</p>
-      <p>Skills: {user.skills}</p>
-      <p>Org Id: {user.org_id}</p>
-    </>
-=======
     <Card>
       {editing ? (
         <CardHeader
@@ -122,7 +111,6 @@ const MentorProfile = ({ mentor, org }) => {
         )}
       </CardContent>
     </Card>
->>>>>>> develop
   )
 }
 

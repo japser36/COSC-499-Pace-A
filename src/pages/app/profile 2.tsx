@@ -13,12 +13,7 @@ const ProfilePage = (props) => {
   const usertype = props.usertype
 
   return (
-<<<<<<< HEAD
-    <Layout title="Profile" auth={auth} usertype={usertype}>
-      TODO: improve the profile page
-=======
-    <Layout title='Profile' needsAuth auth={auth} usertype={usertype}>
->>>>>>> develop
+    <Layout title="Profile" needsAuth auth={auth} usertype={usertype}>
       <Profile user={user} org={org} usertype={usertype} />
     </Layout>
   )
@@ -46,12 +41,9 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         auth: false,
-<<<<<<< HEAD
-=======
         user: null,
         org: null,
-        usertype: null
->>>>>>> develop
+        usertype: null,
       },
     }
   }
