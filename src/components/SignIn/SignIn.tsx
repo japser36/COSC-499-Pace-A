@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
+import { getUserType } from '../../utils/api'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -17,7 +18,9 @@ const SignIn = () => {
       .then((authUser) => {
         if (authUser.user.emailVerified) {
           // Signed In
-          router.push('/app/profile')
+          getUserType(authUser.user.uid).then((usertype) => {
+            router.push(`/app/${usertype}/profile`)
+          })
         } else {
           auth.signOut()
           setError('Email not verified')

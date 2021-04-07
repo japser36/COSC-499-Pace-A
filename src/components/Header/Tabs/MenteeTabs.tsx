@@ -10,7 +10,7 @@ const MentorTabs = () => {
       <Grid item xs>
         <Link href={navlink.mentor} passHref>
           <Button color="inherit">
-            <Typography variant="h6">Mentor</Typography>
+            <Typography variant="h6">My Mentor</Typography>
           </Button>
         </Link>
       </Grid>

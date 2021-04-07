@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import pool from '../../../lib/db'
 
-export default async function setMentor(req: NextApiRequest, res: NextApiResponse) {
+export default async function setSkills(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
   const data = JSON.parse(req.body)

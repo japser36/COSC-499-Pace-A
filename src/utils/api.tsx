@@ -65,6 +65,14 @@ export const acceptPendingMatch = async (mentee_id, mentor_id) => {
     }),
     headers: { 'Content-Type': 'application/json' },
   })
+  await fetch(`/api/sendmail/notifyofaccept`, {
+    method: 'POST',
+    body: JSON.stringify({
+      mentee_id: mentee_id,
+      mentor_id: mentor_id,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
 }
 
 export const declinePendingMatch = async (mentee_id, mentor_id) => {
@@ -113,6 +121,50 @@ export const deleteUser = async (id) => {
     method: 'POST',
     body: JSON.stringify({
       id: id,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const setOrgName = async (org_id, org_name) => {
+  await fetch(`/api/org/set-name`, {
+    method: 'POST',
+    body: JSON.stringify({
+      org_id: org_id,
+      org_name: org_name,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const setUserDisplayName = async (id, displayname) => {
+  await fetch(`/api/user/set-displayname`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id: id,
+      displayname: displayname,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const setUserBio = async (id, bio) => {
+  await fetch(`/api/user/set-bio`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id: id,
+      bio: bio,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const setUserCalendar = async (id, calendar) => {
+  await fetch(`/api/user/set-calendar`, {
+    method: 'POST',
+    body: JSON.stringify({
+      id: id,
+      calendar: calendar,
     }),
     headers: { 'Content-Type': 'application/json' },
   })
