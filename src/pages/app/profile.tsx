@@ -1,6 +1,5 @@
 import Profile from '../../components/Profile/Profile'
 import Layout from '../../components/layout'
-import NoAuthCard from '../../components/NoAuthCard'
 import nookies from 'nookies'
 import { firebaseAdmin } from '../../lib/auth/firebaseAdmin'
 import { getUserType, getUser, getOrg } from '../../utils/api'

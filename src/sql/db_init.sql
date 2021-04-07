@@ -17,10 +17,10 @@ CREATE TABLE users (
 	skills TEXT,
 	timezone TEXT,
 	org_id TEXT,
-	userType TEXT,
+	usertype TEXT,
 	mentor_id TEXT DEFAULT NULL,
 	PRIMARY KEY(id),
-	CHECK (userType = 'mentee' OR userType = 'mentor'),
+	CHECK (usertype = 'mentee' OR usertype = 'mentor'),
 	FOREIGN KEY (org_id) REFERENCES org(id),
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
@@ -37,7 +37,7 @@ CREATE TABLE pendingmatches (
 DROP TABLE IF EXISTS metauser;
 CREATE TABLE IF NOT EXISTS metauser (
 	id TEXT,
-	userType VARCHAR(7),
+	usertype VARCHAR(7),
 	PRIMARY KEY(id)
 );
 
@@ -97,15 +97,18 @@ INSERT INTO timezone (value, label, abbr) VALUES (-1, '(GMT-1:00) Central Africa
 
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG1', 'ORGNAME1', 'org1@test.ca');
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG2', 'ORGNAME2', 'org2@test.ca');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType) VALUES ('MENTOR1', 'FNmentor1', 'LNmentor1', 'DNmentor1', 'mentor1@test.ca', '[{"name":"Programming"},{"name":"Math"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType) VALUES ('MENTOR2', 'FNmentor2', 'LNmentor2', 'DNmentor2', 'mentor2@test.ca', '[{"name":"Visual Arts"},{"name":"Math"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType) VALUES ('MENTOR3', 'FNmentor3', 'LNmentor3', 'DNmentor3', 'mentor3@test.ca', '[{"name":"Chemistry"},{"name":"Biology"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType) VALUES ('MENTOR4', 'FNmentor4', 'LNmentor4', 'DNmentor4', 'mentor4@test.ca', '[{"name":"Public Speaking"},{"name":"Chemistry"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType, mentor_id) VALUES ('MENTEE1', 'FNmentee1', 'LNmentee1', 'DNmentee1', 'mentee1@test.ca', '[{"name":"Management"},{"name":"Cooking"},{"name":"Public Speaking"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', 'MENTOR1');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType, mentor_id) VALUES ('MENTEE2', 'FNmentee2', 'LNmentee2', 'DNmentee2', 'mentee2@test.ca', '[{"name":"Programming"},{"name":"Math"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', null);
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType, mentor_id) VALUES ('MENTEE3', 'FNmentee3', 'LNmentee3', 'DNmentee3', 'mentee3@test.ca', '[{"name":"Programming"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, userType, mentor_id) VALUES ('MENTEE4', 'FNmentee4', 'LNmentee4', 'DNmentee4', 'mentee4@test.ca', '[{"name":"Programming"},{"name":"Cooking"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR1', 'FNmentor1', 'LNmentor1', 'DNmentor1', 'mentor1@test.ca', '[{"name":"Programming"},{"name":"Math"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR2', 'FNmentor2', 'LNmentor2', 'DNmentor2', 'mentor2@test.ca', '[{"name":"Visual Arts"},{"name":"Math"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR3', 'FNmentor3', 'LNmentor3', 'DNmentor3', 'mentor3@test.ca', '[{"name":"Chemistry"},{"name":"Biology"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR4', 'FNmentor4', 'LNmentor4', 'DNmentor4', 'mentor4@test.ca', '[{"name":"Public Speaking"},{"name":"Chemistry"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE1', 'FNmentee1', 'LNmentee1', 'DNmentee1', 'mentee1@test.ca', '[{"name":"Management"},{"name":"Cooking"},{"name":"Public Speaking"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', 'MENTOR1');
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE2', 'FNmentee2', 'LNmentee2', 'DNmentee2', 'mentee2@test.ca', '[{"name":"Programming"},{"name":"Math"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', null);
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE3', 'FNmentee3', 'LNmentee3', 'DNmentee3', 'mentee3@test.ca', '[{"name":"Programming"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
+INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE4', 'FNmentee4', 'LNmentee4', 'DNmentee4', 'mentee4@test.ca', '[{"name":"Programming"},{"name":"Cooking"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
 INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE2', 'MENTOR1', '[{"name":"Programming"},{"name":"Math"}]');
 INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE3', 'MENTOR1', '[{"name":"Programming"},{"name":"Physics"}]');
 INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE4', 'MENTOR1', '[{"name":"Programming"}]');
+
+
+
 

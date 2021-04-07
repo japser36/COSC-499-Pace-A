@@ -3,12 +3,6 @@ import { Home } from '@material-ui/icons'
 import ProfileButton from './ProfileButton'
 import Tabs from './Tabs/Tabs'
 import Link from 'next/link'
- 
-const navlink = {
-  home: '/',
-  profile: '/profile',
-  login: '/app/login',
-}
 
 const Header = ({ auth, usertype }) => {
   return (
@@ -17,7 +11,7 @@ const Header = ({ auth, usertype }) => {
         <Grid container alignItems="center" justify="space-between">
           <Grid container item alignItems="center" xs>
             <Grid item>
-              <Link href={navlink.home} passHref>
+              <Link href="/" passHref>
                 <IconButton edge="start" color="inherit">
                   <Home />
                 </IconButton>
@@ -32,7 +26,7 @@ const Header = ({ auth, usertype }) => {
             {auth ? (
               <ProfileButton />
             ) : (
-              <Link href={navlink.login} passHref>
+              <Link href="/app/login" passHref>
                 <Button color="inherit">
                   <Typography variant="h6">Login</Typography>
                 </Button>
