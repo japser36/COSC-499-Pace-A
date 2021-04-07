@@ -4,7 +4,7 @@ import { AccountCircle } from '@material-ui/icons'
 import Link from 'next/link'
 import { useAuth } from '../../lib/auth/AuthProvider'
 
-const ProfileButton = () => {
+const ProfileButton = ({ usertype }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const { logout } = useAuth()
 
@@ -22,7 +22,7 @@ const ProfileButton = () => {
         <AccountCircle />
       </IconButton>
       <Menu id="profile-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <Link href="/app/profile">
+        <Link href={`/app/${usertype}/profile`}>
           <MenuItem onClick={handleClose}>Profile</MenuItem>
         </Link>
         <MenuItem

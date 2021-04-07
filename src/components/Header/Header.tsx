@@ -24,7 +24,7 @@ const Header = ({ auth, usertype }) => {
           {auth ? <Tabs usertype={usertype} /> : <></>}
           <Grid item xs>
             {auth ? (
-              <ProfileButton />
+              <ProfileButton usertype={usertype} />
             ) : (
               <Link href="/app/login" passHref>
                 <Button color="inherit">

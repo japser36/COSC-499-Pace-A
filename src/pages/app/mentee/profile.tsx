@@ -1,18 +1,18 @@
-import Profile from '../../components/Profile/Profile'
-import Layout from '../../components/layout'
+import MenteeProfile from '../../../components/Profile/MenteeProfile'
+import Layout from '../../../components/layout'
 import nookies from 'nookies'
-import { firebaseAdmin } from '../../lib/auth/firebaseAdmin'
-import { getUserType, getUser, getOrg } from '../../utils/api'
+import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
+import { getUserType, getUser, getOrg } from '../../../utils/api'
 
-const ProfilePage = (props) => {
+const MenteeProfilePage = (props) => {
   const auth = props.auth
-  const user = JSON.parse(props.user)
+  const mentee = JSON.parse(props.mentee)
   const org = JSON.parse(props.org)
   const usertype = props.usertype
 
   return (
     <Layout title="Profile" needsAuth auth={auth} usertype={usertype}>
-      <Profile user={user} org={org} usertype={usertype} />
+      <MenteeProfile mentee={mentee} org={org} />
     </Layout>
   )
 }
@@ -23,13 +23,13 @@ export const getServerSideProps = async (context) => {
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token)
     const uid = token.uid
     const usertype = await getUserType(uid)
-    const user = await getUser(uid)
-    const org = await getOrg(uid)
+    const mentee = await getUser(uid)
+    const org = await getOrg(mentee.org_id)
 
     return {
       props: {
         auth: true,
-        user: JSON.stringify(user),
+        mentee: JSON.stringify(mentee),
         org: JSON.stringify(org),
         usertype: usertype,
       },
@@ -39,7 +39,7 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         auth: false,
-        user: null,
+        mentee: null,
         org: null,
         usertype: null,
       },
@@ -47,4 +47,4 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-export default ProfilePage
+export default MenteeProfilePage

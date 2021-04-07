@@ -6,20 +6,39 @@ export async function matchMentors(mentee_id) {
   const mentors = await getMentors(mentee.org_id)
   //console.log(mentee)
   mentors.forEach((mentor) => {
-    mentor.scommon = numCommonSkills(mentee, mentor)
+    const scommon = commonSkills(mentee, mentor)
+    mentor.scommon = scommon.length
     mentor.tdiff = timezoneDiff(mentee, mentor)
     const h = heuristic(mentor.scommon, mentor.tdiff)
-    if (h >= 1) matched.push(mentor)
-    //console.log(mentor)
+    if (h >= 1) matched.push({mentor: mentor, skills: scommon})
   })
   console.log(matched)
+  matched.forEach(async (match) => {
+    await fetch('/api/pendingmatches/insert', {
+      method: 'POST',
+      body: JSON.stringify({
+        mentee_id: mentee_id,
+        mentor_id: match.mentor.id,
+        skills: JSON.stringify(match.skills),
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    await fetch('/api/sendmail/notifyofmatch', {
+      method: 'POST',
+      body: JSON.stringify({
+        mentee_id: mentee_id,
+        mentor_id: match.mentor.id,
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+  })
   return matched
 }
 
 //Returns the attributes of the mentee with the given id
 async function getMentee(mentee_id) {
   let mentee
-  await fetch('../api/user/' + mentee_id, { method: 'GET' })
+  await fetch(`/api/user/${mentee_id}`, { method: 'GET' })
     .then((res) => res.json())
     .then((res) => (mentee = res.rows[0]))
     .catch((error) => {
@@ -31,7 +50,7 @@ async function getMentee(mentee_id) {
 //Returns a list of mentors (with attributes id, skills, timezone) that share the given org_id.
 async function getMentors(org_id) {
   const mentor_ids = []
-  await fetch('../api/org/users/' + org_id, { method: 'GET' })
+  await fetch(`/api/org/users/${org_id}`, { method: 'GET' })
     .then((res) => res.json())
     .then((res) => {
       const users = res.rows
@@ -49,8 +68,8 @@ async function getMentors(org_id) {
 }
 
 //Returns a count of skills shared between s1 and s2
-function numCommonSkills(mentee, mentor) {
-  let count = 0
+function commonSkills(mentee, mentor) {
+  let skills = []
   const mentee_skills = JSON.parse(mentee.skills)
   const mentor_skills = JSON.parse(mentor.skills)
 
@@ -58,13 +77,12 @@ function numCommonSkills(mentee, mentor) {
     for (let i = 0; i < mentee_skills.length; i++) {
       for (let j = 0; j < mentor_skills.length; j++) {
         if (mentee_skills[i].name === mentor_skills[j].name) {
-          count++
+          skills.push(mentee_skills[i])
         }
       }
     }
   }
-
-  return count
+  return skills
 }
 
 //Returns the difference in timezones

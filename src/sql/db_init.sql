@@ -16,9 +16,11 @@ CREATE TABLE users (
 	email TEXT,
 	skills TEXT,
 	timezone TEXT,
+	bio TEXT,
 	org_id TEXT,
 	usertype TEXT,
 	mentor_id TEXT DEFAULT NULL,
+	calendar TEXT DEFAULT NULL,
 	PRIMARY KEY(id),
 	CHECK (usertype = 'mentee' OR usertype = 'mentor'),
 	FOREIGN KEY (org_id) REFERENCES org(id),
@@ -37,8 +39,9 @@ CREATE TABLE pendingmatches (
 DROP TABLE IF EXISTS metauser;
 CREATE TABLE IF NOT EXISTS metauser (
 	id TEXT,
-	usertype VARCHAR(7),
-	PRIMARY KEY(id)
+	usertype TEXT,
+	PRIMARY KEY(id),
+	CHECK (usertype = 'mentee' OR usertype = 'mentor' OR usertype = 'org'),
 );
 
 DROP TABLE IF EXISTS skill;

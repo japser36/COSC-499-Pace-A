@@ -47,6 +47,7 @@ const UserCard = ({ user, subheader = null, deletable = false }) => {
         <CardContent>
           <Typography variant="body1">{`${user.firstname} ${user.lastname}`}</Typography>
           <Typography variant="body1">{user.email}</Typography>
+          <Typography variant="body1">{`Bio: ${user.bio}`}</Typography>
           <Typography variant="body1">{JSON.parse(user.timezone).label}</Typography>
           <Typography variant="h6">{'Skills:'}</Typography>
           {JSON.parse(user.skills).map((skill) => (

@@ -8,7 +8,7 @@ const MentorSignUp = (props) => {
 
   return (
     <Layout title="Register Mentor" auth={false}>
-      <UserSignUp userType="mentor" org_id={org.id} org_name={org.org_name} mentor_email={mentor_email} />
+      <UserSignUp usertype="mentor" org_id={org.id} org_name={org.org_name} mentor_email={mentor_email} />
     </Layout>
   )
 }

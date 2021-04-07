@@ -1,23 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import pool from '../../../lib/db'
 
-export default async function addUser(req: NextApiRequest, res: NextApiResponse) {
+export default async function setName(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, timezone, skills, org_id, usertype)
-              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
-  const values = [
-    req.body.id,
-    req.body.firstName,
-    req.body.lastName,
-    req.body.displayName,
-    req.body.email,
-    req.body.timezone,
-    req.body.skills,
-    req.body.org_id,
-    req.body.usertype,
-  ]
+  const sql = `UPDATE org
+              SET org_name = $1
+              WHERE id = $2`
+  const values = [req.body.org_name, req.body.org_id]
 
   await pool
     .query(sql, values)

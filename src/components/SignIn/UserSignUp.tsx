@@ -5,7 +5,7 @@ import TimezoneSelect from '../Misc/TimezoneSelect'
 import SkillSelect from '../Misc/SkillSelect'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
 
-const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
+const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -14,6 +14,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [timezone, setTimezone] = useState(null)
   const [skills, setSkills] = useState([])
+  const [bio, setBio] = useState('')
   const [verificationSent, setVerificationSent] = useState(false)
   const [error, setError] = useState(null)
   const auth = firebaseClient.auth()
@@ -37,8 +38,9 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
             email: email,
             timezone: JSON.stringify(timezone),
             skills: JSON.stringify(skills),
+            bio: bio,
             org_id: org_id,
-            userType: userType,
+            usertype: usertype,
           }),
           headers: { 'Content-Type': 'application/json' },
         })
@@ -48,7 +50,7 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
           method: 'POST',
           body: JSON.stringify({
             id: user.user.uid,
-            userType: userType,
+            usertype: usertype,
           }),
           headers: { 'Content-Type': 'application/json' },
         })
@@ -74,6 +76,8 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
       setPassword(value)
     } else if (id === 'confirm-password') {
       setConfirmPassword(value)
+    } else if (id === 'bio') {
+      setBio(value)
     }
   }
 
@@ -110,92 +114,104 @@ const UserSignUp = ({ userType, org_id, org_name, mentor_email = null }) => {
       ) : (
         <>
           <h1>
-            Become a {userType} for {org_name}
+            Become a {usertype} for {org_name}
           </h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
-            <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
-              <Grid item>
+            <Grid container justify='center' alignItems='center' >
+              <Grid container item direction='column' alignItems='center' xs>
+                <Grid item xs>
+                  <TextValidator
+                    id="first-name"
+                    label="First Name *"
+                    value={firstName}
+                    onChange={handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextValidator
+                    id="last-name"
+                    label="Last Name *"
+                    value={lastName}
+                    onChange={handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextValidator
+                    id="email"
+                    label="Email *"
+                    value={email}
+                    onChange={handleChange}
+                    InputProps={{
+                      readOnly: mentor_email ? true : false,
+                    }}
+                    validators={['required', 'isEmail']}
+                    errorMessages={['this field is required', 'email is not valid']}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextValidator
+                    id="password"
+                    label="Password *"
+                    value={password}
+                    onChange={handleChange}
+                    type="password"
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextValidator
+                    id="confirm-password"
+                    label="Confirm Password *"
+                    value={confirmPassword}
+                    onChange={handleChange}
+                    type="password"
+                    validators={['required', 'isPasswordMatch']}
+                    errorMessages={['this field is required', 'password does not match']}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container item direction='column' alignItems='center' xs>
+                <Grid item xs>
+                  <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
+                </Grid>
+                <Grid item xs>
+                  <TimezoneSelect
+                    setTimezone={setTimezone}
+                    required
+                    validators={['requireTimezone']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs>
+                  <SkillSelect
+                    setSkills={setSkills}
+                    required
+                    validators={['requireSkills']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
+                <Grid item xs>
                 <TextValidator
-                  id="first-name"
-                  label="First Name *"
-                  value={firstName}
-                  onChange={handleChange}
-                  validators={['required']}
-                  errorMessages={['this field is required']}
-                />
+                    id="bio"
+                    label="About Me *"
+                    value={bio}
+                    multiline
+                    onChange={handleChange}
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                  />
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextValidator
-                  id="last-name"
-                  label="Last Name *"
-                  value={lastName}
-                  onChange={handleChange}
-                  validators={['required']}
-                  errorMessages={['this field is required']}
-                />
-              </Grid>
-              <Grid item>
-                <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
-              </Grid>
-              <Grid item>
-                <TextValidator
-                  id="email"
-                  label="Email *"
-                  value={email}
-                  onChange={handleChange}
-                  InputProps={{
-                    readOnly: mentor_email ? true : false,
-                  }}
-                  validators={['required', 'isEmail']}
-                  errorMessages={['this field is required', 'email is not valid']}
-                />
-              </Grid>
-              <Grid item>
-                <TextValidator
-                  id="password"
-                  label="Password *"
-                  value={password}
-                  onChange={handleChange}
-                  type="password"
-                  validators={['required']}
-                  errorMessages={['this field is required']}
-                />
-              </Grid>
-              <Grid item>
-                <TextValidator
-                  id="confirm-password"
-                  label="Confirm Password *"
-                  value={confirmPassword}
-                  onChange={handleChange}
-                  type="password"
-                  validators={['required', 'isPasswordMatch']}
-                  errorMessages={['this field is required', 'password does not match']}
-                />
-              </Grid>
-              <Grid item>
-                <TimezoneSelect
-                  setTimezone={setTimezone}
-                  required
-                  validators={['requireTimezone']}
-                  errorMessages={['this field is required']}
-                />
-              </Grid>
-              <Grid item>
-                <SkillSelect
-                  setSkills={setSkills}
-                  required
-                  validators={['requireSkills']}
-                  errorMessages={['this field is required']}
-                />
-              </Grid>
-              <br></br>
-              <Grid item>
+            </Grid>
                 <Button type="submit" variant="contained">
                   Sign Up
                 </Button>
-              </Grid>
-            </Grid>
           </ValidatorForm>
         </>
       )}

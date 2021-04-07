@@ -10,8 +10,8 @@ const MatchedMentees = (props) => {
   const usertype = props.usertype
   const pendingmatches = JSON.parse(props.pendingmatches)
   return (
-    <Layout title="Pending Matches" needsAuth auth={auth} usertype={usertype}>
-      {pendingmatches ? (
+    <Layout title="Matched Mentees" needsAuth auth={auth} usertype={usertype}>
+      {pendingmatches.length > 0 ? (
         <PendingMatches pendingmatches={pendingmatches} />
       ) : (
         <>
