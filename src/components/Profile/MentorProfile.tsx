@@ -1,13 +1,4 @@
-import {
-  TextField,
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  IconButton,
-  Divider,
-  Tooltip,
-} from '@material-ui/core'
+import { TextField, Card, CardHeader, CardContent, Typography, IconButton, Divider, Tooltip } from '@material-ui/core'
 import { Edit as EditIcon, Save as SaveIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { useState } from 'react'
 import { parseSkills } from '../../utils/misc'
@@ -59,16 +50,16 @@ const MentorProfile = ({ mentor, org }) => {
           }
           action={
             <>
-            <Tooltip title="Save" placement="top">
-              <IconButton onClick={handleSave}>
-                <SaveIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Cancel" placement="top">
-              <IconButton onClick={handleCancel}>
-                <CancelIcon />
-              </IconButton>
-            </Tooltip>
+              <Tooltip title="Save" placement="top">
+                <IconButton onClick={handleSave}>
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Cancel" placement="top">
+                <IconButton onClick={handleCancel}>
+                  <CancelIcon />
+                </IconButton>
+              </Tooltip>
             </>
           }
         />
@@ -93,32 +84,31 @@ const MentorProfile = ({ mentor, org }) => {
         <Typography>{JSON.parse(mentor.timezone).label}</Typography>
         {editing ? (
           <>
-          <TextField 
-          fullWidth
-          multiline
-          variant="outlined"
-          label="About Me"
-          value={newBio}
-          placeholder={mentor.bio}
-          onChange={(event) => setNewBio(event.target.value)}
-          />
-          <TextField 
-          fullWidth
-          variant="outlined"
-          label="Calendar"
-          helperText='Add a link to your calendar. This will be shared with your mentees.'
-          value={newCalendar}
-          placeholder={mentor.calendar}
-          onChange={(event) => setNewCalendar(event.target.value)}
-          />
+            <TextField
+              fullWidth
+              multiline
+              variant="outlined"
+              label="About Me"
+              value={newBio}
+              placeholder={mentor.bio}
+              onChange={(event) => setNewBio(event.target.value)}
+            />
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Calendar"
+              helperText="Add a link to your calendar. This will be shared with your mentees."
+              value={newCalendar}
+              placeholder={mentor.calendar}
+              onChange={(event) => setNewCalendar(event.target.value)}
+            />
           </>
-          ) : (
-            <>
+        ) : (
+          <>
             <Typography>{`About Me: ${bio}`}</Typography>
             <Typography>{`My Calendar: ${calendar ? calendar : 'You have not linked a calendar'}`}</Typography>
-            </>
-            )}
-        
+          </>
+        )}
       </CardContent>
     </Card>
   )

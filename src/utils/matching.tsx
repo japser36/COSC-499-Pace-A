@@ -10,7 +10,7 @@ export async function matchMentors(mentee_id) {
     mentor.scommon = scommon.length
     mentor.tdiff = timezoneDiff(mentee, mentor)
     const h = heuristic(mentor.scommon, mentor.tdiff)
-    if (h >= 1) matched.push({mentor: mentor, skills: scommon})
+    if (h >= 1) matched.push({ mentor: mentor, skills: scommon })
   })
   console.log(matched)
   matched.forEach(async (match) => {
@@ -69,7 +69,7 @@ async function getMentors(org_id) {
 
 //Returns a count of skills shared between s1 and s2
 function commonSkills(mentee, mentor) {
-  let skills = []
+  const skills = []
   const mentee_skills = JSON.parse(mentee.skills)
   const mentor_skills = JSON.parse(mentor.skills)
 

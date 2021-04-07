@@ -9,7 +9,7 @@ const MenteeSignUp = (props) => {
   return (
     <Box className={styles.containerPage}>
       <Container className={styles.container}>
-        <UserSignUp usertype='mentee' org_id={org.id} org_name={org.org_name} />
+        <UserSignUp usertype="mentee" org_id={org.id} org_name={org.org_name} />
       </Container>
     </Box>
   )

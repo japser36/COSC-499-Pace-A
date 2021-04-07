@@ -55,16 +55,16 @@ const MenteeProfile = ({ mentee, org }) => {
           }
           action={
             <>
-            <Tooltip title="Save" placement="top">
-              <IconButton onClick={handleSave}>
-                <SaveIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Cancel" placement="top">
-              <IconButton onClick={handleCancel}>
-                <CancelIcon />
-              </IconButton>
-            </Tooltip>
+              <Tooltip title="Save" placement="top">
+                <IconButton onClick={handleSave}>
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Cancel" placement="top">
+                <IconButton onClick={handleCancel}>
+                  <CancelIcon />
+                </IconButton>
+              </Tooltip>
             </>
           }
         />
@@ -87,24 +87,22 @@ const MenteeProfile = ({ mentee, org }) => {
         <Typography>{mentee.email}</Typography>
         <Typography>{`Skills: ${parseSkills(mentee.skills).toString()}`}</Typography>
         {editing ? (
-          <TextField 
-          fullWidth
-          multiline
-          variant="outlined"
-          label="About Me"
-          value={newBio}
-          placeholder={mentee.bio}
-          onChange={(event) => setNewBio(event.target.value)}
+          <TextField
+            fullWidth
+            multiline
+            variant="outlined"
+            label="About Me"
+            value={newBio}
+            placeholder={mentee.bio}
+            onChange={(event) => setNewBio(event.target.value)}
           />
-          ) : (
-            <Typography>{`About Me: ${bio}`}</Typography>
-            )}
+        ) : (
+          <Typography>{`About Me: ${bio}`}</Typography>
+        )}
         <Typography>{JSON.parse(mentee.timezone).label}</Typography>
       </CardContent>
       <Divider />
-      <CardActions>
-
-      </CardActions>
+      <CardActions></CardActions>
     </Card>
   )
 }

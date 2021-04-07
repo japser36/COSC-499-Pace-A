@@ -14,12 +14,16 @@ const Mentor = (props) => {
   return (
     <Layout title="My Mentor" needsAuth auth={auth} usertype={usertype}>
       {mentor ? (
-        <UserCard user={mentor} /> 
+        <UserCard user={mentor} />
       ) : (
         <>
-          <Typography >You don't have a mentor.</Typography>
-          <Typography >If you have already tried to match with one you can either wait to be accepted or try to match again.</Typography>
-          <Button onClick={() => {matchMentors(props.id)}}>Click here to match with a mentor.</Button>
+          <Typography>{`You don't have a mentor.`}</Typography>
+          <Typography>{`If you have already tried to match with one you can either wait to be accepted or try to match again.`}</Typography>
+          <Button
+            onClick={() => {
+              matchMentors(props.id)
+            }}
+          >{`Click here to match with a mentor.`}</Button>
         </>
       )}
     </Layout>

@@ -7,11 +7,7 @@ export default async function addPendingMatch(req: NextApiRequest, res: NextApiR
 
   const sql = `INSERT INTO pendingmatches (mentee_id, mentor_id, skills)
               VALUES ($1, $2, $3);`
-  const values = [
-    req.body.mentee_id,
-    req.body.mentor_id,
-    req.body.skills,
-  ]
+  const values = [req.body.mentee_id, req.body.mentor_id, req.body.skills]
 
   await pool
     .query(sql, values)

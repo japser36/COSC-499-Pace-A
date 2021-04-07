@@ -145,7 +145,7 @@ export const setUserDisplayName = async (id, displayname) => {
       displayname: displayname,
     }),
     headers: { 'Content-Type': 'application/json' },
-  }) 
+  })
 }
 
 export const setUserBio = async (id, bio) => {
@@ -156,7 +156,7 @@ export const setUserBio = async (id, bio) => {
       bio: bio,
     }),
     headers: { 'Content-Type': 'application/json' },
-  }) 
+  })
 }
 
 export const setUserCalendar = async (id, calendar) => {
@@ -167,5 +167,5 @@ export const setUserCalendar = async (id, calendar) => {
       calendar: calendar,
     }),
     headers: { 'Content-Type': 'application/json' },
-  }) 
+  })
 }

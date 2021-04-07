@@ -58,16 +58,16 @@ const OrgProfile = ({ org, mentees, mentors }) => {
           subheader={org.email}
           action={
             <>
-            <Tooltip title="Save" placement="top">
-              <IconButton onClick={handleSave}>
-                <SaveIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Cancel" placement="top">
-              <IconButton onClick={handleCancel}>
-                <CancelIcon />
-              </IconButton>
-            </Tooltip>
+              <Tooltip title="Save" placement="top">
+                <IconButton onClick={handleSave}>
+                  <SaveIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Cancel" placement="top">
+                <IconButton onClick={handleCancel}>
+                  <CancelIcon />
+                </IconButton>
+              </Tooltip>
             </>
           }
         />

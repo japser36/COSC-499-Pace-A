@@ -5,14 +5,18 @@ import Button from '@material-ui/core/Button'
 import { getIFrame } from '../../../utils/misc'
 
 export default function Shamus() {
-
   return (
     <>
       <Head>
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
-      <iframe src="http://localhost:3000/i/19y4rp4phaNONWawOqVQTQ7fpsm2" title="Mentee Registration" height='500' width='1000'/>
+      <iframe
+        src="http://localhost:3000/i/19y4rp4phaNONWawOqVQTQ7fpsm2"
+        title="Mentee Registration"
+        height="500"
+        width="1000"
+      />
     </>
   )
 }
