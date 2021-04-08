@@ -21,6 +21,7 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [status, setStatus] = useState('pending')
   const [loadAccept, setLoadAccept] = useState(false)
   const [loadDecline, setLoadDecline] = useState(false)
+  const [status, setStatus] = useState('')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
   console.log(matched_skills)
 
