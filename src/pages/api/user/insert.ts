@@ -5,8 +5,8 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, timezone, skills, org_id, usertype)
-              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+  const sql = `INSERT INTO users (id, firstName, lastName, displayName, email, timezone, skills, bio, org_id, usertype)
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
   const values = [
     req.body.id,
     req.body.firstName,
@@ -15,6 +15,7 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
     req.body.email,
     req.body.timezone,
     req.body.skills,
+    req.body.bio,
     req.body.org_id,
     req.body.usertype,
   ]

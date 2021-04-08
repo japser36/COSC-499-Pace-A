@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from '../Misc/TimezoneSelect'
 import SkillSelect from '../Misc/SkillSelect'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
+import { insertUser } from '../../utils/api'
 
 const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
@@ -16,49 +17,29 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [skills, setSkills] = useState([])
   const [bio, setBio] = useState('')
   const [verificationSent, setVerificationSent] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const auth = firebaseClient.auth()
   const createUser = () => {
+    setLoading(true)
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in
-        auth.currentUser.sendEmailVerification().then(() => {
-          setVerificationSent(true)
-        })
-        auth.signOut()
         //Add new user to the database
-        fetch('/api/user/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            firstName: firstName,
-            lastName: lastName,
-            displayName: displayName ? displayName : firstName + ' ' + lastName,
-            email: email,
-            timezone: JSON.stringify(timezone),
-            skills: JSON.stringify(skills),
-            bio: bio,
-            org_id: org_id,
-            usertype: usertype,
-          }),
-          headers: { 'Content-Type': 'application/json' },
+        insertUser(user.user.uid, firstName, lastName, displayName, email, timezone, skills, bio, org_id, usertype)
+        .then(() => {
+          auth.currentUser.sendEmailVerification().then(() => {
+            setVerificationSent(true)
+            setLoading(false)
+            auth.signOut()
+          })
         })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
-        fetch('/api/metauser/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            usertype: usertype,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
       })
       .catch((e) => {
         setError(e.message)
+        setLoading(false)
+        auth.signOut()
       })
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,7 +191,8 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
               </Grid>
             </Grid>
             <Button type="submit" variant="contained">
-              Sign Up
+              Sign Up 
+              {loading && <CircularProgress />}
             </Button>
           </ValidatorForm>
         </>

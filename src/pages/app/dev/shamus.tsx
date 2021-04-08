@@ -11,12 +11,7 @@ export default function Shamus() {
         <title>Shamus Dev Page</title>
       </Head>
       <h1>Shamus Dev Page</h1>
-      <iframe
-        src="http://localhost:3000/i/19y4rp4phaNONWawOqVQTQ7fpsm2"
-        title="Mentee Registration"
-        height="500"
-        width="1000"
-      />
+      <iframe src="http://localhost:3000/i/GAxU0RtvWZUes6gKREFnMEzJmXi1" title="Mentee Registration" height="600" width="800" />
     </>
   )
 }

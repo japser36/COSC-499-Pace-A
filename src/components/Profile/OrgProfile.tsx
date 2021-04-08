@@ -14,6 +14,7 @@ import {
   IconButton,
   Divider,
   Tooltip,
+  CircularProgress,
 } from '@material-ui/core'
 import { Edit as EditIcon, Save as SaveIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import IFrameCopy from '../Misc/IFrameCopy'
@@ -25,15 +26,20 @@ const OrgProfile = ({ org, mentees, mentors }) => {
   const [name, setName] = useState(org.org_name)
   const [newName, setNewName] = useState(org.org_name)
   const [editing, setEditing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleEdit = () => {
     setEditing(true)
   }
 
   const handleSave = () => {
-    setName(newName)
+    setLoading(true)
     setOrgName(org.id, newName)
-    setEditing(false)
+      .then(() => {
+        setName(newName)
+        setEditing(false)
+        setLoading(false)
+    })
   }
 
   const handleCancel = () => {
@@ -58,6 +64,10 @@ const OrgProfile = ({ org, mentees, mentors }) => {
           subheader={org.email}
           action={
             <>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <>
               <Tooltip title="Save" placement="top">
                 <IconButton onClick={handleSave}>
                   <SaveIcon />
@@ -68,6 +78,8 @@ const OrgProfile = ({ org, mentees, mentors }) => {
                   <CancelIcon />
                 </IconButton>
               </Tooltip>
+              </>
+            )}
             </>
           }
         />

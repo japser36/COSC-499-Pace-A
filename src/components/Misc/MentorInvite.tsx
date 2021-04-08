@@ -25,9 +25,12 @@ const MentorInvite = ({ org_id }) => {
       }),
       headers: { 'Content-Type': 'application/json' },
     }).then((res) => {
-      setLoading(false)
       setSent(true)
+      setLoading(false)
       setEmail('')
+    }).catch((error) => {
+      setLoading(false)
+      console.log(error)
     })
   }
 
@@ -66,7 +69,7 @@ const MentorInvite = ({ org_id }) => {
             </Grid>
             <Grid item>
               <Button type="submit" variant="contained">
-                Send Invite
+                Send Invite 
                 {loading && <CircularProgress />}
               </Button>
             </Grid>

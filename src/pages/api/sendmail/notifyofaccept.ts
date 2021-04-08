@@ -13,7 +13,7 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
   let mentor
   await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => (mentor = res.rows[0]))
+    .then((res) => {mentor = res.rows[0]})
 
   const link = mentor.calendar
 
@@ -22,8 +22,7 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
   <p>Email: ${mentor.email}</p>
   <p>About: ${mentor.bio}</p>
   <p>Skills: ${parseSkills(mentor.skills)}</p>
-  <p>Timezone: ${JSON.parse(mentor.timezone).label}</p>
-  <p><a href=${link}>Click here to see their calendar</a></p>`
+  <p>Timezone: ${JSON.parse(mentor.timezone).label}</p>`
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

@@ -8,6 +8,7 @@ import {
   IconButton,
   Divider,
   Tooltip,
+  CircularProgress,
 } from '@material-ui/core'
 import { Edit as EditIcon, Save as SaveIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { useState } from 'react'
@@ -20,17 +21,24 @@ const MenteeProfile = ({ mentee, org }) => {
   const [bio, setBio] = useState(mentee.bio)
   const [newBio, setNewBio] = useState(mentee.bio)
   const [editing, setEditing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleEdit = () => {
     setEditing(true)
   }
 
   const handleSave = () => {
-    setDisplayName(newDisplayName)
-    setBio(newBio)
+    setLoading(true)
     setUserDisplayName(mentee.id, newDisplayName)
-    setUserBio(mentee.id, newBio)
-    setEditing(false)
+    .then(() => {
+      setDisplayName(newDisplayName)
+      setUserBio(mentee.id, newBio)
+      .then(() => {
+        setBio(newBio)
+        setEditing(false)
+        setLoading(false)
+      })
+    })
   }
 
   const handleCancel = () => {
@@ -55,6 +63,10 @@ const MenteeProfile = ({ mentee, org }) => {
           }
           action={
             <>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+            <>
               <Tooltip title="Save" placement="top">
                 <IconButton onClick={handleSave}>
                   <SaveIcon />
@@ -65,6 +77,8 @@ const MenteeProfile = ({ mentee, org }) => {
                   <CancelIcon />
                 </IconButton>
               </Tooltip>
+            </>
+            )}
             </>
           }
         />
@@ -101,8 +115,6 @@ const MenteeProfile = ({ mentee, org }) => {
         )}
         <Typography>{JSON.parse(mentee.timezone).label}</Typography>
       </CardContent>
-      <Divider />
-      <CardActions></CardActions>
     </Card>
   )
 }

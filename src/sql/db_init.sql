@@ -1,11 +1,23 @@
+DROP TABLE IF EXISTS timezone;
+DROP TABLE IF EXISTS skill;
+DROP TABLE IF EXISTS pendingmatches;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS org;
+DROP TABLE IF EXISTS metauser;
+
+CREATE TABLE metauser (
+	id TEXT,
+	usertype TEXT,
+	PRIMARY KEY(id),
+	CHECK (usertype = 'mentee' OR usertype = 'mentor' OR usertype = 'org')
+);
 
 CREATE TABLE org (
 	id TEXT,
 	org_name TEXT,
 	email TEXT,
-	PRIMARY KEY(id)
+	PRIMARY KEY(id),
+	FOREIGN KEY (id) REFERENCES metauser(id)
 );
 
 CREATE TABLE users (
@@ -23,35 +35,28 @@ CREATE TABLE users (
 	calendar TEXT DEFAULT NULL,
 	PRIMARY KEY(id),
 	CHECK (usertype = 'mentee' OR usertype = 'mentor'),
+	FOREIGN KEY (id) REFERENCES metauser(id),
 	FOREIGN KEY (org_id) REFERENCES org(id),
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS pendingmatches;
 CREATE TABLE pendingmatches (
 	id INT GENERATED ALWAYS AS IDENTITY,
 	mentee_id TEXT,
 	mentor_id TEXT,
 	skills TEXT,
-	PRIMARY KEY(id)
-);
-
-DROP TABLE IF EXISTS metauser;
-CREATE TABLE IF NOT EXISTS metauser (
-	id TEXT,
-	usertype TEXT,
 	PRIMARY KEY(id),
-	CHECK (usertype = 'mentee' OR usertype = 'mentor' OR usertype = 'org'),
+	UNIQUE (mentee_id, mentor_id),
+	FOREIGN KEY (mentee_id) REFERENCES users(id),
+	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS skill;
-CREATE TABLE IF NOT EXISTS skill (
+CREATE TABLE skill (
 	name TEXT,
 	PRIMARY KEY(name)
 );
 
-DROP TABLE IF EXISTS timezone;
-CREATE TABLE IF NOT EXISTS timezone (
+CREATE TABLE timezone (
 	value INT,
 	label TEXT,
 	abbr TEXT,
@@ -98,6 +103,17 @@ INSERT INTO timezone (value, label, abbr) VALUES (-3, '(GMT-3:00) Argentina Stan
 INSERT INTO timezone (value, label, abbr) VALUES (-3, '(GMT-3:00) Brazil Eastern Time', 'BET');
 INSERT INTO timezone (value, label, abbr) VALUES (-1, '(GMT-1:00) Central African Time', 'CAT');
 
+
+INSERT INTO metauser (id, usertype) VALUES ('TESTORG1', 'org');
+INSERT INTO metauser (id, usertype) VALUES ('TESTORG2', 'org');
+INSERT INTO metauser (id, usertype) VALUES ('MENTOR1', 'mentor');
+INSERT INTO metauser (id, usertype) VALUES ('MENTOR2', 'mentor');
+INSERT INTO metauser (id, usertype) VALUES ('MENTOR3', 'mentor');
+INSERT INTO metauser (id, usertype) VALUES ('MENTOR4', 'mentor');
+INSERT INTO metauser (id, usertype) VALUES ('MENTEE1', 'mentee');
+INSERT INTO metauser (id, usertype) VALUES ('MENTEE2', 'mentee');
+INSERT INTO metauser (id, usertype) VALUES ('MENTEE3', 'mentee');
+INSERT INTO metauser (id, usertype) VALUES ('MENTEE4', 'mentee');
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG1', 'ORGNAME1', 'org1@test.ca');
 INSERT INTO org (id, org_name, email) VALUES ('TESTORG2', 'ORGNAME2', 'org2@test.ca');
 INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR1', 'FNmentor1', 'LNmentor1', 'DNmentor1', 'mentor1@test.ca', '[{"name":"Programming"},{"name":"Math"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
