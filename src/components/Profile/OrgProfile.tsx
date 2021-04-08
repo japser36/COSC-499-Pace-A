@@ -34,11 +34,10 @@ const OrgProfile = ({ org, mentees, mentors }) => {
 
   const handleSave = () => {
     setLoading(true)
-    setOrgName(org.id, newName)
-      .then(() => {
-        setName(newName)
-        setEditing(false)
-        setLoading(false)
+    setOrgName(org.id, newName).then(() => {
+      setName(newName)
+      setEditing(false)
+      setLoading(false)
     })
   }
 
@@ -64,22 +63,22 @@ const OrgProfile = ({ org, mentees, mentors }) => {
           subheader={org.email}
           action={
             <>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <>
-              <Tooltip title="Save" placement="top">
-                <IconButton onClick={handleSave}>
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel" placement="top">
-                <IconButton onClick={handleCancel}>
-                  <CancelIcon />
-                </IconButton>
-              </Tooltip>
-              </>
-            )}
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  <Tooltip title="Save" placement="top">
+                    <IconButton onClick={handleSave}>
+                      <SaveIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Cancel" placement="top">
+                    <IconButton onClick={handleCancel}>
+                      <CancelIcon />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
             </>
           }
         />

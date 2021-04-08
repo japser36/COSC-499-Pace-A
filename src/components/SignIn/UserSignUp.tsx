@@ -27,8 +27,18 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
       .then((user) => {
         // Signed in
         //Add new user to the database
-        insertUser(user.user.uid, firstName, lastName, displayName, email, timezone, skills, bio, org_id, usertype)
-        .then(() => {
+        insertUser(
+          user.user.uid,
+          firstName,
+          lastName,
+          displayName,
+          email,
+          timezone,
+          skills,
+          bio,
+          org_id,
+          usertype
+        ).then(() => {
           auth.currentUser.sendEmailVerification().then(() => {
             setVerificationSent(true)
             setLoading(false)
@@ -191,7 +201,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
               </Grid>
             </Grid>
             <Button type="submit" variant="contained">
-              Sign Up 
+              Sign Up
               {loading && <CircularProgress />}
             </Button>
           </ValidatorForm>

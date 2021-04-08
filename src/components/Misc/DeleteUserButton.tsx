@@ -9,8 +9,7 @@ const DeleteUserButton = ({ user, setDeleted }) => {
 
   const handleYes = () => {
     setLoading(true)
-    deleteUser(user.id)
-    .then(() => {
+    deleteUser(user.id).then(() => {
       setDeleted(true)
       setOpen(false)
       setLoading(false)
@@ -38,7 +37,7 @@ const DeleteUserButton = ({ user, setDeleted }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleYes}>
-            Yes 
+            Yes
             {loading && <CircularProgress />}
           </Button>
           <Button onClick={handleNo}>No</Button>

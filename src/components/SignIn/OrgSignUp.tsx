@@ -20,8 +20,7 @@ const OrgSignUp = () => {
       .then((user) => {
         // Signed in
         //Add new org to the database
-        insertOrg(user.user.uid, orgName, email)
-        .then(() => {
+        insertOrg(user.user.uid, orgName, email).then(() => {
           auth.currentUser.sendEmailVerification().then(() => {
             setVerificationSent(true)
             setLoading(false)
@@ -116,7 +115,7 @@ const OrgSignUp = () => {
               <Grid item>
                 <br></br>
                 <Button type="submit" variant="contained">
-                  Register 
+                  Register
                   {loading && <CircularProgress />}
                 </Button>
               </Grid>

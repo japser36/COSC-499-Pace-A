@@ -14,7 +14,7 @@ const Mentees = (props) => {
 
   return (
     <Layout title="Mentees" needsAuth auth={auth} usertype={usertype}>
-      {(mentees && mentees.length > 0) ? (
+      {mentees && mentees.length > 0 ? (
         <UserList users={mentees} deletable />
       ) : (
         <>

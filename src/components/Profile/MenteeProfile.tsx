@@ -29,11 +29,9 @@ const MenteeProfile = ({ mentee, org }) => {
 
   const handleSave = () => {
     setLoading(true)
-    setUserDisplayName(mentee.id, newDisplayName)
-    .then(() => {
+    setUserDisplayName(mentee.id, newDisplayName).then(() => {
       setDisplayName(newDisplayName)
-      setUserBio(mentee.id, newBio)
-      .then(() => {
+      setUserBio(mentee.id, newBio).then(() => {
         setBio(newBio)
         setEditing(false)
         setLoading(false)
@@ -63,22 +61,22 @@ const MenteeProfile = ({ mentee, org }) => {
           }
           action={
             <>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-            <>
-              <Tooltip title="Save" placement="top">
-                <IconButton onClick={handleSave}>
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel" placement="top">
-                <IconButton onClick={handleCancel}>
-                  <CancelIcon />
-                </IconButton>
-              </Tooltip>
-            </>
-            )}
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  <Tooltip title="Save" placement="top">
+                    <IconButton onClick={handleSave}>
+                      <SaveIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Cancel" placement="top">
+                    <IconButton onClick={handleCancel}>
+                      <CancelIcon />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
             </>
           }
         />

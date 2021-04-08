@@ -13,7 +13,9 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
   let mentor
   await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => {mentor = res.rows[0]})
+    .then((res) => {
+      mentor = res.rows[0]
+    })
 
   const link = mentor.calendar
 

@@ -16,7 +16,7 @@ const Mentors = (props) => {
     <Layout title="Mentors" needsAuth auth={auth} usertype={usertype}>
       <Typography variant="h5">Invite a new Mentor</Typography>
       <MentorInvite org_id={org_id} />
-      {(mentors && mentors.length > 0) ? (
+      {mentors && mentors.length > 0 ? (
         <>
           <Typography variant="h5">Current Mentors</Typography>
           <UserList users={mentors} subheader="email" deletable />

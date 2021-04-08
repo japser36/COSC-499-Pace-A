@@ -10,5 +10,4 @@ export const parseSkills = (skills) => {
 
 export const getIFrame = (org_id) => {
   return `<iframe src="${server}/i/${org_id}" title="Mentee Registration" height="600" width="800" />`
-
 }

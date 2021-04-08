@@ -84,11 +84,11 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
           {status === 'pending' ? (
             <CardActions>
               <Button size="large" variant="contained" onClick={handleAccept}>
-                ACCEPT 
+                ACCEPT
                 {loadAccept && <CircularProgress />}
               </Button>
               <Button size="large" variant="contained" onClick={handleDecline}>
-                DECLINE 
+                DECLINE
                 {loadDecline && <CircularProgress />}
               </Button>
             </CardActions>
