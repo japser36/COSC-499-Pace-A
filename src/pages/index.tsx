@@ -15,10 +15,13 @@ const Home = (props) => {
         <>TODO: show logged in home page</>
       ) : (
         <div>
-          TODO: show loggedout home page
+          <h1>Welcome to Mentor.io</h1>
+          <p>If you have an account already log in above, or sign up through your organization of choice.</p>
+          <p>To sign up as an admin register your organization below.</p>
           <Link href={'/app/org/register'} passHref>
-            <Button>Register an Organization</Button>
+            <Button variant="outlined"> Register an Organization</Button>
           </Link>
+          <p></p>
         </div>
       )}
     </Layout>

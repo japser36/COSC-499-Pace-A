@@ -18,7 +18,7 @@ import { parseSkills } from '../../utils/misc'
 
 const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
-  const [status, setStatus] = useState('pending')
+  const [status, setStatus] = useState('')
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
   console.log(matched_skills)
 
