@@ -63,6 +63,7 @@ const MentorInvite = ({ org_id }) => {
               <TextValidator
                 id="email"
                 label="Email"
+                variant='outlined'
                 value={email}
                 onChange={handleChange}
                 validators={['required', 'isEmail']}

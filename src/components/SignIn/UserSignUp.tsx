@@ -115,6 +115,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="first-name"
                     label="First Name *"
+                    variant='outlined'
                     value={firstName}
                     onChange={handleChange}
                     validators={['required']}
@@ -125,6 +126,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="last-name"
                     label="Last Name *"
+                    variant='outlined'
                     value={lastName}
                     onChange={handleChange}
                     validators={['required']}
@@ -135,6 +137,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="email"
                     label="Email *"
+                    variant='outlined'
                     value={email}
                     onChange={handleChange}
                     InputProps={{
@@ -148,6 +151,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="password"
                     label="Password *"
+                    variant='outlined'
                     value={password}
                     onChange={handleChange}
                     type="password"
@@ -159,6 +163,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="confirm-password"
                     label="Confirm Password *"
+                    variant='outlined'
                     value={confirmPassword}
                     onChange={handleChange}
                     type="password"
@@ -191,6 +196,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="bio"
                     label="About Me *"
+                    variant='outlined'
                     value={bio}
                     multiline
                     onChange={handleChange}

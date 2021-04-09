@@ -74,6 +74,7 @@ const TimezoneSelect = ({ setTimezone, required = false, validators = [], errorM
             validators={validators}
             errorMessages={errorMessages}
             label={required ? 'Timezone *' : 'Timezone'}
+            variant='outlined'
             InputProps={{
               ...params.InputProps,
               endAdornment: (
