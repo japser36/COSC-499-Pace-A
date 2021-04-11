@@ -8,6 +8,7 @@ import {
   IconButton,
   Divider,
   Tooltip,
+  CircularProgress,
 } from '@material-ui/core'
 import { Edit as EditIcon, Save as SaveIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { useState } from 'react'
@@ -20,17 +21,22 @@ const MenteeProfile = ({ mentee, org }) => {
   const [bio, setBio] = useState(mentee.bio)
   const [newBio, setNewBio] = useState(mentee.bio)
   const [editing, setEditing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleEdit = () => {
     setEditing(true)
   }
 
   const handleSave = () => {
-    setDisplayName(newDisplayName)
-    setBio(newBio)
-    setUserDisplayName(mentee.id, newDisplayName)
-    setUserBio(mentee.id, newBio)
-    setEditing(false)
+    setLoading(true)
+    setUserDisplayName(mentee.id, newDisplayName).then(() => {
+      setDisplayName(newDisplayName)
+      setUserBio(mentee.id, newBio).then(() => {
+        setBio(newBio)
+        setEditing(false)
+        setLoading(false)
+      })
+    })
   }
 
   const handleCancel = () => {
@@ -55,16 +61,22 @@ const MenteeProfile = ({ mentee, org }) => {
           }
           action={
             <>
-              <Tooltip title="Save" placement="top">
-                <IconButton onClick={handleSave}>
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel" placement="top">
-                <IconButton onClick={handleCancel}>
-                  <CancelIcon />
-                </IconButton>
-              </Tooltip>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  <Tooltip title="Save" placement="top">
+                    <IconButton onClick={handleSave}>
+                      <SaveIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Cancel" placement="top">
+                    <IconButton onClick={handleCancel}>
+                      <CancelIcon />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
             </>
           }
         />
@@ -101,8 +113,6 @@ const MenteeProfile = ({ mentee, org }) => {
         )}
         <Typography>{JSON.parse(mentee.timezone).label}</Typography>
       </CardContent>
-      <Divider />
-      <CardActions></CardActions>
     </Card>
   )
 }

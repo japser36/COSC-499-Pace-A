@@ -13,12 +13,15 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
   let mentor
   await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => (mentor = res.rows[0]))
+    .then((res) => {
+      mentor = res.rows[0]
+    })
 
   const link = `${server}/app/login`
 
   const emailBody = `<h3>You've been matched with a new mentee. Review their details and decide if you want to mentor them.</h3>
   <p>Mentee: ${mentee.displayname}</p>
+  <p>About: ${mentee.bio}</p>
   <p>Desired Skills: ${parseSkills(mentee.skills)}</p>
   <p>Timezone: ${JSON.parse(mentee.timezone).label}</p>
   <br></br>

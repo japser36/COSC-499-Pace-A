@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import fetch from 'node-fetch'
+import { getSkills } from '../../utils/api'
 import { TextValidator } from 'react-material-ui-form-validator'
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
@@ -24,11 +24,7 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
     }
 
     ;(async () => {
-      let skills = []
-      await fetch('/api/skills', { method: 'GET' })
-        .then((res) => res.json())
-        .then((res) => (skills = res.rows))
-
+      const skills = await getSkills()
       //console.log(skills)
       if (active) {
         setOptions(Object.keys(skills).map((key) => skills[key]) as Skills[])
@@ -73,6 +69,7 @@ const SkillSelect = ({ setSkills, required = false, validators = [], errorMessag
             validators={validators}
             errorMessages={errorMessages}
             label={required ? 'Skills *' : 'Skills'}
+            variant="outlined"
             InputProps={{
               ...params.InputProps,
               endAdornment: (

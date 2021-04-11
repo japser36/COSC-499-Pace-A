@@ -1,15 +1,19 @@
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@material-ui/core'
 import { deleteUser } from '../../utils/api'
 import { useState } from 'react'
 import UserCard from '../UserDisplays/UserCard'
 
 const DeleteUserButton = ({ user, setDeleted }) => {
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleYes = () => {
-    deleteUser(user.id)
-    setDeleted(true)
-    setOpen(false)
+    setLoading(true)
+    deleteUser(user.id).then(() => {
+      setDeleted(true)
+      setOpen(false)
+      setLoading(false)
+    })
   }
 
   const handleNo = () => {
@@ -32,7 +36,10 @@ const DeleteUserButton = ({ user, setDeleted }) => {
           <UserCard user={user} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleYes}>Yes</Button>
+          <Button onClick={handleYes}>
+            Yes
+            {loading && <CircularProgress />}
+          </Button>
           <Button onClick={handleNo}>No</Button>
         </DialogActions>
       </Dialog>

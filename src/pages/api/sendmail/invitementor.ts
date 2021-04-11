@@ -9,7 +9,9 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
   let org
   await fetch(`${server}/api/org/${req.body.org_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => (org = res.rows[0]))
+    .then((res) => {
+      org = res.rows[0]
+    })
 
   const link = `${server}/app/mentor/register?org_id=${org.id}&email=${req.body.recipient}`
 

@@ -1,4 +1,14 @@
-import { TextField, Card, CardHeader, CardContent, Typography, IconButton, Divider, Tooltip } from '@material-ui/core'
+import {
+  TextField,
+  Card,
+  CardHeader,
+  CardContent,
+  Typography,
+  IconButton,
+  Divider,
+  Tooltip,
+  CircularProgress,
+} from '@material-ui/core'
 import { Edit as EditIcon, Save as SaveIcon, Cancel as CancelIcon } from '@material-ui/icons'
 import { useState } from 'react'
 import { parseSkills } from '../../utils/misc'
@@ -12,19 +22,25 @@ const MentorProfile = ({ mentor, org }) => {
   const [calendar, setCalendar] = useState(mentor.calendar)
   const [newCalendar, setNewCalendar] = useState(mentor.calendar)
   const [editing, setEditing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleEdit = () => {
     setEditing(true)
   }
 
   const handleSave = () => {
-    setDisplayName(newDisplayName)
-    setBio(newBio)
-    setCalendar(newCalendar)
-    setUserDisplayName(mentor.id, newDisplayName)
-    setUserBio(mentor.id, newBio)
-    setUserCalendar(mentor.id, newCalendar)
-    setEditing(false)
+    setLoading(true)
+    setUserDisplayName(mentor.id, newDisplayName).then(() => {
+      setDisplayName(newDisplayName)
+      setUserBio(mentor.id, newBio).then(() => {
+        setBio(newBio)
+        setUserCalendar(mentor.id, newCalendar).then(() => {
+          setCalendar(newCalendar)
+          setEditing(false)
+          setLoading(false)
+        })
+      })
+    })
   }
 
   const handleCancel = () => {
@@ -50,16 +66,22 @@ const MentorProfile = ({ mentor, org }) => {
           }
           action={
             <>
-              <Tooltip title="Save" placement="top">
-                <IconButton onClick={handleSave}>
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel" placement="top">
-                <IconButton onClick={handleCancel}>
-                  <CancelIcon />
-                </IconButton>
-              </Tooltip>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  <Tooltip title="Save" placement="top">
+                    <IconButton onClick={handleSave}>
+                      <SaveIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Cancel" placement="top">
+                    <IconButton onClick={handleCancel}>
+                      <CancelIcon />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
             </>
           }
         />

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import AutoComplete from '@material-ui/lab/Autocomplete'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import fetch from 'node-fetch'
+import { getTimezones } from '../../utils/api'
 import { TextValidator } from 'react-material-ui-form-validator'
 
 //Makes use of code taken from https://material-ui.com/components/autocomplete/ under the asynchronous requests section
@@ -26,11 +26,7 @@ const TimezoneSelect = ({ setTimezone, required = false, validators = [], errorM
     }
 
     ;(async () => {
-      let timezones = []
-      await fetch('/api/timezones', { method: 'GET' })
-        .then((res) => res.json())
-        .then((res) => (timezones = res.rows))
-
+      const timezones = await getTimezones()
       //console.log(timezones)
       if (active) {
         setOptions(Object.keys(timezones).map((key) => timezones[key]) as Timezone[])
@@ -74,6 +70,7 @@ const TimezoneSelect = ({ setTimezone, required = false, validators = [], errorM
             validators={validators}
             errorMessages={errorMessages}
             label={required ? 'Timezone *' : 'Timezone'}
+            variant="outlined"
             InputProps={{
               ...params.InputProps,
               endAdornment: (

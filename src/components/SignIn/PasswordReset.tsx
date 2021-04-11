@@ -2,6 +2,7 @@ import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('')
@@ -32,21 +33,24 @@ const PasswordReset = () => {
     <div>
       <h1>Reset your Password</h1>
       <div>
-        <form action="">
+        <ValidatorForm onSubmit={sendResetEmail}>
           {emailHasBeenSent && <div>An email has been sent to you!</div>}
           {error !== null && <div>{error}</div>}
-          <TextField
+          <TextValidator
             label="Email"
             type="email"
             id="email"
+            variant="outlined"
             value={email}
             placeholder="Enter your email address"
             onChange={handleChange}
+            validators={['required', 'isEmail']}
+            errorMessages={['this field is required', 'email is not valid']}
           />
-          <Button variant="contained" onClick={sendResetEmail}>
+          <Button type="submit" variant="contained">
             Send me a reset link
           </Button>
-        </form>
+        </ValidatorForm>
       </div>
     </div>
   )

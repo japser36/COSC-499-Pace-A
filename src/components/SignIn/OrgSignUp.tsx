@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+import { Grid, Button, CircularProgress } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
-import fetch from 'node-fetch'
+import { insertOrg } from '../../utils/api'
 
 const OrgSignUp = () => {
   const [orgName, setOrgName] = useState('')
@@ -11,42 +10,28 @@ const OrgSignUp = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [verificationSent, setVerificationSent] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const auth = firebaseClient.auth()
   const addOrg = () => {
+    setLoading(true)
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in
-        auth.currentUser.sendEmailVerification().then(() => {
-          setVerificationSent(true)
+        //Add new org to the database
+        insertOrg(user.user.uid, orgName, email).then(() => {
+          auth.currentUser.sendEmailVerification().then(() => {
+            setVerificationSent(true)
+            setLoading(false)
+            auth.signOut()
+          })
         })
-        auth.signOut()
-        //Add new user to the database
-        fetch('/api/org/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            org_name: orgName,
-            email: email,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
-        fetch('/api/metauser/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            userType: 'org',
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
       })
       .catch((e) => {
         setError(e.message)
+        setLoading(false)
+        auth.signOut()
       })
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +74,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="org-name"
                   label="Organization Name *"
+                  variant="outlined"
                   value={orgName}
                   onChange={handleChange}
                   validators={['required']}
@@ -99,6 +85,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="email"
                   label="Email *"
+                  variant="outlined"
                   value={email}
                   onChange={handleChange}
                   validators={['required', 'isEmail']}
@@ -109,6 +96,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="password"
                   label="Password *"
+                  variant="outlined"
                   value={password}
                   onChange={handleChange}
                   type="password"
@@ -120,6 +108,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="confirm-password"
                   label="Confirm Password *"
+                  variant="outlined"
                   value={confirmPassword}
                   onChange={handleChange}
                   type="password"
@@ -131,6 +120,7 @@ const OrgSignUp = () => {
                 <br></br>
                 <Button type="submit" variant="contained">
                   Register
+                  {loading && <CircularProgress />}
                 </Button>
               </Grid>
             </Grid>
