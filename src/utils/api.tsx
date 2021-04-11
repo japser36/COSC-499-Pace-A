@@ -60,14 +60,14 @@ export const getPendingMatches = async (mentor_id) => {
 }
 
 export const acceptPendingMatch = async (mentee_id, mentor_id) => {
-  await fetch(`/api/pendingmatches/delete`, {
+  await fetch(`${server}/api/pendingmatches/delete`, {
     method: 'POST',
     body: JSON.stringify({
       mentee_id: mentee_id,
     }),
     headers: { 'Content-Type': 'application/json' },
   })
-  await fetch(`/api/user/set-mentor`, {
+  await fetch(`${server}/api/user/set-mentor`, {
     method: 'POST',
     body: JSON.stringify({
       mentee_id: mentee_id,
@@ -75,7 +75,7 @@ export const acceptPendingMatch = async (mentee_id, mentor_id) => {
     }),
     headers: { 'Content-Type': 'application/json' },
   })
-  await fetch(`/api/sendmail/notifyofaccept`, {
+  await fetch(`${server}/api/sendmail/notifyofaccept`, {
     method: 'POST',
     body: JSON.stringify({
       mentee_id: mentee_id,
@@ -86,11 +86,41 @@ export const acceptPendingMatch = async (mentee_id, mentor_id) => {
 }
 
 export const declinePendingMatch = async (mentee_id, mentor_id) => {
-  await fetch(`/api/pendingmatches/deleterow`, {
+  await fetch(`${server}/api/pendingmatches/deleterow`, {
     method: 'POST',
     body: JSON.stringify({
       mentee_id: mentee_id,
       mentor_id: mentor_id,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const getPendingInvites = async (org_id) => {
+  let invites = null
+  await fetch(`${server}/api/pendinginvite/${org_id}`, {method: 'GET',})
+    .then((res) => res.json())
+    .then((res) => invites = res.rows)
+    return invites
+}
+
+export const insertPendingInvite = async (org_id, email) => {
+  await fetch(`${server}/api/pendinginvite/insert`, {
+    method: 'POST',
+    body: JSON.stringify({
+      org_id: org_id,
+      email: email,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const deletePendingInvite = async (org_id, email) => {
+  await fetch(`${server}/api/pendinginvite/delete`, {
+    method: 'POST',
+    body: JSON.stringify({
+      org_id: org_id,
+      email: email,
     }),
     headers: { 'Content-Type': 'application/json' },
   })
@@ -144,7 +174,7 @@ export const insertUser = async (
   org_id,
   usertype
 ) => {
-  await fetch('/api/metauser/insert', {
+  await fetch(`${server}/api/metauser/insert`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -152,7 +182,7 @@ export const insertUser = async (
     }),
     headers: { 'Content-Type': 'application/json' },
   })
-  await fetch('/api/user/insert', {
+  await fetch(`${server}/api/user/insert`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -171,7 +201,7 @@ export const insertUser = async (
 }
 
 export const insertOrg = async (id, org_name, email) => {
-  await fetch('/api/metauser/insert', {
+  await fetch(`${server}/api/metauser/insert`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -179,7 +209,7 @@ export const insertOrg = async (id, org_name, email) => {
     }),
     headers: { 'Content-Type': 'application/json' },
   })
-  await fetch('/api/org/insert', {
+  await fetch(`${server}/api/org/insert`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -191,7 +221,7 @@ export const insertOrg = async (id, org_name, email) => {
 }
 
 export const deleteUser = async (id) => {
-  await fetch(`/api/user/delete`, {
+  await fetch(`${server}/api/user/delete`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -201,7 +231,7 @@ export const deleteUser = async (id) => {
 }
 
 export const setOrgName = async (org_id, org_name) => {
-  await fetch(`/api/org/set-name`, {
+  await fetch(`${server}/api/org/set-name`, {
     method: 'POST',
     body: JSON.stringify({
       org_id: org_id,
@@ -212,7 +242,7 @@ export const setOrgName = async (org_id, org_name) => {
 }
 
 export const setUserDisplayName = async (id, displayname) => {
-  await fetch(`/api/user/set-displayname`, {
+  await fetch(`${server}/api/user/set-displayname`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -223,7 +253,7 @@ export const setUserDisplayName = async (id, displayname) => {
 }
 
 export const setUserBio = async (id, bio) => {
-  await fetch(`/api/user/set-bio`, {
+  await fetch(`${server}/api/user/set-bio`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
@@ -234,11 +264,22 @@ export const setUserBio = async (id, bio) => {
 }
 
 export const setUserCalendar = async (id, calendar) => {
-  await fetch(`/api/user/set-calendar`, {
+  await fetch(`${server}/api/user/set-calendar`, {
     method: 'POST',
     body: JSON.stringify({
       id: id,
       calendar: calendar,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
+export const sendMentorInvite = async (org_id, email) => {
+  fetch(`${server}/api/sendmail/invitementor`, {
+    method: 'POST',
+    body: JSON.stringify({
+      recipient: email,
+      org_id: org_id,
     }),
     headers: { 'Content-Type': 'application/json' },
   })

@@ -4,7 +4,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from '../Misc/TimezoneSelect'
 import SkillSelect from '../Misc/SkillSelect'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
-import { insertUser } from '../../utils/api'
+import { insertUser, deletePendingInvite } from '../../utils/api'
 
 const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
@@ -39,10 +39,13 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
           org_id,
           usertype
         ).then(() => {
-          auth.currentUser.sendEmailVerification().then(() => {
-            setVerificationSent(true)
-            setLoading(false)
-            auth.signOut()
+          deletePendingInvite(org_id, email)
+          .then(() => {
+            auth.currentUser.sendEmailVerification().then(() => {
+              setVerificationSent(true)
+              setLoading(false)
+              auth.signOut()
+            })
           })
         })
       })
@@ -174,7 +177,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
               </Grid>
               <Grid container item direction="column" alignItems="center" xs>
                 <Grid item xs>
-                  <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
+                  <TextField id="display-name" label="Display Name" variant='outlined' value={displayName} onChange={handleChange} />
                 </Grid>
                 <Grid item xs>
                   <TimezoneSelect

@@ -15,7 +15,7 @@ All response bodies are application/json
 ## /init - POST
 
 Initializes the database by executing the queries in `db_init.sql`
-Does not take any paramaters.
+Does not take any parameters
 
 ## /skills - GET
 
@@ -38,7 +38,7 @@ Returns all the timezones stored in the database.
 
 Sends an email to the given recipient with an invitation link to sign up as a mentor.
 
-### Paramaters:
+### Parameters
 
 org_id - String. The id of the organization sending the invite.
 recipient - String. The email to which the invite will be sent.
@@ -47,7 +47,7 @@ recipient - String. The email to which the invite will be sent.
 
 Sends an email to the given mentee notifying them that they have been accepted by the given mentor.
 
-### Paramaters:
+### Parameters
 
 mentee_id - String. The id of the accepted mentee.
 mentor_id - String. The id of the mentor which has accepted the mentee.
@@ -56,7 +56,7 @@ mentor_id - String. The id of the mentor which has accepted the mentee.
 
 Sends an email to the given mentor notifying them that they have matched with the given mentee.
 
-### Paramaters:
+### Parameters
 
 mentee_id - String. The id of the mentee that has requested to be matched.
 mentor_id - String. The id of the mentor which has been matched with the mentee.
@@ -65,7 +65,7 @@ mentor_id - String. The id of the mentor which has been matched with the mentee.
 
 Returns the database entry for the metauser with the given id. A metauser is any org, mentee, or mentor.
 
-### Paramaters:
+### Parameters
 
 id - String. The metausers id
 
@@ -78,7 +78,7 @@ rows:[{"id":"MENTOR1","usertype":"mentor"}]}`
 
 Inserts a new entry into the metauser table.
 
-## Paramaters:
+## Parameters
 
 id - String. The id of the new metauser.
 usertype - String. Either 'org', 'mentee', or 'mentor'.
@@ -87,7 +87,7 @@ usertype - String. Either 'org', 'mentee', or 'mentor'.
 
 Returns the database entry for the organization with the given id.
 
-### Paramaters:
+### Parameters
 
 id - String. The organization id
 
@@ -109,7 +109,7 @@ rows:[{"id":"TESTORG1"},{"id":"TESTORG2"},{"id":"TESTORG3"}]}`
 
 Inserts a new organization into the database. Responds with `success: true` if successful.
 
-### Paramaters:
+### Parameters
 
 id - String. A unique organization id. Acts as primarykey in the database.
 org_name - String. Organization name.
@@ -119,7 +119,7 @@ email - String. Organizations email address.
 
 Updates the name of the given org with a new value.
 
-### Paramaters:
+### Parameters
 
 org_id - String. The id of the organization.
 org_name - String. The new name to be set.
@@ -128,7 +128,7 @@ org_name - String. The new name to be set.
 
 Returns every user within an organization.
 
-### Paramaters: 
+### Parameters 
 
 id - String. The organizations id
 
@@ -141,7 +141,7 @@ rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN
 
 Returns every mentee within an organization.
 
-### Paramaters: 
+### Parameters 
 
 id - String. The organizations id
 
@@ -154,7 +154,7 @@ rows:[{"id":"MENTEE1","firstname":"FNmentee1","lastname":"LNmentee1","displaynam
 
 Returns every mentor within an organization.
 
-### Paramaters: 
+### Parameters 
 
 id - String. The organizations id
 
@@ -167,7 +167,7 @@ rows:[{"id":"MENTOR1","firstname":"FNmentor1","lastname":"LNmentor1","displaynam
 
 Returns the database entry for the user with thegiven id.
 
-### Paramaters:
+### Parameters
 
 id - String. The users id.
 
@@ -180,7 +180,7 @@ rows:[{id:"MENTEE1",firstname:"FN_mentee1",lastname:"LN_mentee1",displayname:"DN
 
 Inserts a new user into the database. Responds with `success: true` if successful.
 
-### Paramaters:
+### Parameters
 
 id - String. The users id. Acts as primary key in the database.
 firstName - String. The users first name.
@@ -196,7 +196,7 @@ userType - String. Either 'mentee' or 'mentor'.
 
 Deletes the given user from the database. This involves removing any reference to the user from the pendingmatches, users, and metauser tables. Also updates mentor_id to null for all users whos mentor_id was the id of the deleted user.
 
-### Paramaters:
+### Parameters
 
 id - String. The id of the user to be deleted.
 
@@ -231,7 +231,7 @@ displayname - String. The displayname to be set.
 
 Sets a users mentor_id. For use only if the user is a mentee.
 
-### Paramaters:
+### Parameters
 
 mentor_id - String. Value to be assigned to users mentor_id column.
 mentee_id - String. Id of the user who's mentor_id column is to be updated.
@@ -240,7 +240,7 @@ mentee_id - String. Id of the user who's mentor_id column is to be updated.
 
 Sets a users skills.
 
-### Paramaters:
+### Parameters
 
 id - String. The users id.
 skills - Skill Array. An array of Skill objects.
@@ -249,7 +249,7 @@ skills - Skill Array. An array of Skill objects.
 
 Returns all the mentees with the given mentor_id.
 
-### Paramaters:
+### Parameters
 
 mentor_id - String. A mentors id.
 
@@ -257,11 +257,42 @@ mentor_id - String. A mentors id.
 
 `{"success":true,"rows":[{"id":"MENTEE1","firstname":"FNmentee1","lastname":"LNmentee1","displayname":"DNmentee1","email":"mentee1@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG1","usertype":"mentee","mentor_id":"MENTOR1"},{"id":"MENTEE2","firstname":"FNmentee2","lastname":"LNmentee2","displayname":"DNmentee2","email":"mentee2@test.ca","skills":null,"timezone":"{\"value\":-8,\"label\":\"(GMT-8:00) Pacific Standard Time\",\"abbr\":\"PST\"}","org_id":"TESTORG2","usertype":"mentee","mentor_id":"MENTOR1"}]}`
 
+## /pendinginvite/[org_id] - GET
+
+Returns all pending invites for the given organization.
+
+### Parameters
+
+org_id - String. An organizations id.
+
+### Response Example
+
+`{"success":true,
+"rows":[{"id":1,"org_id":"TESTORG1","email":"mentor1@test.ca"},{"id":2,"org_id":"TESTORG1","email":"mentor2@test.ca"}]}`
+
+## /pendinginvite/insert - POST
+
+Inserts a new pendinginvite into the database.
+
+### Parameters
+
+org_id - String. The id of the organization that sent the invite.
+email - String. The email of the invitee.
+
+## /pendinginvite/delete - POST
+
+Deletes a pendinginvite from the database.
+
+### Parameters
+
+org_id - String. An organizations id.
+email - String. The email of the invitee.
+
 ## /pendingmatches/[mentor_id] - GET
 
 Returns all the pending matches with the given mentor_id
 
-### Paramaters:
+### Parameters
 
 mentor_id - String. A mentors id.
 
@@ -273,7 +304,7 @@ mentor_id - String. A mentors id.
 
 Inserts a new pendingmatch into the database. Responds with `success: true` if successful.
 
-### Paramaters:
+### Parameters
 
 mentee_id - String. A mentees id.
 mentor_id - String. A mentors id.
@@ -283,7 +314,7 @@ skills - Skill Array. An array of Skill objects.These skills should be the skill
 
 Deletes all the pending matches accociated with the given mentee.
 
-### Paramaters:
+### Parameters
 
 mentee_id - String. a mentees id.
 
@@ -291,7 +322,7 @@ mentee_id - String. a mentees id.
 
 Deletes the pending match accociated with the given mentee and mentor.
 
-### Paramaters:
+### Parameters
 
 mentee_id - String. a mentees id.
 mentor_id - String. a mentors id.

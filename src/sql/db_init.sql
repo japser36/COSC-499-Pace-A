@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS timezone;
 DROP TABLE IF EXISTS skill;
+DROP TABLE IF EXISTS pendinginvite;
 DROP TABLE IF EXISTS pendingmatches;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS org;
@@ -49,6 +50,15 @@ CREATE TABLE pendingmatches (
 	UNIQUE (mentee_id, mentor_id),
 	FOREIGN KEY (mentee_id) REFERENCES users(id),
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
+);
+
+CREATE TABLE pendinginvite (
+	id INT GENERATED ALWAYS AS IDENTITY,
+	org_id TEXT,
+	email TEXT,
+	PRIMARY KEY(id),
+	UNIQUE (org_id, email),
+	FOREIGN KEY (org_id) REFERENCES org(id)
 );
 
 CREATE TABLE skill (
