@@ -74,7 +74,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="org-name"
                   label="Organization Name *"
-                  variant='outlined'
+                  variant="outlined"
                   value={orgName}
                   onChange={handleChange}
                   validators={['required']}
@@ -85,7 +85,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="email"
                   label="Email *"
-                  variant='outlined'
+                  variant="outlined"
                   value={email}
                   onChange={handleChange}
                   validators={['required', 'isEmail']}
@@ -96,7 +96,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="password"
                   label="Password *"
-                  variant='outlined'
+                  variant="outlined"
                   value={password}
                   onChange={handleChange}
                   type="password"
@@ -108,7 +108,7 @@ const OrgSignUp = () => {
                 <TextValidator
                   id="confirm-password"
                   label="Confirm Password *"
-                  variant='outlined'
+                  variant="outlined"
                   value={confirmPassword}
                   onChange={handleChange}
                   type="password"

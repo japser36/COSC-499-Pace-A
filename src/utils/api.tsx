@@ -98,10 +98,10 @@ export const declinePendingMatch = async (mentee_id, mentor_id) => {
 
 export const getPendingInvites = async (org_id) => {
   let invites = null
-  await fetch(`${server}/api/pendinginvite/${org_id}`, {method: 'GET',})
+  await fetch(`${server}/api/pendinginvite/${org_id}`, { method: 'GET' })
     .then((res) => res.json())
-    .then((res) => invites = res.rows)
-    return invites
+    .then((res) => (invites = res.rows))
+  return invites
 }
 
 export const insertPendingInvite = async (org_id, email) => {
@@ -283,4 +283,20 @@ export const sendMentorInvite = async (org_id, email) => {
     }),
     headers: { 'Content-Type': 'application/json' },
   })
+}
+
+export const getSkills = async () => {
+  let skills = []
+  await fetch(`${server}/api/skills`, { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => (skills = res.rows))
+  return skills
+}
+
+export const getTimezones = async () => {
+  let timezones = []
+  await fetch(`${server}/api/timezones`, { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => (timezones = res.rows))
+  return timezones
 }

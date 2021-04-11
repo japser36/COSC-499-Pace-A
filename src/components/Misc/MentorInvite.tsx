@@ -18,25 +18,23 @@ const MentorInvite = ({ org_id }) => {
 
   const sendInvite = () => {
     setLoading(true)
-    insertPendingInvite(org_id, email)
-      .then(() => {
-        sendMentorInvite(org_id, email)
+    insertPendingInvite(org_id, email).then(() => {
+      sendMentorInvite(org_id, email)
         .then(() => {
           setSent(true)
           setLoading(false)
           setEmail('')
         })
         .catch((error) => {
-          deletePendingInvite(org_id, email)
-            .then(() => {
-              setLoading(false)
-              console.log(error)
+          deletePendingInvite(org_id, email).then(() => {
+            setLoading(false)
+            console.log(error)
+          })
         })
-      })
-      .catch((error) => {
+        .catch((error) => {
           setLoading(false)
           console.log(error)
-      })
+        })
     })
   }
 
@@ -68,7 +66,7 @@ const MentorInvite = ({ org_id }) => {
               <TextValidator
                 id="email"
                 label="Email"
-                variant='outlined'
+                variant="outlined"
                 value={email}
                 onChange={handleChange}
                 validators={['required', 'isEmail']}

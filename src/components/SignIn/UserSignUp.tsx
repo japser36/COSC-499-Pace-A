@@ -39,8 +39,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
           org_id,
           usertype
         ).then(() => {
-          deletePendingInvite(org_id, email)
-          .then(() => {
+          deletePendingInvite(org_id, email).then(() => {
             auth.currentUser.sendEmailVerification().then(() => {
               setVerificationSent(true)
               setLoading(false)
@@ -118,7 +117,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="first-name"
                     label="First Name *"
-                    variant='outlined'
+                    variant="outlined"
                     value={firstName}
                     onChange={handleChange}
                     validators={['required']}
@@ -129,7 +128,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="last-name"
                     label="Last Name *"
-                    variant='outlined'
+                    variant="outlined"
                     value={lastName}
                     onChange={handleChange}
                     validators={['required']}
@@ -140,7 +139,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="email"
                     label="Email *"
-                    variant='outlined'
+                    variant="outlined"
                     value={email}
                     onChange={handleChange}
                     InputProps={{
@@ -154,7 +153,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="password"
                     label="Password *"
-                    variant='outlined'
+                    variant="outlined"
                     value={password}
                     onChange={handleChange}
                     type="password"
@@ -166,7 +165,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="confirm-password"
                     label="Confirm Password *"
-                    variant='outlined'
+                    variant="outlined"
                     value={confirmPassword}
                     onChange={handleChange}
                     type="password"
@@ -177,7 +176,13 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
               </Grid>
               <Grid container item direction="column" alignItems="center" xs>
                 <Grid item xs>
-                  <TextField id="display-name" label="Display Name" variant='outlined' value={displayName} onChange={handleChange} />
+                  <TextField
+                    id="display-name"
+                    label="Display Name"
+                    variant="outlined"
+                    value={displayName}
+                    onChange={handleChange}
+                  />
                 </Grid>
                 <Grid item xs>
                   <TimezoneSelect
@@ -199,7 +204,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="bio"
                     label="About Me *"
-                    variant='outlined'
+                    variant="outlined"
                     value={bio}
                     multiline
                     onChange={handleChange}

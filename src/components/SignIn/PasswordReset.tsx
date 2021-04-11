@@ -40,14 +40,14 @@ const PasswordReset = () => {
             label="Email"
             type="email"
             id="email"
-            variant='outlined'
+            variant="outlined"
             value={email}
             placeholder="Enter your email address"
             onChange={handleChange}
             validators={['required', 'isEmail']}
             errorMessages={['this field is required', 'email is not valid']}
           />
-          <Button type='submit' variant='contained' >
+          <Button type="submit" variant="contained">
             Send me a reset link
           </Button>
         </ValidatorForm>
