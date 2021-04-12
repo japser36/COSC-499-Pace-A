@@ -18,6 +18,8 @@ const Mentees = (props) => {
         <UserList users={mentees} deletable />
       ) : (
         <>
+          <Typography variant='h5'>{`There are currently no mentees associated with your organization.`}</Typography>
+          <Typography variant='h6'>{`Embed the following code into your website to allow new mentees to register.`}`</Typography>
           <IFrameCopy org_id={org_id} />
         </>
       )}
