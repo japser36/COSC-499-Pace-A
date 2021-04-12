@@ -1,21 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
+import { getUser } from '../../../utils/api'
 import { server } from '../../../config'
 
 export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  let mentee
-  await fetch(`${server}/api/user/${req.body.mentee_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => (mentee = res.rows[0]))
-  let mentor
-  await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => {
-      mentor = res.rows[0]
-    })
+  const mentee = await getUser(req.body.mentee_id)
+  const mentor = await getUser(req.body.mentor_id)
 
   const link = `${server}/app/login`
 

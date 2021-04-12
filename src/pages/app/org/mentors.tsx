@@ -19,7 +19,7 @@ const Mentors = (props) => {
       {mentors && mentors.length > 0 ? (
         <>
           <Typography variant="h5">Current Mentors</Typography>
-          <UserList users={mentors} subheader="email" deletable />
+          <UserList users={mentors} deletable />
         </>
       ) : (
         <>
@@ -27,7 +27,7 @@ const Mentors = (props) => {
         </>
       )}
       <MentorInvite org_id={org_id} />
-      <PendingInvites invites={invites} />
+      {() => {if (invites && invites.length > 0) return <PendingInvites invites={invites} />}}
     </Layout>
   )
 }
