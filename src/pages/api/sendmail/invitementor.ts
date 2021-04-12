@@ -21,7 +21,7 @@ export default async function InviteMentor(req: NextApiRequest, res: NextApiResp
     service: 'gmail',
     auth: {
       user: 'mentor.io.noreply@gmail.com',
-      pass: 'cosc499pacea',
+      pass: 'ngzywsvmlusapjoz',
     },
   })
 
