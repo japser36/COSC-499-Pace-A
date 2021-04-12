@@ -18,7 +18,7 @@ const Mentees = (props) => {
         <UserList users={mentees} deletable />
       ) : (
         <>
-          <Typography variant='h5'>{`There are currently no mentees associated with your organization.`}</Typography>
+          <Typography variant="h5">{`There are currently no mentees associated with your organization.`}</Typography>
           <IFrameCopy org_id={org_id} />
         </>
       )}

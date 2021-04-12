@@ -46,11 +46,19 @@ const UserCard = ({ user, subheader = null, deletable = false }) => {
       <Collapse in={open} unmountOnExit>
         <CardContent>
           <Typography variant="body1">{`${user.firstname} ${user.lastname}`}</Typography>
-          <Typography variant="body1"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
+          <Typography variant="body1">
+            <a href={`mailto:${user.email}`}>{user.email}</a>
+          </Typography>
           <Typography variant="body1">{`Bio: ${user.bio}`}</Typography>
           <Typography variant="body1">{`Timezone: ${JSON.parse(user.timezone).label}`}</Typography>
           <Typography variant="body1">{`Skills: ${parseSkills(user.skills).toString()}`}</Typography>
-          {user.calendar ? <Typography variant="body1"><a href={user.calendar}>{`Calendar`}</a></Typography> : <></>}
+          {user.calendar ? (
+            <Typography variant="body1">
+              <a href={user.calendar}>{`Calendar`}</a>
+            </Typography>
+          ) : (
+            <></>
+          )}
         </CardContent>
         {deletable && !deleted ? (
           <CardActions>

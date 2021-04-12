@@ -27,7 +27,9 @@ const Mentors = (props) => {
         </>
       )}
       <MentorInvite org_id={org_id} />
-      {() => {if (invites && invites.length > 0) return <PendingInvites invites={invites} />}}
+      {() => {
+        if (invites && invites.length > 0) return <PendingInvites invites={invites} />
+      }}
     </Layout>
   )
 }
