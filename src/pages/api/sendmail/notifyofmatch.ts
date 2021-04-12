@@ -30,7 +30,7 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
     service: 'gmail',
     auth: {
       user: 'mentor.io.noreply@gmail.com',
-      pass: 'cosc499pacea',
+      pass: 'ngzywsvmlusapjoz',
     },
   })
 
