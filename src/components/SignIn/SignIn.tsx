@@ -68,8 +68,7 @@ const SignIn = () => {
               errorMessages={['this field is required']}
             />
           </Grid>
-          <Grid>
-            <br></br>
+          <Grid item>
             <Button type="submit" variant="contained">
               Sign In
             </Button>

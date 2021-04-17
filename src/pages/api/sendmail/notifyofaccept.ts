@@ -1,23 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
-import { server } from '../../../config'
+import { getUser } from '../../../utils/api'
 
 export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  let mentee
-  await fetch(`${server}/api/user/${req.body.mentee_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => (mentee = res.rows[0]))
-  let mentor
-  await fetch(`${server}/api/user/${req.body.mentor_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => {
-      mentor = res.rows[0]
-    })
-
-  const link = mentor.calendar
+  const mentee = await getUser(req.body.mentee_id)
+  const mentor = await getUser(req.body.mentor_id)
 
   const emailBody = `<h3>You've been accepted by a mentor. Review their details and begin connecting with them.</h3>
   <p>Mentor: ${mentor.displayname}</p>
@@ -29,7 +19,7 @@ export default async function NotifyOfMatch(req: NextApiRequest, res: NextApiRes
     service: 'gmail',
     auth: {
       user: 'mentor.io.noreply@gmail.com',
-      pass: 'cosc499pacea',
+      pass: 'ngzywsvmlusapjoz',
     },
   })
 

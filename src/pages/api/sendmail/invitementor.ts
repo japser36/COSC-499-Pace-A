@@ -1,17 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
+import { getOrg } from '../../../utils/api'
 import { server } from '../../../config'
 
 export default async function InviteMentor(req: NextApiRequest, res: NextApiResponse) {
   // we will be responding with JSON in this file, declare this.
   res.setHeader('Content-Type', 'application/json')
 
-  let org
-  await fetch(`${server}/api/org/${req.body.org_id}`, { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => {
-      org = res.rows[0]
-    })
+  const org = await getOrg(req.body.org_id)
 
   const link = `${server}/app/mentor/register?org_id=${org.id}&email=${req.body.recipient}`
 

@@ -22,7 +22,7 @@ const UserCard = ({ user, subheader = null, deletable = false }) => {
       subheader = user.usertype
       break
     case 'email':
-      subheader = user.email
+      subheader = <a href={`mailto:${user.email}`}>{user.email}</a>
       break
     case 'skills':
       subheader = parseSkills(user.skills).toString()
@@ -46,15 +46,19 @@ const UserCard = ({ user, subheader = null, deletable = false }) => {
       <Collapse in={open} unmountOnExit>
         <CardContent>
           <Typography variant="body1">{`${user.firstname} ${user.lastname}`}</Typography>
-          <Typography variant="body1">{user.email}</Typography>
+          <Typography variant="body1">
+            <a href={`mailto:${user.email}`}>{user.email}</a>
+          </Typography>
           <Typography variant="body1">{`Bio: ${user.bio}`}</Typography>
-          <Typography variant="body1">{JSON.parse(user.timezone).label}</Typography>
-          <Typography variant="h6">{'Skills:'}</Typography>
-          {JSON.parse(user.skills).map((skill) => (
-            <Typography key={skill.name} variant="body1">
-              {skill.name}
+          <Typography variant="body1">{`Timezone: ${JSON.parse(user.timezone).label}`}</Typography>
+          <Typography variant="body1">{`Skills: ${parseSkills(user.skills).toString()}`}</Typography>
+          {user.calendar ? (
+            <Typography variant="body1">
+              <a href={user.calendar}>{`Calendar`}</a>
             </Typography>
-          ))}
+          ) : (
+            <></>
+          )}
         </CardContent>
         {deletable && !deleted ? (
           <CardActions>

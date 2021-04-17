@@ -111,8 +111,8 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
           </h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
-            <Grid container justify="center" alignItems="center">
-              <Grid container item direction="column" alignItems="center" xs>
+            <Grid container spacing={1} justify="center" alignItems="center">
+              <Grid container item spacing={1} direction="column" alignItems="center" xs>
                 <Grid item xs>
                   <TextValidator
                     id="first-name"
@@ -174,7 +174,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   />
                 </Grid>
               </Grid>
-              <Grid container item direction="column" alignItems="center" xs>
+              <Grid container item spacing={1} direction="column" alignItems="center" xs>
                 <Grid item xs>
                   <TextField
                     id="display-name"
