@@ -11,8 +11,8 @@ const MyMentees = (props) => {
   const mentees = JSON.parse(props.mentees)
 
   return (
-    <Layout title="Mentees" needsAuth auth={auth} usertype={usertype}>
-      {mentees.length > 0 ? (
+    <Layout title="My Mentees" needsAuth auth={auth} usertype={usertype}>
+      {mentees && mentees.length > 0 ? (
         <UserList users={mentees} subheader="email" />
       ) : (
         <>

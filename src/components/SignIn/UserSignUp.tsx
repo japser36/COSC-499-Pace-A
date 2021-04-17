@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import TimezoneSelect from '../Misc/TimezoneSelect'
 import SkillSelect from '../Misc/SkillSelect'
 import { firebaseClient } from '../../lib/auth/firebaseClient'
+import { insertUser, deletePendingInvite } from '../../utils/api'
 
 const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [firstName, setFirstName] = useState('')
@@ -16,49 +17,41 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
   const [skills, setSkills] = useState([])
   const [bio, setBio] = useState('')
   const [verificationSent, setVerificationSent] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const auth = firebaseClient.auth()
   const createUser = () => {
+    setLoading(true)
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         // Signed in
-        auth.currentUser.sendEmailVerification().then(() => {
-          setVerificationSent(true)
-        })
-        auth.signOut()
         //Add new user to the database
-        fetch('/api/user/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            firstName: firstName,
-            lastName: lastName,
-            displayName: displayName ? displayName : firstName + ' ' + lastName,
-            email: email,
-            timezone: JSON.stringify(timezone),
-            skills: JSON.stringify(skills),
-            bio: bio,
-            org_id: org_id,
-            usertype: usertype,
-          }),
-          headers: { 'Content-Type': 'application/json' },
+        insertUser(
+          user.user.uid,
+          firstName,
+          lastName,
+          displayName,
+          email,
+          timezone,
+          skills,
+          bio,
+          org_id,
+          usertype
+        ).then(() => {
+          deletePendingInvite(org_id, email).then(() => {
+            auth.currentUser.sendEmailVerification().then(() => {
+              setVerificationSent(true)
+              setLoading(false)
+              auth.signOut()
+            })
+          })
         })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
-        fetch('/api/metauser/insert', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: user.user.uid,
-            usertype: usertype,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((json) => console.log(json))
       })
       .catch((e) => {
         setError(e.message)
+        setLoading(false)
+        auth.signOut()
       })
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,12 +111,13 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
           </h1>
           {error !== null && <div>{error}</div>}
           <ValidatorForm onSubmit={createUser}>
-            <Grid container justify="center" alignItems="center">
-              <Grid container item direction="column" alignItems="center" xs>
+            <Grid container spacing={1} justify="center" alignItems="center">
+              <Grid container item spacing={1} direction="column" alignItems="center" xs>
                 <Grid item xs>
                   <TextValidator
                     id="first-name"
                     label="First Name *"
+                    variant="outlined"
                     value={firstName}
                     onChange={handleChange}
                     validators={['required']}
@@ -134,6 +128,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="last-name"
                     label="Last Name *"
+                    variant="outlined"
                     value={lastName}
                     onChange={handleChange}
                     validators={['required']}
@@ -144,6 +139,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="email"
                     label="Email *"
+                    variant="outlined"
                     value={email}
                     onChange={handleChange}
                     InputProps={{
@@ -157,6 +153,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="password"
                     label="Password *"
+                    variant="outlined"
                     value={password}
                     onChange={handleChange}
                     type="password"
@@ -168,6 +165,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="confirm-password"
                     label="Confirm Password *"
+                    variant="outlined"
                     value={confirmPassword}
                     onChange={handleChange}
                     type="password"
@@ -176,9 +174,15 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   />
                 </Grid>
               </Grid>
-              <Grid container item direction="column" alignItems="center" xs>
+              <Grid container item spacing={1} direction="column" alignItems="center" xs>
                 <Grid item xs>
-                  <TextField id="display-name" label="Display Name" value={displayName} onChange={handleChange} />
+                  <TextField
+                    id="display-name"
+                    label="Display Name"
+                    variant="outlined"
+                    value={displayName}
+                    onChange={handleChange}
+                  />
                 </Grid>
                 <Grid item xs>
                   <TimezoneSelect
@@ -200,6 +204,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
                   <TextValidator
                     id="bio"
                     label="About Me *"
+                    variant="outlined"
                     value={bio}
                     multiline
                     onChange={handleChange}
@@ -211,6 +216,7 @@ const UserSignUp = ({ usertype, org_id, org_name, mentor_email = null }) => {
             </Grid>
             <Button type="submit" variant="contained">
               Sign Up
+              {loading && <CircularProgress />}
             </Button>
           </ValidatorForm>
         </>

@@ -3,8 +3,8 @@ import nookies from 'nookies'
 import { firebaseAdmin } from '../../../lib/auth/firebaseAdmin'
 import { getMenteesMentor, getUserType } from '../../../utils/api'
 import UserCard from '../../../components/UserDisplays/UserCard'
-import { Button, Typography } from '@material-ui/core'
-import { matchMentors } from '../../../utils/matching'
+import { Typography } from '@material-ui/core'
+import MatchMentorsButton from '../../../components/Misc/MatchMentorsButton'
 
 const Mentor = (props) => {
   const auth = props.auth
@@ -19,11 +19,7 @@ const Mentor = (props) => {
         <>
           <Typography>{`You don't have a mentor.`}</Typography>
           <Typography>{`If you have already tried to match with one you can either wait to be accepted or try to match again.`}</Typography>
-          <Button
-            onClick={() => {
-              matchMentors(props.id)
-            }}
-          >{`Click here to match with a mentor.`}</Button>
+          <MatchMentorsButton mentee_id={props.id} />
         </>
       )}
     </Layout>

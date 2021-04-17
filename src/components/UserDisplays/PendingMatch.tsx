@@ -18,28 +18,36 @@ import { parseSkills } from '../../utils/misc'
 
 const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
   const [open, setOpen] = useState(false)
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState('pending')
+  const [loadAccept, setLoadAccept] = useState(false)
+  const [loadDecline, setLoadDecline] = useState(false)
   const { data, error } = useSWR('/api/user/' + mentee_id, fetcher)
   console.log(matched_skills)
 
   const handleAccept = () => {
+    setLoadAccept(true)
     acceptPendingMatch(mentee_id, mentor_id)
       .then(() => {
         setStatus('accepted')
         setOpen(false)
+        setLoadAccept(false)
       })
       .catch((error) => {
         console.log(error)
+        setLoadAccept(false)
       })
   }
   const handleDecline = () => {
+    setLoadDecline(true)
     declinePendingMatch(mentee_id, mentor_id)
       .then(() => {
         setStatus('declined')
         setOpen(false)
+        setLoadDecline(false)
       })
       .catch((error) => {
         console.log(error)
+        setLoadDecline(false)
       })
   }
 
@@ -77,9 +85,11 @@ const PendingMatch = ({ mentee_id, mentor_id, matched_skills }) => {
             <CardActions>
               <Button size="large" variant="contained" onClick={handleAccept}>
                 ACCEPT
+                {loadAccept && <CircularProgress />}
               </Button>
               <Button size="large" variant="contained" onClick={handleDecline}>
                 DECLINE
+                {loadDecline && <CircularProgress />}
               </Button>
             </CardActions>
           ) : null}

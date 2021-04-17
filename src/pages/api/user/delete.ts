@@ -12,16 +12,16 @@ export default async function deleteUser(req: NextApiRequest, res: NextApiRespon
     .auth()
     .deleteUser(req.body.id)
     .then(async () => {
-      await pool.query(`DELETE FROM users WHERE id=$1;`, values)
-    })
-    .then(async () => {
-      await pool.query('DELETE FROM metauser WHERE id=$1', values)
+      await pool.query('DELETE FROM pendingmatches WHERE mentee_id=$1 OR mentor_id=$1;', values)
     })
     .then(async () => {
       await pool.query('UPDATE users SET mentor_id = null WHERE mentor_id = $1', values)
     })
     .then(async () => {
-      await pool.query('DELETE FROM pendingmatches WHERE mentee_id=$1 OR mentor_id=$1;', values)
+      await pool.query(`DELETE FROM users WHERE id=$1;`, values)
+    })
+    .then(async () => {
+      await pool.query('DELETE FROM metauser WHERE id=$1', values)
     })
     .then(async () => {
       await safeSend({ res, data: JSON.stringify({ success: true }) })

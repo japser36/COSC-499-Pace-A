@@ -49,6 +49,7 @@ const SignIn = () => {
             <TextValidator
               id="email"
               label="Email"
+              variant="outlined"
               value={email}
               onChange={handleChange}
               validators={['required', 'isEmail']}
@@ -59,6 +60,7 @@ const SignIn = () => {
             <TextValidator
               id="password"
               label="Password"
+              variant="outlined"
               value={password}
               onChange={handleChange}
               type="password"
@@ -66,8 +68,7 @@ const SignIn = () => {
               errorMessages={['this field is required']}
             />
           </Grid>
-          <Grid>
-            <br></br>
+          <Grid item>
             <Button type="submit" variant="contained">
               Sign In
             </Button>

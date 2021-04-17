@@ -1,11 +1,24 @@
+DROP TABLE IF EXISTS timezone;
+DROP TABLE IF EXISTS skill;
+DROP TABLE IF EXISTS pendinginvite;
+DROP TABLE IF EXISTS pendingmatches;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS org;
+DROP TABLE IF EXISTS metauser;
+
+CREATE TABLE metauser (
+	id TEXT,
+	usertype TEXT,
+	PRIMARY KEY(id),
+	CHECK (usertype = 'mentee' OR usertype = 'mentor' OR usertype = 'org')
+);
 
 CREATE TABLE org (
 	id TEXT,
 	org_name TEXT,
 	email TEXT,
-	PRIMARY KEY(id)
+	PRIMARY KEY(id),
+	FOREIGN KEY (id) REFERENCES metauser(id)
 );
 
 CREATE TABLE users (
@@ -23,35 +36,37 @@ CREATE TABLE users (
 	calendar TEXT DEFAULT NULL,
 	PRIMARY KEY(id),
 	CHECK (usertype = 'mentee' OR usertype = 'mentor'),
+	FOREIGN KEY (id) REFERENCES metauser(id),
 	FOREIGN KEY (org_id) REFERENCES org(id),
 	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS pendingmatches;
 CREATE TABLE pendingmatches (
 	id INT GENERATED ALWAYS AS IDENTITY,
 	mentee_id TEXT,
 	mentor_id TEXT,
 	skills TEXT,
-	PRIMARY KEY(id)
-);
-
-DROP TABLE IF EXISTS metauser;
-CREATE TABLE IF NOT EXISTS metauser (
-	id TEXT,
-	usertype TEXT,
 	PRIMARY KEY(id),
-	CHECK (usertype = 'mentee' OR usertype = 'mentor' OR usertype = 'org'),
+	UNIQUE (mentee_id, mentor_id),
+	FOREIGN KEY (mentee_id) REFERENCES users(id),
+	FOREIGN KEY (mentor_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS skill;
-CREATE TABLE IF NOT EXISTS skill (
+CREATE TABLE pendinginvite (
+	id INT GENERATED ALWAYS AS IDENTITY,
+	org_id TEXT,
+	email TEXT,
+	PRIMARY KEY(id),
+	UNIQUE (org_id, email),
+	FOREIGN KEY (org_id) REFERENCES org(id)
+);
+
+CREATE TABLE skill (
 	name TEXT,
 	PRIMARY KEY(name)
 );
 
-DROP TABLE IF EXISTS timezone;
-CREATE TABLE IF NOT EXISTS timezone (
+CREATE TABLE timezone (
 	value INT,
 	label TEXT,
 	abbr TEXT,
@@ -97,21 +112,6 @@ INSERT INTO timezone (value, label, abbr) VALUES (-4, '(GMT-4:00) Puerto Rico an
 INSERT INTO timezone (value, label, abbr) VALUES (-3, '(GMT-3:00) Argentina Standard Time', 'AGT');
 INSERT INTO timezone (value, label, abbr) VALUES (-3, '(GMT-3:00) Brazil Eastern Time', 'BET');
 INSERT INTO timezone (value, label, abbr) VALUES (-1, '(GMT-1:00) Central African Time', 'CAT');
-
-INSERT INTO org (id, org_name, email) VALUES ('TESTORG1', 'ORGNAME1', 'org1@test.ca');
-INSERT INTO org (id, org_name, email) VALUES ('TESTORG2', 'ORGNAME2', 'org2@test.ca');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR1', 'FNmentor1', 'LNmentor1', 'DNmentor1', 'mentor1@test.ca', '[{"name":"Programming"},{"name":"Math"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR2', 'FNmentor2', 'LNmentor2', 'DNmentor2', 'mentor2@test.ca', '[{"name":"Visual Arts"},{"name":"Math"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR3', 'FNmentor3', 'LNmentor3', 'DNmentor3', 'mentor3@test.ca', '[{"name":"Chemistry"},{"name":"Biology"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype) VALUES ('MENTOR4', 'FNmentor4', 'LNmentor4', 'DNmentor4', 'mentor4@test.ca', '[{"name":"Public Speaking"},{"name":"Chemistry"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentor');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE1', 'FNmentee1', 'LNmentee1', 'DNmentee1', 'mentee1@test.ca', '[{"name":"Management"},{"name":"Cooking"},{"name":"Public Speaking"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', 'MENTOR1');
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE2', 'FNmentee2', 'LNmentee2', 'DNmentee2', 'mentee2@test.ca', '[{"name":"Programming"},{"name":"Math"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG1', 'mentee', null);
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE3', 'FNmentee3', 'LNmentee3', 'DNmentee3', 'mentee3@test.ca', '[{"name":"Programming"},{"name":"Physics"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
-INSERT INTO users (id, firstName, lastName, displayName, email, skills, timezone, org_id, usertype, mentor_id) VALUES ('MENTEE4', 'FNmentee4', 'LNmentee4', 'DNmentee4', 'mentee4@test.ca', '[{"name":"Programming"},{"name":"Cooking"},{"name":"Language"}]', '{"value":-8,"label":"(GMT-8:00) Pacific Standard Time","abbr":"PST"}', 'TESTORG2', 'mentee', null);
-INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE2', 'MENTOR1', '[{"name":"Programming"},{"name":"Math"}]');
-INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE3', 'MENTOR1', '[{"name":"Programming"},{"name":"Physics"}]');
-INSERT INTO pendingmatches (mentee_id, mentor_id, skills) VALUES ('MENTEE4', 'MENTOR1', '[{"name":"Programming"}]');
-
 
 
 

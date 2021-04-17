@@ -1,5 +1,6 @@
 import { Paper, Grid, Button, Typography, CircularProgress } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
+import { sendMentorInvite, insertPendingInvite, deletePendingInvite } from '../../utils/api'
 import { useState } from 'react'
 
 const MentorInvite = ({ org_id }) => {
@@ -17,22 +18,29 @@ const MentorInvite = ({ org_id }) => {
 
   const sendInvite = () => {
     setLoading(true)
-    fetch('/api/sendmail/invitementor', {
-      method: 'POST',
-      body: JSON.stringify({
-        recipient: email,
-        org_id: org_id,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then((res) => {
-      setLoading(false)
-      setSent(true)
-      setEmail('')
+    insertPendingInvite(org_id, email).then(() => {
+      sendMentorInvite(org_id, email)
+        .then(() => {
+          setSent(true)
+          setLoading(false)
+          setEmail('')
+        })
+        .catch((error) => {
+          deletePendingInvite(org_id, email).then(() => {
+            setLoading(false)
+            console.log(error)
+          })
+        })
+        .catch((error) => {
+          setLoading(false)
+          console.log(error)
+        })
     })
   }
 
   return (
     <Paper elevation={0}>
+      <Typography variant="h5">Invite a new Mentor</Typography>
       {sent ? (
         <>
           <Grid container alignItems="center" justify="center">
@@ -58,6 +66,7 @@ const MentorInvite = ({ org_id }) => {
               <TextValidator
                 id="email"
                 label="Email"
+                variant="outlined"
                 value={email}
                 onChange={handleChange}
                 validators={['required', 'isEmail']}

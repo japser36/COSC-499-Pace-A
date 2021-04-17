@@ -13,11 +13,12 @@ const Mentees = (props) => {
   const mentees = JSON.parse(props.mentees)
 
   return (
-    <Layout title="Users" needsAuth auth={auth} usertype={usertype}>
-      {mentees.length > 0 ? (
+    <Layout title="Mentees" needsAuth auth={auth} usertype={usertype}>
+      {mentees && mentees.length > 0 ? (
         <UserList users={mentees} deletable />
       ) : (
         <>
+          <Typography variant="h5">{`There are currently no mentees associated with your organization.`}</Typography>
           <IFrameCopy org_id={org_id} />
         </>
       )}
