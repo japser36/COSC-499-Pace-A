@@ -7,7 +7,6 @@
   margin-top: 4%;
   background-color: #d7e3fc;
   margin-bottom: 4%;
-  background-color: white;
   border-radius: 20px;
   color: rgb(0, 0, 0);
   text-align: center;
@@ -22,7 +21,7 @@
   background-color: #4d194d;
   height: 100%;
   overflow: auto;
-  background: rgb(144, 113, 148);
+  background: #4d194d;
 }
 
 .header {
