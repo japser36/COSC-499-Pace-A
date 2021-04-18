@@ -22,7 +22,7 @@ const Header = ({ auth, usertype }) => {
             </Grid>
           </Grid>
           {auth ? <Tabs usertype={usertype} /> : <></>}
-          <Grid item xs>
+          <Grid container item justify="flex-end" xs>
             {auth ? (
               <ProfileButton usertype={usertype} />
             ) : (
