@@ -39,7 +39,7 @@ const MentorInvite = ({ org_id }) => {
   }
 
   return (
-    <Paper elevation={0}>
+    <>
       <Typography variant="h5">Invite a new Mentor</Typography>
       {sent ? (
         <>
@@ -82,7 +82,7 @@ const MentorInvite = ({ org_id }) => {
           </Grid>
         </ValidatorForm>
       )}
-    </Paper>
+    </>
   )
 }
 
