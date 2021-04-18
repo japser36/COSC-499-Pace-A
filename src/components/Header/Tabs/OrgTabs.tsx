@@ -4,14 +4,14 @@ import Link from 'next/link'
 const OrgTabs = () => {
   return (
     <>
-      <Grid item xs>
+      <Grid container item justify="space-evenly" xs>
         <Link href="/app/org/mentees" passHref>
           <Button color="inherit">
             <Typography variant="h6">Mentees</Typography>
           </Button>
         </Link>
       </Grid>
-      <Grid item xs>
+      <Grid container item justify="space-evenly" xs>
         <Link href="/app/org/mentors" passHref>
           <Button color="inherit">
             <Typography variant="h6">Mentors</Typography>
